@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brunei Government &amp; Military News</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --gold:#c8a24a;
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5b6675;
+    --border:#e2e5ea;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:'Segoe UI',Georgia,'Times New Roman',serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy),#132c52);
+    color:#fff;
+    padding:2.6rem 1.5rem 2rem;
+    text-align:center;
+    border-bottom:4px solid var(--gold);
+  }
+  header h1{
+    margin:0 0 .4rem;
+    font-size:1.9rem;
+    letter-spacing:.5px;
+  }
+  header p{
+    margin:0;
+    color:#cdd6e6;
+    font-size:1rem;
+  }
+  main{
+    flex:1;
+    max-width:900px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 3rem;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:1.5rem;
+  }
+  a.tile{
+    text-decoration:none;
+    color:inherit;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-top:5px solid var(--gold);
+    border-radius:12px;
+    padding:2rem 1.6rem;
+    display:flex;
+    flex-direction:column;
+    gap:.7rem;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+    transition:.15s;
+  }
+  a.tile:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(11,31,58,.12);
+    border-top-color:var(--navy);
+  }
+  a.tile .icon{
+    font-size:2.2rem;
+  }
+  a.tile h2{
+    margin:0;
+    font-size:1.3rem;
+    color:var(--navy);
+  }
+  a.tile p{
+    margin:0;
+    font-size:.9rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  a.tile .cta{
+    margin-top:.5rem;
+    font-size:.82rem;
+    font-weight:700;
+    color:var(--navy);
+  }
+  a.tile:hover .cta{
+    text-decoration:underline;
+  }
+  footer{
+    text-align:center;
+    padding:1.5rem 1rem 2rem;
+    font-size:.78rem;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇧🇳 Brunei News Hub</h1>
+  <p>Choose a compilation to browse, search, and filter by timeframe</p>
+</header>
+
+<main>
+  <a class="tile" href="brunei-military-news.html">
+    <div class="icon">🪖</div>
+    <h2>Military News</h2>
+    <p>MINDEF, Royal Brunei Land Forces, Air Force, Navy, Defence Academy, Training Institute, Joint Force Headquarters, and OCS — 62 articles, searchable with a timeframe filter.</p>
+    <span class="cta">Open Military News →</span>
+  </a>
+
+  <a class="tile" href="brunei-government-news.html">
+    <div class="icon">🏛️</div>
+    <h2>Government Ministry News</h2>
+    <p>All 12 civilian ministries — PMO, MOFE, MFA, MOHA, MOE, MPRT, MOD, MCYS, MOH, MORA, MTIC, and MINDEF — 90 articles, searchable with timeframe and ministry filters.</p>
+    <span class="cta">Open Government News →</span>
+  </a>
+</main>
+
+<footer>
+  Compiled from official Brunei Government and RBAF/MINDEF sources.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brunei Government News Compilation</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --gold:#c8a24a;
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5b6675;
+    --border:#e2e5ea;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',Georgia,'Times New Roman',serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy),#132c52);
+    color:#fff;
+    padding:2.2rem 1.5rem 1.6rem;
+    text-align:center;
+    border-bottom:4px solid var(--gold);
+  }
+  header h1{
+    margin:0 0 .3rem;
+    font-size:1.8rem;
+    letter-spacing:.5px;
+  }
+  header p{
+    margin:0;
+    color:#cdd6e6;
+    font-size:.95rem;
+  }
+  header .updated{
+    margin-top:.6rem;
+    font-size:.8rem;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+  .search-wrap{
+    max-width:700px;
+    margin:1.4rem auto 0;
+    padding:0 1rem;
+  }
+  #searchInput{
+    width:100%;
+    padding:.75rem 1rem;
+    font-size:1rem;
+    border-radius:999px;
+    border:1px solid var(--border);
+    outline:none;
+    box-shadow:0 1px 3px rgba(0,0,0,.06);
+  }
+  #searchInput:focus{
+    border-color:var(--navy);
+  }
+  #searchMeta{
+    text-align:center;
+    font-size:.8rem;
+    color:var(--muted);
+    margin-top:.4rem;
+  }
+  .filter-wrap{
+    max-width:900px;
+    margin:1rem auto 0;
+    padding:0 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+  }
+  .filter-label{
+    font-size:.78rem;
+    color:var(--muted);
+    font-weight:600;
+    margin-right:.2rem;
+  }
+  .tf-btn{
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--navy);
+    padding:.4rem .85rem;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.15s;
+    font-family:inherit;
+  }
+  .tf-btn:hover{
+    border-color:var(--navy);
+  }
+  .tf-btn.active{
+    background:var(--navy);
+    color:#fff;
+    border-color:var(--navy);
+  }
+  .custom-range{
+    display:none;
+    align-items:center;
+    gap:.4rem;
+    flex-wrap:wrap;
+  }
+  .custom-range.open{
+    display:flex;
+  }
+  .custom-range input[type="date"]{
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:.35rem .5rem;
+    font-size:.8rem;
+    font-family:inherit;
+    color:var(--text);
+  }
+  .custom-range button{
+    background:var(--gold);
+    border:none;
+    color:var(--navy);
+    font-weight:700;
+    padding:.35rem .8rem;
+    border-radius:999px;
+    font-size:.78rem;
+    cursor:pointer;
+  }
+  .org-filter-wrap{
+    max-width:1100px;
+    margin:.9rem auto 0;
+    padding:0 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.4rem;
+    justify-content:center;
+  }
+  .org-chip{
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--navy);
+    padding:.35rem .75rem;
+    border-radius:999px;
+    font-size:.75rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.15s;
+    font-family:inherit;
+  }
+  .org-chip.active{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--navy);
+  }
+  .older-note{
+    margin-top:.9rem;
+    font-size:.78rem;
+    color:var(--muted);
+    background:var(--card);
+    border:1px dashed var(--border);
+    border-radius:8px;
+    padding:.6rem .9rem;
+  }
+  .older-note a{color:var(--navy); font-weight:600; text-decoration:none;}
+  .older-note a:hover{text-decoration:underline;}
+  nav.toc{
+    max-width:1100px;
+    margin:1.2rem auto 0;
+    padding:0 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    justify-content:center;
+  }
+  nav.toc a{
+    text-decoration:none;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--navy);
+    padding:.45rem .9rem;
+    border-radius:999px;
+    font-size:.82rem;
+    font-weight:600;
+    transition:.15s;
+  }
+  nav.toc a:hover{
+    background:var(--navy);
+    color:#fff;
+    border-color:var(--navy);
+  }
+  main{
+    max-width:1100px;
+    margin:1.5rem auto 3rem;
+    padding:0 1rem;
+  }
+  section.org{
+    margin-bottom:2.5rem;
+    scroll-margin-top:1rem;
+  }
+  .org-header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:.5rem;
+    border-bottom:2px solid var(--navy);
+    padding-bottom:.4rem;
+    margin-bottom:1rem;
+  }
+  .org-header h2{
+    margin:0;
+    font-size:1.25rem;
+    color:var(--navy);
+  }
+  .org-header a.source-link{
+    font-size:.78rem;
+    color:var(--muted);
+    text-decoration:none;
+    border:1px solid var(--border);
+    padding:.2rem .6rem;
+    border-radius:6px;
+  }
+  .org-header a.source-link:hover{
+    color:var(--navy);
+    border-color:var(--navy);
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:1rem;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-left:4px solid var(--gold);
+    border-radius:8px;
+    padding:1rem 1.1rem;
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .card.hidden{
+    display:none;
+  }
+  .card .date{
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--navy);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+  .card h3{
+    margin:0;
+    font-size:.98rem;
+    line-height:1.35;
+    color:var(--text);
+  }
+  .card p{
+    margin:0;
+    font-size:.85rem;
+    color:var(--muted);
+    line-height:1.5;
+    flex-grow:1;
+  }
+  .card mark, .modal mark{
+    background:#fdeeb8;
+    color:inherit;
+    border-radius:2px;
+  }
+  button.read-more{
+    align-self:flex-start;
+    font-size:.78rem;
+    font-weight:600;
+    color:var(--navy);
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  button.read-more:hover{
+    text-decoration:underline;
+  }
+  section.org.empty-section{
+    display:none;
+  }
+  footer{
+    text-align:center;
+    padding:1.5rem 1rem 2.5rem;
+    font-size:.78rem;
+    color:var(--muted);
+  }
+  footer a{color:var(--navy);}
+  .backtotop{
+    display:block;
+    text-align:right;
+    font-size:.75rem;
+    margin-top:.6rem;
+  }
+  .backtotop a{color:var(--muted); text-decoration:none;}
+  .backtotop a:hover{color:var(--navy);}
+
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(11,31,58,.55);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:4vh 1rem;
+    z-index:1000;
+    overflow-y:auto;
+  }
+  .modal-overlay.open{
+    display:flex;
+  }
+  .modal{
+    background:#fff;
+    max-width:680px;
+    width:100%;
+    border-radius:10px;
+    padding:1.8rem 1.8rem 1.5rem;
+    position:relative;
+    box-shadow:0 10px 40px rgba(0,0,0,.3);
+    border-top:5px solid var(--gold);
+  }
+  .modal .modal-close{
+    position:absolute;
+    top:.8rem;
+    right:1rem;
+    background:none;
+    border:none;
+    font-size:1.4rem;
+    color:var(--muted);
+    cursor:pointer;
+    line-height:1;
+  }
+  .modal .modal-close:hover{color:var(--navy);}
+  .modal .modal-org{
+    font-size:.75rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    color:var(--gold);
+    background:var(--navy);
+    display:inline-block;
+    padding:.2rem .6rem;
+    border-radius:5px;
+    margin-bottom:.7rem;
+  }
+  .modal h2{
+    margin:0 0 .4rem;
+    font-size:1.25rem;
+    color:var(--navy);
+    line-height:1.35;
+  }
+  .modal .modal-date{
+    font-size:.8rem;
+    color:var(--muted);
+    margin-bottom:1rem;
+    font-weight:600;
+  }
+  .modal .modal-body{
+    font-size:.96rem;
+    line-height:1.7;
+    color:var(--text);
+    margin-bottom:1.2rem;
+  }
+  .modal .modal-note{
+    font-size:.75rem;
+    color:var(--muted);
+    background:var(--bg);
+    border-radius:6px;
+    padding:.6rem .8rem;
+    margin-bottom:1rem;
+  }
+  .modal .modal-link{
+    display:inline-block;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    padding:.55rem 1.1rem;
+    border-radius:6px;
+    font-size:.85rem;
+    font-weight:600;
+  }
+  .modal .modal-link:hover{
+    background:#132c52;
+  }
+  #noResults{
+    text-align:center;
+    color:var(--muted);
+    padding:3rem 1rem;
+    display:none;
+  }
+</style>
+</head>
+<body id="top">
+
+<header>
+  <h1>🇧🇳 Brunei Government News Compilation</h1>
+  <p>Latest official releases from all 12 Brunei Government Ministries</p>
+  <div class="updated">Compiled 6 September 2026</div>
+</header>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Search headlines, ministries, locations, keywords…">
+  <div id="searchMeta"></div>
+</div>
+
+<div class="filter-wrap">
+  <span class="filter-label">Timeframe:</span>
+  <button class="tf-btn active" data-range="all">All time</button>
+  <button class="tf-btn" data-range="7">Last 7 days</button>
+  <button class="tf-btn" data-range="30">Last 30 days</button>
+  <button class="tf-btn" data-range="custom">Custom range</button>
+  <span class="custom-range" id="customRange">
+    <input type="date" id="dateFrom">
+    <span style="color:var(--muted);font-size:.8rem;">to</span>
+    <input type="date" id="dateTo">
+    <button id="applyCustom">Apply</button>
+  </span>
+</div>
+
+<div class="org-filter-wrap" id="orgFilterWrap">
+  <button class="org-chip active" data-org="all">All Ministries</button>
+  <button class="org-chip" data-org="PMO" data-target="pmo">PMO</button><button class="org-chip" data-org="MOFE" data-target="mofe">MOFE</button><button class="org-chip" data-org="MINDEF" data-target="mindef">MINDEF</button><button class="org-chip" data-org="MFA" data-target="mfa">MFA</button><button class="org-chip" data-org="MOHA" data-target="moha">MOHA</button><button class="org-chip" data-org="MOE" data-target="moe">MOE</button><button class="org-chip" data-org="MPRT" data-target="mprt">MPRT</button><button class="org-chip" data-org="MOD" data-target="mod">MOD</button><button class="org-chip" data-org="KKBS" data-target="kkbs">KKBS</button><button class="org-chip" data-org="MOH" data-target="moh">MOH</button><button class="org-chip" data-org="MORA" data-target="mora">MORA</button><button class="org-chip" data-org="MTIC" data-target="mtic">MTIC</button>
+</div>
+
+<main>
+
+<section class="org" id="pmo">
+  <div class="org-header">
+    <h2>Prime Minister&#x27;s Office (PMO)</h2>
+    <a class="source-link" href="https://www.pmo.gov.bn/1149-2/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a0" data-org="PMO" data-date="2026-08-31" data-search="his majesty received in audience philippine chief justice his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien, sultan and yang di-pertuan of brunei darussalam, on monday afternoon, received in audience chief justice of the supreme court of the philippines. prime minister&#x27;s office (pmo) 31 aug 2026 bandar seri begawan">
+      <span class="date">31 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>His Majesty received in audience Philippine Chief Justice</h3>
+      <p>His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar &#x27;Ali Saifuddien Sa&#x27;adul Khairi Waddien, Sultan and Yang Di-Pertuan of Brunei Darussalam, on…</p>
+      <button class="read-more" data-id="a0">Read full article →</button>
+    </div>
+    <div class="card" data-id="a1" data-org="PMO" data-date="2026-08-30" data-search="security cooperation reaffirmed coordinating minister for national security, minister at the prime minister&#x27;s office and minister of defence ii pehin datu lailaraja major general (rtd) dato paduka seri awang haji halbi bin haji mohd yussof made a working visit to the russian federation to reaffirm security cooperation. prime minister&#x27;s office (pmo) 30 aug 2026 russian federation">
+      <span class="date">30 Aug 2026 · Russian Federation</span>
+      <h3>Security cooperation reaffirmed</h3>
+      <p>Coordinating Minister for National Security, Minister at the Prime Minister&#x27;s Office and Minister of Defence II Pehin Datu Lailaraja Major General (Rtd) Dato Paduka Seri Awang Haji Halbi…</p>
+      <button class="read-more" data-id="a1">Read full article →</button>
+    </div>
+    <div class="card" data-id="a2" data-org="PMO" data-date="2026-08-22" data-search="luncheon in conjunction with the 27th annual leaders&#x27; consultation between brunei darussalam and malaysia in conjunction with the 27th annual leaders&#x27; consultation between brunei darussalam and malaysia, a luncheon was held at baitur rahmah, istana nurul iman, beginning with the recitation of a doa selamat. prime minister&#x27;s office (pmo) 22 aug 2026 istana nurul iman">
+      <span class="date">22 Aug 2026 · Istana Nurul Iman</span>
+      <h3>Luncheon in Conjunction with the 27th Annual Leaders&#x27; Consultation Between Brunei Darussalam and Malaysia</h3>
+      <p>In conjunction with the 27th Annual Leaders&#x27; Consultation between Brunei Darussalam and Malaysia, a Luncheon was held at Baitur Rahmah, Istana Nurul Iman, beginning with the recitation of a…</p>
+      <button class="read-more" data-id="a2">Read full article →</button>
+    </div>
+    <div class="card" data-id="a3" data-org="PMO" data-date="2026-08-22" data-search="his majesty and the prime minister of malaysia together witness the signing ceremony of the mou his majesty the sultan and yang di-pertuan of brunei darussalam and the prime minister of malaysia proceeded to baitul mesyuarah to witness the signing ceremony of a memorandum of understanding between the two governments. prime minister&#x27;s office (pmo) 22 aug 2026 istana nurul iman">
+      <span class="date">22 Aug 2026 · Istana Nurul Iman</span>
+      <h3>His Majesty and the Prime Minister of Malaysia together witness the Signing Ceremony of the MoU</h3>
+      <p>His Majesty the Sultan and Yang Di-Pertuan of Brunei Darussalam and the Prime Minister of Malaysia proceeded to Baitul Mesyuarah to witness the Signing Ceremony of a Memorandum of…</p>
+      <button class="read-more" data-id="a3">Read full article →</button>
+    </div>
+    <div class="card" data-id="a4" data-org="PMO" data-date="2026-08-22" data-search="his majesty and the prime minister of malaysia held a four-eyes meeting after the audience ceremony, his majesty and the prime minister of malaysia held a four-eyes meeting discussing several key sectors to further deepen strategic and bilateral cooperation. prime minister&#x27;s office (pmo) 22 aug 2026 istana nurul iman">
+      <span class="date">22 Aug 2026 · Istana Nurul Iman</span>
+      <h3>His Majesty and the Prime Minister of Malaysia held a Four-Eyes Meeting</h3>
+      <p>After the Audience Ceremony, His Majesty and the Prime Minister of Malaysia held a Four-Eyes Meeting discussing several key sectors to further deepen strategic and bilateral cooperation.</p>
+      <button class="read-more" data-id="a4">Read full article →</button>
+    </div>
+    <div class="card" data-id="a5" data-org="PMO" data-date="2026-08-22" data-search="his majesty received in audience the prime minister of malaysia his majesty received the prime minister of malaysia for the audience ceremony at cheradi laila kenchana, istana nurul iman, attended by members of the royal family and the malaysian delegation. prime minister&#x27;s office (pmo) 22 aug 2026 istana nurul iman">
+      <span class="date">22 Aug 2026 · Istana Nurul Iman</span>
+      <h3>His Majesty received in audience the Prime Minister of Malaysia</h3>
+      <p>His Majesty received the Prime Minister of Malaysia for the Audience Ceremony at Cheradi Laila Kenchana, Istana Nurul Iman, attended by members of the Royal Family and the Malaysian…</p>
+      <button class="read-more" data-id="a5">Read full article →</button>
+    </div>
+    <div class="card" data-id="a6" data-org="PMO" data-date="2026-08-15" data-search="islamic heritage showcased to commemorate prophet&#x27;s birth members of the public will have the opportunity to learn about a valuable treasure of islamic heritage preserved at the balai khazanah islam sultan haji hassanal bolkiah (bkishhb), following the opening of the sacred hair of prophet muhammad exhibit. prime minister&#x27;s office (pmo) 15 aug 2026 bandar seri begawan">
+      <span class="date">15 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Islamic heritage showcased to commemorate Prophet&#x27;s birth</h3>
+      <p>Members of the public will have the opportunity to learn about a valuable treasure of Islamic heritage preserved at the Balai Khazanah Islam Sultan Haji Hassanal Bolkiah (BKISHHB),…</p>
+      <button class="read-more" data-id="a6">Read full article →</button>
+    </div>
+    <div class="card" data-id="a7" data-org="PMO" data-date="2026-08-15" data-search="royalty conclude official visit to australia his royal highness prince haji al-muhtadee billah, the crown prince and senior minister at the prime minister&#x27;s office, and her royal highness paduka seri pengiran anak isteri pengiran anak sarah concluded their official visit to australia. prime minister&#x27;s office (pmo) 15 aug 2026 australia">
+      <span class="date">15 Aug 2026 · Australia</span>
+      <h3>Royalty conclude official visit to Australia</h3>
+      <p>His Royal Highness Prince Haji Al-Muhtadee Billah, the Crown Prince and Senior Minister at the Prime Minister&#x27;s Office, and Her Royal Highness Paduka Seri Pengiran Anak Isteri Pengiran Anak…</p>
+      <button class="read-more" data-id="a7">Read full article →</button>
+    </div>
+    <div class="card" data-id="a8" data-org="PMO" data-date="2026-08-15" data-search="his majesty received in audience outgoing ambassador of myanmar his majesty sultan haji hassanal bolkiah, on saturday afternoon, received in audience the outgoing ambassador of myanmar to brunei. prime minister&#x27;s office (pmo) 15 aug 2026 bandar seri begawan">
+      <span class="date">15 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>His Majesty received in audience outgoing Ambassador of Myanmar</h3>
+      <p>His Majesty Sultan Haji Hassanal Bolkiah, on Saturday afternoon, received in audience the outgoing Ambassador of Myanmar to Brunei.</p>
+      <button class="read-more" data-id="a8">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers PMO's most recently available releases. Visit the <a href="https://www.pmo.gov.bn/1149-2/" target="_blank" rel="noopener">PMO news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mofe">
+  <div class="org-header">
+    <h2>Ministry of Finance and Economy (MOFE)</h2>
+    <a class="source-link" href="https://www.mofe.gov.bn/mofe_news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a9" data-org="MOFE" data-date="2026-08-20" data-search="majlis persembahan dikir syarafil anam sempena sambutan maulud nabi muhammad saw 1448/2026 (ii) kementerian kewangan serta jabatan-jabatan di dalamnya telah mengadakan majlis persembahan dikir syarafil anam sempena sambutan maulud nabi muhammad sallallahu alaihi wasallam bagi tahun 1448 hijrah pada 20 ogos 2026. ministry of finance and economy (mofe) 20 aug 2026 bandar seri begawan">
+      <span class="date">20 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Majlis Persembahan Dikir Syarafil Anam Sempena Sambutan Maulud Nabi Muhammad SAW 1448/2026 (II)</h3>
+      <p>Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Majlis Persembahan Dikir Syarafil Anam sempena Sambutan Maulud Nabi Muhammad Sallallahu Alaihi Wasallam bagi Tahun…</p>
+      <button class="read-more" data-id="a9">Read full article →</button>
+    </div>
+    <div class="card" data-id="a10" data-org="MOFE" data-date="2026-08-14" data-search="majlis persembahan dikir syarafil anam sempena sambutan maulud nabi muhammad saw kementerian kewangan serta jabatan-jabatan di dalamnya telah mengadakan majlis persembahan dikir syarafil anam sempena sambutan maulud nabi muhammad sallallahu alaihi wasallam bagi tahun 1448 hijrah pada 14 ogos 2026. ministry of finance and economy (mofe) 14 aug 2026 bandar seri begawan">
+      <span class="date">14 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Majlis Persembahan Dikir Syarafil Anam Sempena Sambutan Maulud Nabi Muhammad SAW</h3>
+      <p>Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Majlis Persembahan Dikir Syarafil Anam sempena Sambutan Maulud Nabi Muhammad Sallallahu Alaihi Wasallam bagi Tahun…</p>
+      <button class="read-more" data-id="a10">Read full article →</button>
+    </div>
+    <div class="card" data-id="a11" data-org="MOFE" data-date="2026-08-12" data-search="walkathon 2026 bagi warga kementerian kewangan serta jabatan-jabatan di dalamnya kementerian kewangan serta jabatan-jabatan di dalamnya telah mengadakan walkathon 2026 bermula di kawasan letak kereta vip, kementerian kewangan, mengelilingi taman rekreasi jalan menteri besar. ministry of finance and economy (mofe) 12 aug 2026 ministry of finance">
+      <span class="date">12 Aug 2026 · Ministry of Finance</span>
+      <h3>Walkathon 2026 bagi Warga Kementerian Kewangan serta Jabatan-Jabatan di Dalamnya</h3>
+      <p>Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Walkathon 2026 bermula di kawasan letak kereta VIP, Kementerian Kewangan, mengelilingi Taman Rekreasi Jalan Menteri…</p>
+      <button class="read-more" data-id="a11">Read full article →</button>
+    </div>
+    <div class="card" data-id="a12" data-org="MOFE" data-date="2026-08-12" data-search="brunei darussalam capital market development seminar series: an introduction to sukuk issuance credit guarantee and investment facility (cgif), a trust fund of the asian development bank, in collaboration with bank islam brunei darussalam and the international capital market association, organized a seminar on sukuk issuance. ministry of finance and economy (mofe) 12 aug 2026 the empire brunei">
+      <span class="date">12 Aug 2026 · The Empire Brunei</span>
+      <h3>Brunei Darussalam Capital Market Development Seminar Series: An Introduction to Sukuk Issuance</h3>
+      <p>Credit Guarantee and Investment Facility (CGIF), a trust fund of the Asian Development Bank, in collaboration with Bank Islam Brunei Darussalam and the International Capital Market…</p>
+      <button class="read-more" data-id="a12">Read full article →</button>
+    </div>
+    <div class="card" data-id="a13" data-org="MOFE" data-date="2026-08-05" data-search="contract signing between piper aircraft, inc. and alpha aviation group piper aircraft, inc. and alpha aviation group (aag) have signed a contract for the acquisition of six piper training aircraft, with delivery scheduled within this year. ministry of finance and economy (mofe) 5 aug 2026 ministry of finance">
+      <span class="date">5 Aug 2026 · Ministry of Finance</span>
+      <h3>Contract Signing Between Piper Aircraft, Inc. and Alpha Aviation Group</h3>
+      <p>Piper Aircraft, Inc. and Alpha Aviation Group (AAG) have signed a contract for the acquisition of six Piper training aircraft, with delivery scheduled within this year.</p>
+      <button class="read-more" data-id="a13">Read full article →</button>
+    </div>
+    <div class="card" data-id="a14" data-org="MOFE" data-date="2026-07-30" data-search="2026 asia/pacific group on money laundering annual meeting and technical assistance forum the ministry of finance, in collaboration with brunei darussalam central bank, organised the 2026 asia/pacific group on money laundering annual meeting and technical assistance forum from 27 to 31 july 2026. ministry of finance and economy (mofe) 30 jul 2026 the empire hotel">
+      <span class="date">30 Jul 2026 · The Empire Hotel</span>
+      <h3>2026 Asia/Pacific Group on Money Laundering Annual Meeting and Technical Assistance Forum</h3>
+      <p>The Ministry of Finance, in collaboration with Brunei Darussalam Central Bank, organised the 2026 Asia/Pacific Group on Money Laundering Annual Meeting and Technical Assistance Forum from…</p>
+      <button class="read-more" data-id="a14">Read full article →</button>
+    </div>
+    <div class="card" data-id="a15" data-org="MOFE" data-date="2026-07-23" data-search="taklimat pencegahan scam bagi pegawai dan kakitangan kementerian kewangan jabatan perbendaharaan, kementerian kewangan, telah menjemput pasukan polis diraja brunei untuk menyampaikan taklimat pencegahan scam bertempat di dewan teater, bangunan kementerian kewangan. ministry of finance and economy (mofe) 23 jul 2026 ministry of finance">
+      <span class="date">23 Jul 2026 · Ministry of Finance</span>
+      <h3>Taklimat Pencegahan Scam bagi Pegawai dan Kakitangan Kementerian Kewangan</h3>
+      <p>Jabatan Perbendaharaan, Kementerian Kewangan, telah menjemput Pasukan Polis Diraja Brunei untuk menyampaikan Taklimat Pencegahan Scam bertempat di Dewan Teater, Bangunan Kementerian…</p>
+      <button class="read-more" data-id="a15">Read full article →</button>
+    </div>
+    <div class="card" data-id="a16" data-org="MOFE" data-date="2026-07-16" data-search="majlis doa kesyukuran sempena ulang tahun hari keputeraan sultan ke-80 kementerian kewangan serta jabatan-jabatan di dalamnya telah mengadakan majlis doa kesyukuran sempena ulang tahun hari keputeraan kebawah duli yang maha mulia paduka seri baginda sultan yang ke-80 tahun. ministry of finance and economy (mofe) 16 jul 2026 ministry of finance">
+      <span class="date">16 Jul 2026 · Ministry of Finance</span>
+      <h3>Majlis Doa Kesyukuran Sempena Ulang Tahun Hari Keputeraan Sultan Ke-80</h3>
+      <p>Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Majlis Doa Kesyukuran sempena Ulang Tahun Hari Keputeraan Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan…</p>
+      <button class="read-more" data-id="a16">Read full article →</button>
+    </div>
+    <div class="card" data-id="a17" data-org="MOFE" data-date="2026-07-08" data-search="roadshow on accounting profession the ministry of finance, in collaboration with the brunei darussalam institute of certified public accountants, held a roadshow on accounting profession at the lecture theatre trustworthy, tutong sixth form centre. ministry of finance and economy (mofe) 8 jul 2026 tutong sixth form centre">
+      <span class="date">8 Jul 2026 · Tutong Sixth Form Centre</span>
+      <h3>Roadshow on Accounting Profession</h3>
+      <p>The Ministry of Finance, in collaboration with the Brunei Darussalam Institute of Certified Public Accountants, held a Roadshow on Accounting Profession at the Lecture Theatre Trustworthy,…</p>
+      <button class="read-more" data-id="a17">Read full article →</button>
+    </div>
+    <div class="card" data-id="a18" data-org="MOFE" data-date="2026-06-30" data-search="world customs organisation (wco) 147th/148th council sessions acting controller of customs, along with senior officers from the royal customs and excise department, attended the 147th/148th sessions of the world customs organization council. ministry of finance and economy (mofe) 30 jun 2026 ministry of finance">
+      <span class="date">30 Jun 2026 · Ministry of Finance</span>
+      <h3>World Customs Organisation (WCO) 147th/148th Council Sessions</h3>
+      <p>Acting Controller of Customs, along with senior officers from the Royal Customs and Excise Department, attended the 147th/148th Sessions of the World Customs Organization Council.</p>
+      <button class="read-more" data-id="a18">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MOFE's most recently available releases. Visit the <a href="https://www.mofe.gov.bn/mofe_news/" target="_blank" rel="noopener">MOFE news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mindef">
+  <div class="org-header">
+    <h2>Ministry of Defence (MINDEF)</h2>
+    <a class="source-link" href="https://www.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a19" data-org="MINDEF" data-date="2026-08-31" data-search="defence white paper update 2026 briefing the ministry of defence held a defence white paper update 2026 (dwpu 2026) briefing for officers and warrant officers of the royal brunei armed forces (rbaf). ministry of defence (mindef) 31 aug 2026 berakas garrison">
+      <span class="date">31 Aug 2026 · Berakas Garrison</span>
+      <h3>Defence White Paper Update 2026 Briefing</h3>
+      <p>The Ministry of Defence held a Defence White Paper Update 2026 (DWPU 2026) briefing for officers and warrant officers of the Royal Brunei Armed Forces (RBAF).</p>
+      <button class="read-more" data-id="a19">Read full article →</button>
+    </div>
+    <div class="card" data-id="a20" data-org="MINDEF" data-date="2026-08-29" data-search="his majesty bestows state decoration to ministry of defence officers his majesty the sultan has graciously consented to bestow a state decoration upon ministry of defence officers in recognition of their dedicated service. ministry of defence (mindef) 29 aug 2026 bandar seri begawan">
+      <span class="date">29 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>His Majesty Bestows State Decoration to Ministry of Defence Officers</h3>
+      <p>His Majesty the Sultan has graciously consented to bestow a state decoration upon Ministry of Defence officers in recognition of their dedicated service.</p>
+      <button class="read-more" data-id="a20">Read full article →</button>
+    </div>
+    <div class="card" data-id="a21" data-org="MINDEF" data-date="2026-08-26" data-search="commander rbaf receives courtesy call from c-in-c royal thai air force major general dato paduka seri haji muhammad haszaimi bin bol hassan, commander of the rbaf, received a courtesy call from air chief marshal sakesan kantha, commander-in-chief of the royal thai air force. ministry of defence (mindef) 26 aug 2026 bolkiah garrison">
+      <span class="date">26 Aug 2026 · Bolkiah Garrison</span>
+      <h3>Commander RBAF Receives Courtesy Call from C-in-C Royal Thai Air Force</h3>
+      <p>Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the RBAF, received a courtesy call from Air Chief Marshal Sakesan Kantha, Commander-in-Chief of the Royal…</p>
+      <button class="read-more" data-id="a21">Read full article →</button>
+    </div>
+    <div class="card" data-id="a22" data-org="MINDEF" data-date="2026-08-21" data-search="passing-out parade ceremony for male recruits of the 180th intake 194 male recruits from the 180th intake of the rbaf successfully completed their basic military training during a passing-out parade ceremony at training institute rbaf. ministry of defence (mindef) 21 aug 2026 penanjong garrison">
+      <span class="date">21 Aug 2026 · Penanjong Garrison</span>
+      <h3>Passing-Out Parade Ceremony for Male Recruits of the 180th Intake</h3>
+      <p>194 male recruits from the 180th Intake of the RBAF successfully completed their Basic Military Training during a Passing-Out Parade Ceremony at Training Institute RBAF.</p>
+      <button class="read-more" data-id="a22">Read full article →</button>
+    </div>
+    <div class="card" data-id="a23" data-org="MINDEF" data-date="2026-08-19" data-search="his majesty graces the parade ceremony of the special forces regiment, rbaf golden jubilee his majesty the sultan graced the parade ceremony of the special forces regiment in conjunction with the rbaf&#x27;s golden jubilee celebration. ministry of defence (mindef) 19 aug 2026 penanjong garrison">
+      <span class="date">19 Aug 2026 · Penanjong Garrison</span>
+      <h3>His Majesty Graces the Parade Ceremony of the Special Forces Regiment, RBAF Golden Jubilee</h3>
+      <p>His Majesty the Sultan graced the Parade Ceremony of the Special Forces Regiment in conjunction with the RBAF&#x27;s Golden Jubilee celebration.</p>
+      <button class="read-more" data-id="a23">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MINDEF's most recently available releases. Visit the <a href="https://www.mindef.gov.bn/news/" target="_blank" rel="noopener">MINDEF news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mfa">
+  <div class="org-header">
+    <h2>Ministry of Foreign Affairs (MFA)</h2>
+    <a class="source-link" href="https://www.mfa.gov.bn/pages/PressRoom.aspx?archive=1" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a24" data-org="MFA" data-date="2026-08-22" data-search="joint statement on the 27th annual leaders&#x27; consultation between brunei darussalam and malaysia a joint statement was issued following the 27th annual leaders&#x27; consultation between brunei darussalam and malaysia. ministry of foreign affairs (mfa) 22 aug 2026 bandar seri begawan">
+      <span class="date">22 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Joint Statement on the 27th Annual Leaders&#x27; Consultation Between Brunei Darussalam and Malaysia</h3>
+      <p>A joint statement was issued following the 27th Annual Leaders&#x27; Consultation between Brunei Darussalam and Malaysia.</p>
+      <button class="read-more" data-id="a24">Read full article →</button>
+    </div>
+    <div class="card" data-id="a25" data-org="MFA" data-date="2026-08-24" data-search="salam maulidur rasul 1448/2026 the ministry of foreign affairs extends greetings for maulidur rasul 1448 hijrah/2026 masehi. ministry of foreign affairs (mfa) 24 aug 2026 bandar seri begawan">
+      <span class="date">24 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Salam Maulidur Rasul 1448/2026</h3>
+      <p>The Ministry of Foreign Affairs extends greetings for Maulidur Rasul 1448 Hijrah/2026 Masehi.</p>
+      <button class="read-more" data-id="a25">Read full article →</button>
+    </div>
+    <div class="card" data-id="a26" data-org="MFA" data-date="2026-07-23" data-search="prince &#x27;abdul mateen attends the 27th asean plus three foreign ministers&#x27; meeting, 33rd arf &amp; 16th eas foreign ministers&#x27; meeting his royal highness prince &#x27;abdul mateen, minister of foreign affairs, attended the 27th asean plus three foreign ministers&#x27; meeting, the 33rd asean regional forum, and the 16th east asia summit foreign ministers&#x27; meeting in manila. ministry of foreign affairs (mfa) 23 jul 2026 manila, philippines">
+      <span class="date">23 Jul 2026 · Manila, Philippines</span>
+      <h3>Prince &#x27;Abdul Mateen Attends the 27th ASEAN Plus Three Foreign Ministers&#x27; Meeting, 33rd ARF &amp; 16th EAS Foreign Ministers&#x27; Meeting</h3>
+      <p>His Royal Highness Prince &#x27;Abdul Mateen, Minister of Foreign Affairs, attended the 27th ASEAN Plus Three Foreign Ministers&#x27; Meeting, the 33rd ASEAN Regional Forum, and the 16th East Asia…</p>
+      <button class="read-more" data-id="a26">Read full article →</button>
+    </div>
+    <div class="card" data-id="a27" data-org="MFA" data-date="2026-07-22" data-search="prince &#x27;abdul mateen attends the asean post-ministerial conference sessions with dialogue partners his royal highness prince &#x27;abdul mateen, minister of foreign affairs, attended the asean post-ministerial conference sessions with dialogue partners in manila. ministry of foreign affairs (mfa) 22 jul 2026 manila, philippines">
+      <span class="date">22 Jul 2026 · Manila, Philippines</span>
+      <h3>Prince &#x27;Abdul Mateen Attends the ASEAN Post-Ministerial Conference Sessions with Dialogue Partners</h3>
+      <p>His Royal Highness Prince &#x27;Abdul Mateen, Minister of Foreign Affairs, attended the ASEAN Post-Ministerial Conference sessions with Dialogue Partners in Manila.</p>
+      <button class="read-more" data-id="a27">Read full article →</button>
+    </div>
+    <div class="card" data-id="a28" data-org="MFA" data-date="2026-07-21" data-search="prince &#x27;abdul mateen attends the 59th asean foreign ministers&#x27; meeting his royal highness prince &#x27;abdul mateen, minister of foreign affairs of brunei darussalam, attended the 59th asean foreign ministers&#x27; meeting in manila. ministry of foreign affairs (mfa) 21 jul 2026 manila, philippines">
+      <span class="date">21 Jul 2026 · Manila, Philippines</span>
+      <h3>Prince &#x27;Abdul Mateen Attends the 59th ASEAN Foreign Ministers&#x27; Meeting</h3>
+      <p>His Royal Highness Prince &#x27;Abdul Mateen, Minister of Foreign Affairs of Brunei Darussalam, attended the 59th ASEAN Foreign Ministers&#x27; Meeting in Manila.</p>
+      <button class="read-more" data-id="a28">Read full article →</button>
+    </div>
+    <div class="card" data-id="a29" data-org="MFA" data-date="2026-07-14" data-search="the signing of the joint communiqué between brunei darussalam and the royal government of bhutan to establish diplomatic relations the government of his majesty the sultan and the royal government of bhutan signed a joint communiqué to establish diplomatic relations. ministry of foreign affairs (mfa) 14 jul 2026 bandar seri begawan">
+      <span class="date">14 Jul 2026 · Bandar Seri Begawan</span>
+      <h3>The Signing of the Joint Communiqué Between Brunei Darussalam and the Royal Government of Bhutan to Establish Diplomatic Relations</h3>
+      <p>The Government of His Majesty the Sultan and the Royal Government of Bhutan signed a Joint Communiqué to establish diplomatic relations.</p>
+      <button class="read-more" data-id="a29">Read full article →</button>
+    </div>
+    <div class="card" data-id="a30" data-org="MFA" data-date="2026-07-14" data-search="prince &#x27;abdul mateen hosts a farewell luncheon for outgoing ambassador of the philippines his royal highness prince &#x27;abdul mateen, minister of foreign affairs, hosted a farewell luncheon for the outgoing ambassador of the republic of the philippines. ministry of foreign affairs (mfa) 14 jul 2026 bandar seri begawan">
+      <span class="date">14 Jul 2026 · Bandar Seri Begawan</span>
+      <h3>Prince &#x27;Abdul Mateen Hosts a Farewell Luncheon for Outgoing Ambassador of the Philippines</h3>
+      <p>His Royal Highness Prince &#x27;Abdul Mateen, Minister of Foreign Affairs, hosted a farewell luncheon for the outgoing Ambassador of the Republic of the Philippines.</p>
+      <button class="read-more" data-id="a30">Read full article →</button>
+    </div>
+    <div class="card" data-id="a31" data-org="MFA" data-date="2026-06-16" data-search="brunei darussalam&#x27;s statement on the recent developments in the middle east brunei darussalam issued a statement on recent developments in the middle east. ministry of foreign affairs (mfa) 16 jun 2026 bandar seri begawan">
+      <span class="date">16 Jun 2026 · Bandar Seri Begawan</span>
+      <h3>Brunei Darussalam&#x27;s Statement on the Recent Developments in the Middle East</h3>
+      <p>Brunei Darussalam issued a statement on recent developments in the Middle East.</p>
+      <button class="read-more" data-id="a31">Read full article →</button>
+    </div>
+    <div class="card" data-id="a32" data-org="MFA" data-date="2026-06-20" data-search="prince &#x27;abdul mateen receives the outgoing ambassador of the united states of america his royal highness prince &#x27;abdul mateen, minister of foreign affairs, received the outgoing ambassador of the united states of america. ministry of foreign affairs (mfa) 20 jun 2026 bandar seri begawan">
+      <span class="date">20 Jun 2026 · Bandar Seri Begawan</span>
+      <h3>Prince &#x27;Abdul Mateen Receives the Outgoing Ambassador of the United States of America</h3>
+      <p>His Royal Highness Prince &#x27;Abdul Mateen, Minister of Foreign Affairs, received the outgoing Ambassador of the United States of America.</p>
+      <button class="read-more" data-id="a32">Read full article →</button>
+    </div>
+    <div class="card" data-id="a33" data-org="MFA" data-date="2026-06-03" data-search="brunei darussalam&#x27;s statement on the recent developments in the middle east brunei darussalam issued a further statement on recent developments in the middle east. ministry of foreign affairs (mfa) 3 jun 2026 bandar seri begawan">
+      <span class="date">3 Jun 2026 · Bandar Seri Begawan</span>
+      <h3>Brunei Darussalam&#x27;s Statement on the Recent Developments in the Middle East</h3>
+      <p>Brunei Darussalam issued a further statement on recent developments in the Middle East.</p>
+      <button class="read-more" data-id="a33">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MFA's most recently available releases. Visit the <a href="https://www.mfa.gov.bn/pages/PressRoom.aspx?archive=1" target="_blank" rel="noopener">MFA news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="moha">
+  <div class="org-header">
+    <h2>Ministry of Home Affairs (MOHA)</h2>
+    <a class="source-link" href="https://www.moha.gov.bn/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a34" data-org="MOHA" data-date="2026-09-01" data-search="kursus conflict management and negotiations strategies (sesi kedua) kursus bagi pegawai dan kakitangan khedn dan jabatan-jabatan di bawahnya diteruskan bagi sesi kedua selama tiga hari pada 31 ogos, 1 dan 2 september 2026, dihadiri 23 orang pegawai dan kakitangan bahagian ii dan iii, disampaikan oleh dr kamril abdul karim dari malaysia. ministry of home affairs (moha) 1 sep 2026 jabatan daerah brunei dan muara">
+      <span class="date">1 Sep 2026 · Jabatan Daerah Brunei dan Muara</span>
+      <h3>Kursus Conflict Management and Negotiations Strategies (Sesi Kedua)</h3>
+      <p>Kursus bagi Pegawai dan Kakitangan KHEDN dan jabatan-jabatan di bawahnya diteruskan bagi sesi kedua selama tiga hari pada 31 Ogos, 1 dan 2 September 2026, dihadiri 23 orang pegawai dan…</p>
+      <button class="read-more" data-id="a34">Read full article →</button>
+    </div>
+    <div class="card" data-id="a35" data-org="MOHA" data-date="2026-08-29" data-search="kursus conflict management and negotiations strategies (sesi pertama) kursus bagi pegawai dan kakitangan khedn dan jabatan-jabatan di bawahnya diadakan selama tiga hari pada 26, 27 dan 29 ogos 2026, dihadiri 22 orang pegawai dan kakitangan bahagian ii. ministry of home affairs (moha) 29 aug 2026 jabatan daerah brunei dan muara">
+      <span class="date">29 Aug 2026 · Jabatan Daerah Brunei dan Muara</span>
+      <h3>Kursus Conflict Management and Negotiations Strategies (Sesi Pertama)</h3>
+      <p>Kursus bagi Pegawai dan Kakitangan KHEDN dan jabatan-jabatan di bawahnya diadakan selama tiga hari pada 26, 27 dan 29 Ogos 2026, dihadiri 22 orang pegawai dan kakitangan Bahagian II.</p>
+      <button class="read-more" data-id="a35">Read full article →</button>
+    </div>
+    <div class="card" data-id="a36" data-org="MOHA" data-date="2026-08-15" data-search="lawatan menteri hal ehwal dalam negeri ke persidangan dan pameran milipol techx 2026, republik singapura yang berhormat menteri hal ehwal dalam negeri melawat persidangan dan pameran milipol techx 2026 di republik singapura. ministry of home affairs (moha) aug 2026 singapore">
+      <span class="date">Aug 2026 · Singapore</span>
+      <h3>Lawatan Menteri Hal Ehwal Dalam Negeri ke Persidangan dan Pameran Milipol TechX 2026, Republik Singapura</h3>
+      <p>Yang Berhormat Menteri Hal Ehwal Dalam Negeri melawat Persidangan dan Pameran Milipol TechX 2026 di Republik Singapura.</p>
+      <button class="read-more" data-id="a36">Read full article →</button>
+    </div>
+    <div class="card" data-id="a37" data-org="MOHA" data-date="2026-08-15" data-search="mesyuarat pertama jawatankuasa kebangsaan sambutan ulang tahun hari keputeraan sultan ke-80 mesyuarat pertama jawatankuasa kebangsaan bagi sambutan perayaan ulang tahun hari keputeraan kebawah duli yang maha mulia paduka seri baginda sultan yang ke-80 tahun bagi 2026. ministry of home affairs (moha) aug 2026 bandar seri begawan">
+      <span class="date">Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Mesyuarat Pertama Jawatankuasa Kebangsaan Sambutan Ulang Tahun Hari Keputeraan Sultan Ke-80</h3>
+      <p>Mesyuarat pertama Jawatankuasa Kebangsaan bagi Sambutan Perayaan Ulang Tahun Hari Keputeraan Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan yang ke-80 Tahun bagi 2026.</p>
+      <button class="read-more" data-id="a37">Read full article →</button>
+    </div>
+    <div class="card" data-id="a38" data-org="MOHA" data-date="2026-07-15" data-search="majlis doa selamat bagi pegawai dan kakitangan khedn yang akan menunaikan fardhu haji 1447/2026 majlis doa selamat diadakan bagi pegawai dan kakitangan kementerian hal ehwal dalam negeri dan jabatan-jabatan di bawahnya yang akan menunaikan fardhu haji bagi tahun 1447h/2026m. ministry of home affairs (moha) jul 2026 berakas">
+      <span class="date">Jul 2026 · Berakas</span>
+      <h3>Majlis Doa Selamat bagi Pegawai dan Kakitangan KHEDN yang akan Menunaikan Fardhu Haji 1447/2026</h3>
+      <p>Majlis Doa Selamat diadakan bagi pegawai dan kakitangan Kementerian Hal Ehwal Dalam Negeri dan jabatan-jabatan di bawahnya yang akan menunaikan Fardhu Haji bagi Tahun 1447H/2026M.</p>
+      <button class="read-more" data-id="a38">Read full article →</button>
+    </div>
+    <div class="card" data-id="a39" data-org="MOHA" data-date="2026-07-15" data-search="mesyuarat majlis bencana kebangsaan majlis bencana kebangsaan mengadakan mesyuarat membincangkan kesediaan dan pengurusan bencana di peringkat kebangsaan. ministry of home affairs (moha) jul 2026 bandar seri begawan">
+      <span class="date">Jul 2026 · Bandar Seri Begawan</span>
+      <h3>Mesyuarat Majlis Bencana Kebangsaan</h3>
+      <p>Majlis Bencana Kebangsaan mengadakan mesyuarat membincangkan kesediaan dan pengurusan bencana di peringkat kebangsaan.</p>
+      <button class="read-more" data-id="a39">Read full article →</button>
+    </div>
+    <div class="card" data-id="a40" data-org="MOHA" data-date="2026-07-15" data-search="menteri hal ehwal dalam negeri mengetuai delegasi negara brunei darussalam ke malaysia yang berhormat menteri hal ehwal dalam negeri mengetuai delegasi negara brunei darussalam dalam lawatan ke malaysia. ministry of home affairs (moha) jul 2026 malaysia">
+      <span class="date">Jul 2026 · Malaysia</span>
+      <h3>Menteri Hal Ehwal Dalam Negeri Mengetuai Delegasi Negara Brunei Darussalam ke Malaysia</h3>
+      <p>Yang Berhormat Menteri Hal Ehwal Dalam Negeri mengetuai delegasi Negara Brunei Darussalam dalam lawatan ke Malaysia.</p>
+      <button class="read-more" data-id="a40">Read full article →</button>
+    </div>
+    <div class="card" data-id="a41" data-org="MOHA" data-date="2026-06-15" data-search="majlis penyampaian sijil taraf kerakyatan kali ke-44 khedn mengadakan majlis penyampaian sijil taraf kerakyatan buat kali ke-44 kepada penerima-penerima yang layak. ministry of home affairs (moha) jun 2026 bandar seri begawan">
+      <span class="date">Jun 2026 · Bandar Seri Begawan</span>
+      <h3>Majlis Penyampaian Sijil Taraf Kerakyatan Kali Ke-44</h3>
+      <p>KHEDN mengadakan Majlis Penyampaian Sijil Taraf Kerakyatan buat kali ke-44 kepada penerima-penerima yang layak.</p>
+      <button class="read-more" data-id="a41">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MOHA's most recently available releases. Visit the <a href="https://www.moha.gov.bn/" target="_blank" rel="noopener">MOHA news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="moe">
+  <div class="org-header">
+    <h2>Ministry of Education (MOE)</h2>
+    <a class="source-link" href="https://www.moe.gov.bn/SitePages/News.aspx" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a42" data-org="MOE" data-date="2026-01-15" data-search="bruneian student wins award at the 15th asean+3 student camp for the gifted in science a student from brunei darussalam received an award at the 15th asean+3 student camp for the gifted in science (acgs) 2026. ministry of education (moe) 15 jan 2026 brunei darussalam">
+      <span class="date">15 Jan 2026 · Brunei Darussalam</span>
+      <h3>Bruneian Student Wins Award at the 15th ASEAN+3 Student Camp for the Gifted in Science</h3>
+      <p>A student from Brunei Darussalam received an award at the 15th ASEAN+3 Student Camp for the Gifted in Science (ACGS) 2026.</p>
+      <button class="read-more" data-id="a42">Read full article →</button>
+    </div>
+    <div class="card" data-id="a43" data-org="MOE" data-date="2026-01-14" data-search="muzakarah session between the ministry of education and members of the legislative council 2026 the ministry of education held a muzakarah session with legislative council members at the dewan persidangan 1, ministry of education, berakas. ministry of education (moe) 14 jan 2026 ministry of education, berakas">
+      <span class="date">14 Jan 2026 · Ministry of Education, Berakas</span>
+      <h3>Muzakarah Session Between the Ministry of Education and Members of the Legislative Council 2026</h3>
+      <p>The Ministry of Education held a Muzakarah Session with Legislative Council Members at the Dewan Persidangan 1, Ministry of Education, Berakas.</p>
+      <button class="read-more" data-id="a43">Read full article →</button>
+    </div>
+    <div class="card" data-id="a44" data-org="MOE" data-date="2026-01-14" data-search="registration for brunei-cambridge gce &#x27;a&#x27; and &#x27;as&#x27; level october/november 2025 examination results via sms the ministry of education, with datastream digital, progresif, imagine and machtel, announced sms registration for examination results. ministry of education (moe) 14 jan 2026 brunei darussalam">
+      <span class="date">14 Jan 2026 · Brunei Darussalam</span>
+      <h3>Registration for Brunei-Cambridge GCE &#x27;A&#x27; and &#x27;AS&#x27; Level October/November 2025 Examination Results via SMS</h3>
+      <p>The Ministry of Education, with Datastream Digital, Progresif, Imagine and MachTel, announced SMS registration for examination results.</p>
+      <button class="read-more" data-id="a44">Read full article →</button>
+    </div>
+    <div class="card" data-id="a45" data-org="MOE" data-date="2026-01-12" data-search="surat pemberitahuan for the education loan assistance scheme (sbpp) academic session 2026/2027 the ministry of education announced the surat pemberitahuan for the education loan assistance scheme (skim bantuan pinjaman pendidikan) for academic session 2026/2027. ministry of education (moe) 12 jan 2026 brunei darussalam">
+      <span class="date">12 Jan 2026 · Brunei Darussalam</span>
+      <h3>Surat Pemberitahuan for the Education Loan Assistance Scheme (SBPP) Academic Session 2026/2027</h3>
+      <p>The Ministry of Education announced the Surat Pemberitahuan for the Education Loan Assistance Scheme (Skim Bantuan Pinjaman Pendidikan) for Academic Session 2026/2027.</p>
+      <button class="read-more" data-id="a45">Read full article →</button>
+    </div>
+    <div class="card" data-id="a46" data-org="MOE" data-date="2026-01-07" data-search="closing ceremony of coffee with dp 2025 the ministry of education, through the department of planning, development and research, held the closing ceremony of coffee with dp 2025. ministry of education (moe) 7 jan 2026 brunei darussalam">
+      <span class="date">7 Jan 2026 · Brunei Darussalam</span>
+      <h3>Closing Ceremony of Coffee with DP 2025</h3>
+      <p>The Ministry of Education, through the Department of Planning, Development and Research, held the closing ceremony of Coffee with DP 2025.</p>
+      <button class="read-more" data-id="a46">Read full article →</button>
+    </div>
+    <div class="card" data-id="a47" data-org="MOE" data-date="2026-01-03" data-search="the commencement of the first school term for 2026 academic year the first school term of the 2026 academic year for all primary, secondary, colleges and sixth form centres, government and private, commenced on saturday, 3 january 2026. ministry of education (moe) 3 jan 2026 brunei darussalam">
+      <span class="date">3 Jan 2026 · Brunei Darussalam</span>
+      <h3>The Commencement of the First School Term for 2026 Academic Year</h3>
+      <p>The First School Term of the 2026 Academic Year for all primary, secondary, colleges and sixth form centres, government and private, commenced on Saturday, 3 January 2026.</p>
+      <button class="read-more" data-id="a47">Read full article →</button>
+    </div>
+    <div class="card" data-id="a48" data-org="MOE" data-date="2026-01-02" data-search="registration for the brunei-cambridge gce &#x27;o&#x27;, &#x27;as&#x27;, &#x27;a&#x27; level and igcse examinations may/june 2026 session the examinations department opened registration for brunei-cambridge gce &#x27;o&#x27;, &#x27;as&#x27;, &#x27;a&#x27; level and igcse examinations for the may/june 2026 session from 3 january to 12 february 2026. ministry of education (moe) 2 jan 2026 brunei darussalam">
+      <span class="date">2 Jan 2026 · Brunei Darussalam</span>
+      <h3>Registration for the Brunei-Cambridge GCE &#x27;O&#x27;, &#x27;AS&#x27;, &#x27;A&#x27; Level and IGCSE Examinations May/June 2026 Session</h3>
+      <p>The Examinations Department opened registration for Brunei-Cambridge GCE &#x27;O&#x27;, &#x27;AS&#x27;, &#x27;A&#x27; Level and IGCSE Examinations for the May/June 2026 session from 3 January to 12 February 2026.</p>
+      <button class="read-more" data-id="a48">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MOE's most recently available releases. Visit the <a href="https://www.moe.gov.bn/SitePages/News.aspx" target="_blank" rel="noopener">MOE news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mprt">
+  <div class="org-header">
+    <h2>Ministry of Primary Resources and Tourism (MPRT)</h2>
+    <a class="source-link" href="http://www.mprt.gov.bn/SitePages/Press%20Releases.aspx" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a49" data-org="MPRT" data-date="2025-03-07" data-search="mprt focuses on food security, tourism in 2025/2026 budget minister of primary resources and tourism highlighted the primary focus of the proposed 2025/2026 allocation, including upgrading industrial infrastructure for agricultural and aquaculture development areas, during the 21st legislative council session. ministry of primary resources and tourism (mprt) 7 mar 2025 legislative council">
+      <span class="date">7 Mar 2025 · Legislative Council</span>
+      <h3>MPRT Focuses on Food Security, Tourism in 2025/2026 Budget</h3>
+      <p>Minister of Primary Resources and Tourism highlighted the primary focus of the proposed 2025/2026 allocation, including upgrading industrial infrastructure for agricultural and aquaculture…</p>
+      <button class="read-more" data-id="a49">Read full article →</button>
+    </div>
+    <div class="card" data-id="a50" data-org="MPRT" data-date="2024-03-06" data-search="minister outlines efforts to grow tourism industry mprt lined up a series of activities to grow the tourism industry, said the minister of primary resources and tourism during the 20th session of the legislative council. ministry of primary resources and tourism (mprt) 6 mar 2024 legislative council">
+      <span class="date">6 Mar 2024 · Legislative Council</span>
+      <h3>Minister Outlines Efforts to Grow Tourism Industry</h3>
+      <p>MPRT lined up a series of activities to grow the tourism industry, said the Minister of Primary Resources and Tourism during the 20th session of the Legislative Council.</p>
+      <button class="read-more" data-id="a50">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MPRT's most recently available releases. Visit the <a href="http://www.mprt.gov.bn/SitePages/Press%20Releases.aspx" target="_blank" rel="noopener">MPRT news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mod">
+  <div class="org-header">
+    <h2>Ministry of Development (MOD)</h2>
+    <a class="source-link" href="https://www.mod.gov.bn/berita-terkini/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a51" data-org="MOD" data-date="2026-08-31" data-search="sesi dialog bersama belia mengenai isu kebersihan persekitaran kementerian pembangunan selaku urusetia jawatankuasa induk isu-isu kebersihan mengadakan sesi dialog bersama belia mengenai isu kebersihan di dewan betabur, kementerian pembangunan. ministry of development (mod) 31 aug 2026 kementerian pembangunan">
+      <span class="date">31 Aug 2026 · Kementerian Pembangunan</span>
+      <h3>Sesi Dialog Bersama Belia Mengenai Isu Kebersihan Persekitaran</h3>
+      <p>Kementerian Pembangunan selaku Urusetia Jawatankuasa Induk Isu-Isu Kebersihan mengadakan Sesi Dialog Bersama Belia Mengenai Isu Kebersihan di Dewan Betabur, Kementerian Pembangunan.</p>
+      <button class="read-more" data-id="a51">Read full article →</button>
+    </div>
+    <div class="card" data-id="a52" data-org="MOD" data-date="2026-08-30" data-search="situasi jerebu di negara brunei darussalam imej satelit asean specialised meteorological centre mengesan 514 titik panas pada 27 ogos, 1734 titik panas pada 28 ogos 2026, menyebabkan keadaan berjerebu di negara ini. ministry of development (mod) 30 aug 2026 brunei darussalam">
+      <span class="date">30 Aug 2026 · Brunei Darussalam</span>
+      <h3>Situasi Jerebu di Negara Brunei Darussalam</h3>
+      <p>Imej satelit ASEAN Specialised Meteorological Centre mengesan 514 titik panas pada 27 Ogos, 1734 titik panas pada 28 Ogos 2026, menyebabkan keadaan berjerebu di negara ini.</p>
+      <button class="read-more" data-id="a52">Read full article →</button>
+    </div>
+    <div class="card" data-id="a53" data-org="MOD" data-date="2026-08-29" data-search="perasmian pertunjukan seni landskap, bunga-bunga hidup 2026 majlis perasmian pertunjukan seni landskap dan bunga-bunga hidup 2026 disempurnakan di taman rekreasi menteri besar, berakas, dianjurkan oleh jastre, kementerian pembangunan. ministry of development (mod) 29 aug 2026 taman rekreasi menteri besar, berakas">
+      <span class="date">29 Aug 2026 · Taman Rekreasi Menteri Besar, Berakas</span>
+      <h3>Perasmian Pertunjukan Seni Landskap, Bunga-Bunga Hidup 2026</h3>
+      <p>Majlis Perasmian Pertunjukan Seni Landskap dan Bunga-Bunga Hidup 2026 disempurnakan di Taman Rekreasi Menteri Besar, Berakas, dianjurkan oleh JASTRe, Kementerian Pembangunan.</p>
+      <button class="read-more" data-id="a53">Read full article →</button>
+    </div>
+    <div class="card" data-id="a54" data-org="MOD" data-date="2026-08-29" data-search="ceramah khas sempena maulud nabi muhammad saw kementerian pembangunan mengadakan majlis sambutan maulud nabi muhammad shallallahu &#x27;alaihi wasallam di dewan betabur, kementerian pembangunan. ministry of development (mod) 29 aug 2026 kementerian pembangunan">
+      <span class="date">29 Aug 2026 · Kementerian Pembangunan</span>
+      <h3>Ceramah Khas Sempena Maulud Nabi Muhammad SAW</h3>
+      <p>Kementerian Pembangunan mengadakan Majlis Sambutan Maulud Nabi Muhammad Shallallahu &#x27;Alaihi Wasallam di Dewan Betabur, Kementerian Pembangunan.</p>
+      <button class="read-more" data-id="a54">Read full article →</button>
+    </div>
+    <div class="card" data-id="a55" data-org="MOD" data-date="2026-08-25" data-search="perhimpunan dan perarakan maulud nabi muhammad saw warga kementerian pembangunan dan jabatan-jabatan di bawahnya menyertai perhimpunan dan perarakan majlis sambutan maulud nabi muhammad peringkat negara bagi tahun 1448 hijrah. ministry of development (mod) 25 aug 2026 brunei darussalam">
+      <span class="date">25 Aug 2026 · Brunei Darussalam</span>
+      <h3>Perhimpunan dan Perarakan Maulud Nabi Muhammad SAW</h3>
+      <p>Warga Kementerian Pembangunan dan jabatan-jabatan di bawahnya menyertai Perhimpunan dan Perarakan Majlis Sambutan Maulud Nabi Muhammad Peringkat Negara bagi Tahun 1448 Hijrah.</p>
+      <button class="read-more" data-id="a55">Read full article →</button>
+    </div>
+    <div class="card" data-id="a56" data-org="MOD" data-date="2026-08-24" data-search="majlis dikir maulud di masjid kampung kilanas rombongan kementerian pembangunan meneruskan majlis dikir maulud di masjid kampung kilanas bagi menyambut sambutan maulud nabi muhammad saw. ministry of development (mod) 24 aug 2026 masjid kampung kilanas">
+      <span class="date">24 Aug 2026 · Masjid Kampung Kilanas</span>
+      <h3>Majlis Dikir Maulud di Masjid Kampung Kilanas</h3>
+      <p>Rombongan Kementerian Pembangunan meneruskan Majlis Dikir Maulud di Masjid Kampung Kilanas bagi menyambut Sambutan Maulud Nabi Muhammad SAW.</p>
+      <button class="read-more" data-id="a56">Read full article →</button>
+    </div>
+    <div class="card" data-id="a57" data-org="MOD" data-date="2026-08-08" data-search="situasi jerebu di negara brunei darussalam negara brunei darussalam mengalami keadaan berjerebu disebabkan titik panas akibat kebakaran hutan dan lahan di kepulauan borneo, ditiup angin perlahan dari barat daya. ministry of development (mod) 8 aug 2026 brunei darussalam">
+      <span class="date">8 Aug 2026 · Brunei Darussalam</span>
+      <h3>Situasi Jerebu di Negara Brunei Darussalam</h3>
+      <p>Negara Brunei Darussalam mengalami keadaan berjerebu disebabkan titik panas akibat kebakaran hutan dan lahan di kepulauan Borneo, ditiup angin perlahan dari Barat Daya.</p>
+      <button class="read-more" data-id="a57">Read full article →</button>
+    </div>
+    <div class="card" data-id="a58" data-org="MOD" data-date="2026-08-03" data-search="pelantikan setiausaha tetap kementerian pembangunan yang baharu menjunjung titah perintah kebawah duli yang maha mulia paduka seri baginda sultan, seorang setiausaha tetap baharu dilantik bagi kementerian pembangunan. ministry of development (mod) 3 aug 2026 kementerian pembangunan">
+      <span class="date">3 Aug 2026 · Kementerian Pembangunan</span>
+      <h3>Pelantikan Setiausaha Tetap Kementerian Pembangunan yang Baharu</h3>
+      <p>Menjunjung titah perintah Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan, seorang Setiausaha Tetap baharu dilantik bagi Kementerian Pembangunan.</p>
+      <button class="read-more" data-id="a58">Read full article →</button>
+    </div>
+    <div class="card" data-id="a59" data-org="MOD" data-date="2026-08-02" data-search="nbd sokong &#x27;ipoh accord&#x27;, perkukuhkan komitmen pembangunan mampan asean negara brunei darussalam menyertai negara-negara asean dan china dalam pemeteraian persetujuan &#x27;ipoh accord&#x27; sempena asean-ministerial roundtable on construction and housing 2026. ministry of development (mod) 2 aug 2026 malaysia">
+      <span class="date">2 Aug 2026 · Malaysia</span>
+      <h3>NBD Sokong &#x27;Ipoh Accord&#x27;, Perkukuhkan Komitmen Pembangunan Mampan ASEAN</h3>
+      <p>Negara Brunei Darussalam menyertai negara-negara ASEAN dan China dalam pemeteraian persetujuan &#x27;Ipoh Accord&#x27; sempena ASEAN-Ministerial Roundtable on Construction and Housing 2026.</p>
+      <button class="read-more" data-id="a59">Read full article →</button>
+    </div>
+    <div class="card" data-id="a60" data-org="MOD" data-date="2026-08-01" data-search="perpindahan pejabat jabatan tanah dan ibu pejabat jastre ke bangunan baharu pejabat jabatan tanah daerah brunei dan muara dan ibu pejabat jastre berpindah ke bangunan baharu, bekas bangunan telbru, berkuat kuasa 1 ogos 2026. ministry of development (mod) 1 aug 2026 brunei darussalam">
+      <span class="date">1 Aug 2026 · Brunei Darussalam</span>
+      <h3>Perpindahan Pejabat Jabatan Tanah dan Ibu Pejabat JASTRe ke Bangunan Baharu</h3>
+      <p>Pejabat Jabatan Tanah Daerah Brunei dan Muara dan Ibu Pejabat JASTRe berpindah ke bangunan baharu, bekas Bangunan TelBru, berkuat kuasa 1 Ogos 2026.</p>
+      <button class="read-more" data-id="a60">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MOD's most recently available releases. Visit the <a href="https://www.mod.gov.bn/berita-terkini/" target="_blank" rel="noopener">MOD news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="kkbs">
+  <div class="org-header">
+    <h2>Ministry of Culture, Youth and Sports (MCYS/KKBS)</h2>
+    <a class="source-link" href="https://www.kkbs.gov.bn/berita/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a61" data-org="KKBS" data-date="2026-08-27" data-search="kunjungan hormat daripada tunku temenggong kedah yang berhormat pengiran dato seri setia shamhary bin pengiran dato paduka haji mustapha menerima kunjungan hormat daripada tunku temenggong kedah. ministry of culture, youth and sports (mcys/kkbs) 27 aug 2026 bandar seri begawan">
+      <span class="date">27 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Kunjungan Hormat daripada Tunku Temenggong Kedah</h3>
+      <p>Yang Berhormat Pengiran Dato Seri Setia Shamhary bin Pengiran Dato Paduka Haji Mustapha menerima kunjungan hormat daripada Tunku Temenggong Kedah.</p>
+      <button class="read-more" data-id="a61">Read full article →</button>
+    </div>
+    <div class="card" data-id="a62" data-org="KKBS" data-date="2026-08-26" data-search="3,537 sertai majlis sambutan maulud nabi peringkat daerah tutong majlis sambutan maulud nabi muhammad sallallahu alaihi wasallam diadakan di daerah tutong dengan penyertaan seramai 3,537 orang. ministry of culture, youth and sports (mcys/kkbs) 26 aug 2026 tutong">
+      <span class="date">26 Aug 2026 · Tutong</span>
+      <h3>3,537 Sertai Majlis Sambutan Maulud Nabi Peringkat Daerah Tutong</h3>
+      <p>Majlis Sambutan Maulud Nabi Muhammad Sallallahu Alaihi Wasallam diadakan di Daerah Tutong dengan penyertaan seramai 3,537 orang.</p>
+      <button class="read-more" data-id="a62">Read full article →</button>
+    </div>
+    <div class="card" data-id="a63" data-org="KKBS" data-date="2026-08-26" data-search="majlis pelancaran projek rintis program khidmat bakti negara (pkbn) enam bulan seramai 28 orang belia, terdiri daripada 15 lelaki dan 13 perempuan berumur 20 hingga 25 tahun, menyertai pelancaran projek rintis pkbn enam bulan di temburong. ministry of culture, youth and sports (mcys/kkbs) 26 aug 2026 temburong">
+      <span class="date">26 Aug 2026 · Temburong</span>
+      <h3>Majlis Pelancaran Projek Rintis Program Khidmat Bakti Negara (PKBN) Enam Bulan</h3>
+      <p>Seramai 28 orang belia, terdiri daripada 15 lelaki dan 13 perempuan berumur 20 hingga 25 tahun, menyertai pelancaran Projek Rintis PKBN Enam Bulan di Temburong.</p>
+      <button class="read-more" data-id="a63">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers KKBS's most recently available releases. Visit the <a href="https://www.kkbs.gov.bn/berita/" target="_blank" rel="noopener">KKBS news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="moh">
+  <div class="org-header">
+    <h2>Ministry of Health (MOH)</h2>
+    <a class="source-link" href="https://moh.gov.bn/newsroom/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a64" data-org="MOH" data-date="2026-09-01" data-search="nasihat kesihatan semasa jerebu berikutan siaran akhbar bersama mengenai situasi jerebu di negara brunei darussalam, kementerian kesihatan mengeluarkan nasihat kesihatan kepada orang ramai. ministry of health (moh) 1 sep 2026 brunei darussalam">
+      <span class="date">1 Sep 2026 · Brunei Darussalam</span>
+      <h3>Nasihat Kesihatan Semasa Jerebu</h3>
+      <p>Berikutan Siaran Akhbar Bersama mengenai situasi jerebu di Negara Brunei Darussalam, Kementerian Kesihatan mengeluarkan nasihat kesihatan kepada orang ramai.</p>
+      <button class="read-more" data-id="a64">Read full article →</button>
+    </div>
+    <div class="card" data-id="a65" data-org="MOH" data-date="2026-08-29" data-search="majlis sambutan maulud nabi muhammad saw kementerian kesihatan 1448h/2026m jabatan perkhidmatan pergigian dan jabatan perkhidmatan kesihatan, kementerian kesihatan, menganjurkan majlis sambutan maulud nabi muhammad shallallahu alaihi wasallam. ministry of health (moh) 29 aug 2026 rimba">
+      <span class="date">29 Aug 2026 · Rimba</span>
+      <h3>Majlis Sambutan Maulud Nabi Muhammad SAW Kementerian Kesihatan 1448H/2026M</h3>
+      <p>Jabatan Perkhidmatan Pergigian dan Jabatan Perkhidmatan Kesihatan, Kementerian Kesihatan, menganjurkan Majlis Sambutan Maulud Nabi Muhammad Shallallahu Alaihi Wasallam.</p>
+      <button class="read-more" data-id="a65">Read full article →</button>
+    </div>
+    <div class="card" data-id="a66" data-org="MOH" data-date="2026-08-26" data-search="brunei darussalam national one health joint plan of action (nohjpa) workshop the ministry of health, through the brunei centre for disease control and prevention (brunei cdc), held the national one health joint plan of action workshop. ministry of health (moh) 26 aug 2026 jerudong">
+      <span class="date">26 Aug 2026 · Jerudong</span>
+      <h3>Brunei Darussalam National One Health Joint Plan of Action (NOHJPA) Workshop</h3>
+      <p>The Ministry of Health, through the Brunei Centre for Disease Control and Prevention (Brunei CDC), held the National One Health Joint Plan of Action Workshop.</p>
+      <button class="read-more" data-id="a66">Read full article →</button>
+    </div>
+    <div class="card" data-id="a67" data-org="MOH" data-date="2026-08-26" data-search="sambutan minggu penyusuan susu ibu sedunia 2026 bagi daerah temburong hospital pengiran muda mahkota pengiran muda haji al-muhtadee billah, tutong, mengadakan majlis sambutan minggu penyusuan susu ibu sedunia bagi daerah temburong. ministry of health (moh) 26 aug 2026 tutong">
+      <span class="date">26 Aug 2026 · Tutong</span>
+      <h3>Sambutan Minggu Penyusuan Susu Ibu Sedunia 2026 Bagi Daerah Temburong</h3>
+      <p>Hospital Pengiran Muda Mahkota Pengiran Muda Haji Al-Muhtadee Billah, Tutong, mengadakan Majlis Sambutan Minggu Penyusuan Susu Ibu Sedunia bagi Daerah Temburong.</p>
+      <button class="read-more" data-id="a67">Read full article →</button>
+    </div>
+    <div class="card" data-id="a68" data-org="MOH" data-date="2026-08-15" data-search="ripas hospital marks milestone with first robotic-assisted knee replacement surgery raja isteri pengiran anak saleha (ripas) hospital achieved a significant milestone with the successful completion of its first robotic-assisted knee replacement surgery. ministry of health (moh) aug 2026 ripas hospital">
+      <span class="date">Aug 2026 · RIPAS Hospital</span>
+      <h3>RIPAS Hospital Marks Milestone With First Robotic-Assisted Knee Replacement Surgery</h3>
+      <p>Raja Isteri Pengiran Anak Saleha (RIPAS) Hospital achieved a significant milestone with the successful completion of its first robotic-assisted knee replacement surgery.</p>
+      <button class="read-more" data-id="a68">Read full article →</button>
+    </div>
+    <div class="card" data-id="a69" data-org="MOH" data-date="2026-08-24" data-search="sambutan minggu penyusuan susu ibu sedunia 2026 bagi pmmpmhamb, tutong hospital pengiran muda mahkota pengiran muda haji al-muhtadee billah, tutong, mengadakan majlis sambutan minggu penyusuan susu ibu sedunia tahun 2026. ministry of health (moh) 24 aug 2026 tutong">
+      <span class="date">24 Aug 2026 · Tutong</span>
+      <h3>Sambutan Minggu Penyusuan Susu Ibu Sedunia 2026 Bagi PMMPMHAMB, Tutong</h3>
+      <p>Hospital Pengiran Muda Mahkota Pengiran Muda Haji Al-Muhtadee Billah, Tutong, mengadakan Majlis Sambutan Minggu Penyusuan Susu Ibu Sedunia Tahun 2026.</p>
+      <button class="read-more" data-id="a69">Read full article →</button>
+    </div>
+    <div class="card" data-id="a70" data-org="MOH" data-date="2026-08-18" data-search="sambutan minggu penyusuan susu ibu sedunia 2026 bagi hospital suri seri begawan minggu penyusuan susu ibu sedunia disambut di hospital suri seri begawan, kuala belait, sebagai aktiviti tahunan bulan ogos. ministry of health (moh) 18 aug 2026 kuala belait">
+      <span class="date">18 Aug 2026 · Kuala Belait</span>
+      <h3>Sambutan Minggu Penyusuan Susu Ibu Sedunia 2026 Bagi Hospital Suri Seri Begawan</h3>
+      <p>Minggu Penyusuan Susu Ibu Sedunia disambut di Hospital Suri Seri Begawan, Kuala Belait, sebagai aktiviti tahunan bulan Ogos.</p>
+      <button class="read-more" data-id="a70">Read full article →</button>
+    </div>
+    <div class="card" data-id="a71" data-org="MOH" data-date="2026-08-15" data-search="ministry of health advances controlled proof-of-concept for healthcare ai initiative evyd technology supports the ministry of health in the development and evaluation of an ai use case for healthcare. ministry of health (moh) aug 2026 brunei darussalam">
+      <span class="date">Aug 2026 · Brunei Darussalam</span>
+      <h3>Ministry of Health Advances Controlled Proof-of-Concept for Healthcare AI Initiative</h3>
+      <p>EVYD Technology supports the Ministry of Health in the development and evaluation of an AI use case for healthcare.</p>
+      <button class="read-more" data-id="a71">Read full article →</button>
+    </div>
+    <div class="card" data-id="a72" data-org="MOH" data-date="2026-07-28" data-search="mou exchange between ministry of health and faculty of medicine, kagawa university, japan kementerian kesihatan negara brunei darussalam dan fakulti perubatan, universiti kagawa, jepun mengadakan majlis pertukaran dokumen memorandum persefahaman (mou). ministry of health (moh) 28 jul 2026 brunei darussalam">
+      <span class="date">28 Jul 2026 · Brunei Darussalam</span>
+      <h3>MOU Exchange Between Ministry of Health and Faculty of Medicine, Kagawa University, Japan</h3>
+      <p>Kementerian Kesihatan Negara Brunei Darussalam dan Fakulti Perubatan, Universiti Kagawa, Jepun mengadakan Majlis Pertukaran Dokumen Memorandum Persefahaman (MOU).</p>
+      <button class="read-more" data-id="a72">Read full article →</button>
+    </div>
+    <div class="card" data-id="a73" data-org="MOH" data-date="2026-07-04" data-search="sambutan hari jururawat dan bidan antarabangsa 2026 bagi daerah belait hospital suri seri begawan, kuala belait mengadakan sambutan hari jururawat dan bidan antarabangsa bagi daerah belait. ministry of health (moh) 4 jul 2026 kuala belait">
+      <span class="date">4 Jul 2026 · Kuala Belait</span>
+      <h3>Sambutan Hari Jururawat dan Bidan Antarabangsa 2026 Bagi Daerah Belait</h3>
+      <p>Hospital Suri Seri Begawan, Kuala Belait mengadakan Sambutan Hari Jururawat dan Bidan Antarabangsa bagi Daerah Belait.</p>
+      <button class="read-more" data-id="a73">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MOH's most recently available releases. Visit the <a href="https://moh.gov.bn/newsroom/" target="_blank" rel="noopener">MOH news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mora">
+  <div class="org-header">
+    <h2>Ministry of Religious Affairs (MORA)</h2>
+    <a class="source-link" href="https://www.mora.gov.bn/SitePages/Semua%20Berita.aspx" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a74" data-org="MORA" data-date="2026-09-03" data-search="majlis perhimpunan khas wanita peringkat negara sempena sambutan maulud nabi muhammad saw 1448h yang teramat mulia paduka seri pengiran anak isteri pengiran anak sarah binti pengiran haji salleh ab rahaman berangkat ke majlis perhimpunan khas wanita peringkat negara di dewan royal berkshire, jerudong. ministry of religious affairs (mora) 3 sep 2026 jerudong">
+      <span class="date">3 Sep 2026 · Jerudong</span>
+      <h3>Majlis Perhimpunan Khas Wanita Peringkat Negara Sempena Sambutan Maulud Nabi Muhammad SAW 1448H</h3>
+      <p>Yang Teramat Mulia Paduka Seri Pengiran Anak Isteri Pengiran Anak Sarah binti Pengiran Haji Salleh Ab Rahaman berangkat ke Majlis Perhimpunan Khas Wanita Peringkat Negara di Dewan Royal…</p>
+      <button class="read-more" data-id="a74">Read full article →</button>
+    </div>
+    <div class="card" data-id="a75" data-org="MORA" data-date="2026-09-02" data-search="haflut takharruj kali ke-14 institut tahfiz al-quran sultan haji hassanal bolkiah 1448h/2026m duli yang teramat mulia paduka seri pengiran muda mahkota pengiran muda (dr) haji al-muhtadee billah menyempurnakan pengurniaan syahadah diploma di majlis konvokesyen ke-14 itqshhb. ministry of religious affairs (mora) 2 sep 2026 berakas">
+      <span class="date">2 Sep 2026 · Berakas</span>
+      <h3>Haflut Takharruj Kali Ke-14 Institut Tahfiz Al-Quran Sultan Haji Hassanal Bolkiah 1448H/2026M</h3>
+      <p>Duli Yang Teramat Mulia Paduka Seri Pengiran Muda Mahkota Pengiran Muda (Dr) Haji Al-Muhtadee Billah menyempurnakan pengurniaan Syahadah Diploma di Majlis Konvokesyen Ke-14 ITQSHHB.</p>
+      <button class="read-more" data-id="a75">Read full article →</button>
+    </div>
+    <div class="card" data-id="a76" data-org="MORA" data-date="2026-09-01" data-search="program kembara da&#x27;wah dan umrah belia da&#x27;ie 2026 badan sukarelawan belia da&#x27;ie, dengan sokongan pusat da&#x27;wah islamiah, mengadakan kembara da&#x27;wah dan umrah belia da&#x27;ie 2026 selama 15 hari, bermula perjalanan ke kuala lumpur dan taif. ministry of religious affairs (mora) 1 sep 2026 berakas">
+      <span class="date">1 Sep 2026 · Berakas</span>
+      <h3>Program Kembara Da&#x27;wah dan Umrah Belia Da&#x27;ie 2026</h3>
+      <p>Badan Sukarelawan Belia Da&#x27;ie, dengan sokongan Pusat Da&#x27;wah Islamiah, mengadakan Kembara Da&#x27;wah dan Umrah Belia Da&#x27;ie 2026 selama 15 hari, bermula perjalanan ke Kuala Lumpur dan Taif.</p>
+      <button class="read-more" data-id="a76">Read full article →</button>
+    </div>
+    <div class="card" data-id="a77" data-org="MORA" data-date="2026-09-01" data-search="program workplace and health (wah) bagi warga kementerian hal ehwal ugama unit kesihatan, keselamatan, kawalan keselamatan dan alam sekitar (hsse) kheu, dengan kerjasama pusat da&#x27;wah islamiah, mengadakan program workplace and health bagi warga kheu. ministry of religious affairs (mora) 1 sep 2026 berakas">
+      <span class="date">1 Sep 2026 · Berakas</span>
+      <h3>Program Workplace and Health (WAH) Bagi Warga Kementerian Hal Ehwal Ugama</h3>
+      <p>Unit Kesihatan, Keselamatan, Kawalan Keselamatan dan Alam Sekitar (HSSE) KHEU, dengan kerjasama Pusat Da&#x27;wah Islamiah, mengadakan Program Workplace and Health bagi warga KHEU.</p>
+      <button class="read-more" data-id="a77">Read full article →</button>
+    </div>
+    <div class="card" data-id="a78" data-org="MORA" data-date="2026-09-01" data-search="zahirkan cinta dan rindu kepada baginda rasulullah saw dengan berselawat bahagian hal ehwal muslimah, jabatan hal ehwal masjid, dengan kerjasama pejabat ugama daerah belait, mengadakan majlis berselawat sempena sambutan ihya maulidur rasulullah saw. ministry of religious affairs (mora) 1 sep 2026 belait">
+      <span class="date">1 Sep 2026 · Belait</span>
+      <h3>Zahirkan Cinta dan Rindu Kepada Baginda Rasulullah SAW Dengan Berselawat</h3>
+      <p>Bahagian Hal Ehwal Muslimah, Jabatan Hal Ehwal Masjid, dengan kerjasama Pejabat Ugama Daerah Belait, mengadakan Majlis Berselawat sempena Sambutan Ihya Maulidur Rasulullah SAW.</p>
+      <button class="read-more" data-id="a78">Read full article →</button>
+    </div>
+    <div class="card" data-id="a79" data-org="MORA" data-date="2026-08-31" data-search="majlis doa kesyukuran bagi penganugerahan biasiswa kheu sesi 2026/2027 jabatan pengajian islam, kheu, mengadakan majlis doa kesyukuran bagi penganugerahan biasiswa kheu sesi akademik 2026/2027 kepada 29 orang pelajar. ministry of religious affairs (mora) 31 aug 2026 berakas">
+      <span class="date">31 Aug 2026 · Berakas</span>
+      <h3>Majlis Doa Kesyukuran Bagi Penganugerahan Biasiswa KHEU Sesi 2026/2027</h3>
+      <p>Jabatan Pengajian Islam, KHEU, mengadakan Majlis Doa Kesyukuran bagi penganugerahan Biasiswa KHEU Sesi Akademik 2026/2027 kepada 29 orang pelajar.</p>
+      <button class="read-more" data-id="a79">Read full article →</button>
+    </div>
+    <div class="card" data-id="a80" data-org="MORA" data-date="2026-08-31" data-search="majlis haflut takharruj dan penghargaan pelajar cemerlang sekolah arab sultan haji hassanal bolkiah 1447h/2025m seramai 210 orang pelajar diraikan dalam majlis haflut takharruj dan penghargaan pelajar cemerlang sekolah arab sultan haji hassanal bolkiah bagi tahun 10 dan tahun 11. ministry of religious affairs (mora) 31 aug 2026 rimba">
+      <span class="date">31 Aug 2026 · Rimba</span>
+      <h3>Majlis Haflut Takharruj dan Penghargaan Pelajar Cemerlang Sekolah Arab Sultan Haji Hassanal Bolkiah 1447H/2025M</h3>
+      <p>Seramai 210 orang pelajar diraikan dalam Majlis Haflut Takharruj dan Penghargaan Pelajar Cemerlang Sekolah Arab Sultan Haji Hassanal Bolkiah bagi Tahun 10 dan Tahun 11.</p>
+      <button class="read-more" data-id="a80">Read full article →</button>
+    </div>
+    <div class="card" data-id="a81" data-org="MORA" data-date="2026-08-29" data-search="malam munajat anjuran kheu kali ke-244 kementerian hal ehwal ugama menganjurkan malam munajat buat kali ke-244 bagi menghidupkan sunnah rasulullah saw. ministry of religious affairs (mora) 29 aug 2026 brunei darussalam">
+      <span class="date">29 Aug 2026 · Brunei Darussalam</span>
+      <h3>Malam Munajat Anjuran KHEU Kali Ke-244</h3>
+      <p>Kementerian Hal Ehwal Ugama menganjurkan Malam Munajat buat kali ke-244 bagi menghidupkan sunnah Rasulullah SAW.</p>
+      <button class="read-more" data-id="a81">Read full article →</button>
+    </div>
+    <div class="card" data-id="a82" data-org="MORA" data-date="2026-08-29" data-search="ceramah perdana sambutan jubli intan masjid hassanal bolkiah pekan tutong sempena sambutan jubli intan ke-60 masjid hassanal bolkiah pekan tutong, majlis ceramah perdana diadakan di dewan solat utama masjid berkenaan. ministry of religious affairs (mora) 29 aug 2026 tutong">
+      <span class="date">29 Aug 2026 · Tutong</span>
+      <h3>Ceramah Perdana Sambutan Jubli Intan Masjid Hassanal Bolkiah Pekan Tutong</h3>
+      <p>Sempena Sambutan Jubli Intan Ke-60 Masjid Hassanal Bolkiah Pekan Tutong, Majlis Ceramah Perdana diadakan di Dewan Solat Utama masjid berkenaan.</p>
+      <button class="read-more" data-id="a82">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MORA's most recently available releases. Visit the <a href="https://www.mora.gov.bn/SitePages/Semua%20Berita.aspx" target="_blank" rel="noopener">MORA news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="mtic">
+  <div class="org-header">
+    <h2>Ministry of Transport and Infocommunications (MTIC)</h2>
+    <a class="source-link" href="https://www.mtic.gov.bn/SitePages/News.aspx" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a83" data-org="MTIC" data-date="2026-03-02" data-search="majlis membaca surah yassin dan tahlil di kubah makam diraja bagi mtic 1447h/2026m kementerian pengangkutan dan infokomunikasi serta jabatan-jabatan, autoriti dan pihak berkuasa di bawahnya mengadakan majlis membaca surah yasin dan bertahlil di kubah makam diraja. ministry of transport and infocommunications (mtic) 2 mar 2026 kubah makam diraja">
+      <span class="date">2 Mar 2026 · Kubah Makam Diraja</span>
+      <h3>Majlis Membaca Surah Yassin dan Tahlil Di Kubah Makam Diraja bagi MTIC 1447H/2026M</h3>
+      <p>Kementerian Pengangkutan dan Infokomunikasi serta jabatan-jabatan, autoriti dan pihak berkuasa di bawahnya mengadakan Majlis Membaca Surah Yasin dan Bertahlil di Kubah Makam Diraja.</p>
+      <button class="read-more" data-id="a83">Read full article →</button>
+    </div>
+    <div class="card" data-id="a84" data-org="MTIC" data-date="2026-02-24" data-search="majlis pembukaan tadarus al-quran sempena ramadhan 1447h/2026m bagi mtic mtic serta jabatan-jabatan, autoriti dan pihak berkuasa di bawahnya mengadakan majlis pembukaan tadarus al-quran sempena bulan ramadhan di surau ltab. ministry of transport and infocommunications (mtic) 24 feb 2026 lapangan terbang antarabangsa brunei">
+      <span class="date">24 Feb 2026 · Lapangan Terbang Antarabangsa Brunei</span>
+      <h3>Majlis Pembukaan Tadarus Al-Quran Sempena Ramadhan 1447H/2026M bagi MTIC</h3>
+      <p>MTIC serta jabatan-jabatan, autoriti dan pihak berkuasa di bawahnya mengadakan Majlis Pembukaan Tadarus Al-Quran sempena bulan Ramadhan di Surau LTAB.</p>
+      <button class="read-more" data-id="a84">Read full article →</button>
+    </div>
+    <div class="card" data-id="a85" data-org="MTIC" data-date="2026-02-12" data-search="second oic conference of transport ministers (oicctm) brunei darussalam participated in the second oic conference of transport ministers under the theme &#x27;strengthening transport connectivity to deepen fraternity among oic member states&#x27;. ministry of transport and infocommunications (mtic) 12 feb 2026 istanbul, türkiye">
+      <span class="date">12 Feb 2026 · Istanbul, Türkiye</span>
+      <h3>Second OIC Conference of Transport Ministers (OICCTM)</h3>
+      <p>Brunei Darussalam participated in the Second OIC Conference of Transport Ministers under the theme &#x27;Strengthening Transport Connectivity to Deepen Fraternity among OIC Member States&#x27;.</p>
+      <button class="read-more" data-id="a85">Read full article →</button>
+    </div>
+    <div class="card" data-id="a86" data-org="MTIC" data-date="2026-02-05" data-search="mtic organised isra&#x27; and mi&#x27;raj ceremony 1447h/2026m mtic, together with its departments and regulatory agencies, held a ceremony to celebrate isra&#x27; and mi&#x27;raj 1447h/2026m, organised by aiti. ministry of transport and infocommunications (mtic) 5 feb 2026 amar pahlawan hall, mtic">
+      <span class="date">5 Feb 2026 · Amar Pahlawan Hall, MTIC</span>
+      <h3>MTIC Organised Isra&#x27; and Mi&#x27;raj Ceremony 1447H/2026M</h3>
+      <p>MTIC, together with its departments and regulatory agencies, held a ceremony to celebrate Isra&#x27; and Mi&#x27;raj 1447H/2026M, organised by AITI.</p>
+      <button class="read-more" data-id="a86">Read full article →</button>
+    </div>
+    <div class="card" data-id="a87" data-org="MTIC" data-date="2026-01-29" data-search="sesi perjumpaan muhibah mtic bersama ahli-ahli majlis mesyuarat negara sesi perjumpaan muhibah antara mtic bersama ahli-ahli majlis mesyuarat negara (mmn) diadakan di dewan amar pahlawan, bangunan mtic. ministry of transport and infocommunications (mtic) 29 jan 2026 dewan amar pahlawan, mtic">
+      <span class="date">29 Jan 2026 · Dewan Amar Pahlawan, MTIC</span>
+      <h3>Sesi Perjumpaan Muhibah MTIC Bersama Ahli-Ahli Majlis Mesyuarat Negara</h3>
+      <p>Sesi Perjumpaan Muhibah antara MTIC bersama Ahli-Ahli Majlis Mesyuarat Negara (MMN) diadakan di Dewan Amar Pahlawan, Bangunan MTIC.</p>
+      <button class="read-more" data-id="a87">Read full article →</button>
+    </div>
+    <div class="card" data-id="a88" data-org="MTIC" data-date="2026-01-18" data-search="the 6th asean digital ministers&#x27; meeting (adgmin) and related meetings minister of transport and infocommunications led brunei&#x27;s delegation to the 6th asean digital ministers&#x27; meeting and related meetings in ha noi, viet nam. ministry of transport and infocommunications (mtic) 18 jan 2026 ha noi, viet nam">
+      <span class="date">18 Jan 2026 · Ha Noi, Viet Nam</span>
+      <h3>The 6th ASEAN Digital Ministers&#x27; Meeting (ADGMIN) and Related Meetings</h3>
+      <p>Minister of Transport and Infocommunications led Brunei&#x27;s delegation to the 6th ASEAN Digital Ministers&#x27; Meeting and Related Meetings in Ha Noi, Viet Nam.</p>
+      <button class="read-more" data-id="a88">Read full article →</button>
+    </div>
+    <div class="card" data-id="a89" data-org="MTIC" data-date="2026-01-03" data-search="launch of bruneiid as the national digital identity of brunei darussalam moha and mtic introduced bruneiid, a national digital identity system functioning as an electronic form of personal identification for individuals. ministry of transport and infocommunications (mtic) 3 jan 2026 brunei darussalam">
+      <span class="date">3 Jan 2026 · Brunei Darussalam</span>
+      <h3>Launch of BruneiID as the National Digital Identity of Brunei Darussalam</h3>
+      <p>MOHA and MTIC introduced BruneiID, a national digital identity system functioning as an electronic form of personal identification for individuals.</p>
+      <button class="read-more" data-id="a89">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">This compilation covers MTIC's most recently available releases. Visit the <a href="https://www.mtic.gov.bn/SitePages/News.aspx" target="_blank" rel="noopener">MTIC news page ↗</a> for the full archive and anything published after this snapshot.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+<div id="noResults">No articles match your search.</div>
+</main>
+
+<footer>
+  Compiled from official Brunei Government ministry sources. For the very latest, visit each ministry's news page directly.<br>
+  <a href="https://www.pmo.gov.bn/1149-2/" target="_blank" rel="noopener">PMO</a> · <a href="https://www.mofe.gov.bn/mofe_news/" target="_blank" rel="noopener">MOFE</a> · <a href="https://www.mindef.gov.bn/news/" target="_blank" rel="noopener">MINDEF</a> · <a href="https://www.mfa.gov.bn/pages/PressRoom.aspx?archive=1" target="_blank" rel="noopener">MFA</a> · <a href="https://www.moha.gov.bn/" target="_blank" rel="noopener">MOHA</a> · <a href="https://www.moe.gov.bn/SitePages/News.aspx" target="_blank" rel="noopener">MOE</a> · <a href="http://www.mprt.gov.bn/SitePages/Press%20Releases.aspx" target="_blank" rel="noopener">MPRT</a> · <a href="https://www.mod.gov.bn/berita-terkini/" target="_blank" rel="noopener">MOD</a> · <a href="https://www.kkbs.gov.bn/berita/" target="_blank" rel="noopener">KKBS</a> · <a href="https://moh.gov.bn/newsroom/" target="_blank" rel="noopener">MOH</a> · <a href="https://www.mora.gov.bn/SitePages/Semua%20Berita.aspx" target="_blank" rel="noopener">MORA</a> · <a href="https://www.mtic.gov.bn/SitePages/News.aspx" target="_blank" rel="noopener">MTIC</a>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <span class="modal-org" id="modalOrg"></span>
+    <h2 id="modalTitle"></h2>
+    <div class="modal-date" id="modalDate"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-note">This is the fullest official excerpt available from the source site. For the complete original article (additional photos, quotes, etc.), open the link below.</div>
+    <a class="modal-link" id="modalLink" href="#" target="_blank" rel="noopener">Open original on source site ↗</a>
+  </div>
+</div>
+
+<script>
+const ARTICLES = [{"id": "a0", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "His Majesty received in audience Philippine Chief Justice", "date": "31 Aug 2026", "iso": "2026-08-31", "loc": "Bandar Seri Begawan", "url": "https://www.pmo.gov.bn/his-majesty-received-in-audience-philippine-chief-justice/", "body": "His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien, Sultan and Yang Di-Pertuan of Brunei Darussalam, on Monday afternoon, received in audience Chief Justice of the Supreme Court of the Philippines."}, {"id": "a1", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "Security cooperation reaffirmed", "date": "30 Aug 2026", "iso": "2026-08-30", "loc": "Russian Federation", "url": "https://www.pmo.gov.bn/security-cooperation-reaffirmed/", "body": "Coordinating Minister for National Security, Minister at the Prime Minister's Office and Minister of Defence II Pehin Datu Lailaraja Major General (Rtd) Dato Paduka Seri Awang Haji Halbi bin Haji Mohd Yussof made a working visit to the Russian Federation to reaffirm security cooperation."}, {"id": "a2", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "Luncheon in Conjunction with the 27th Annual Leaders' Consultation Between Brunei Darussalam and Malaysia", "date": "22 Aug 2026", "iso": "2026-08-22", "loc": "Istana Nurul Iman", "url": "https://www.pmo.gov.bn/luncheon-in-conjunction-with-the-27th-annual-leaders-consultation-between-brunei-darussalam-and-malaysia/", "body": "In conjunction with the 27th Annual Leaders' Consultation between Brunei Darussalam and Malaysia, a Luncheon was held at Baitur Rahmah, Istana Nurul Iman, beginning with the recitation of a Doa Selamat."}, {"id": "a3", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "His Majesty and the Prime Minister of Malaysia together witness the Signing Ceremony of the MoU", "date": "22 Aug 2026", "iso": "2026-08-22", "loc": "Istana Nurul Iman", "url": "https://www.pmo.gov.bn/his-majesty-and-the-prime-minister-of-malaysia-together-witness-the-signing-ceremony-of-the-mou/", "body": "His Majesty the Sultan and Yang Di-Pertuan of Brunei Darussalam and the Prime Minister of Malaysia proceeded to Baitul Mesyuarah to witness the Signing Ceremony of a Memorandum of Understanding between the two governments."}, {"id": "a4", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "His Majesty and the Prime Minister of Malaysia held a Four-Eyes Meeting", "date": "22 Aug 2026", "iso": "2026-08-22", "loc": "Istana Nurul Iman", "url": "https://www.pmo.gov.bn/his-majesty-and-the-prime-minister-of-malaysia-held-a-four-eyes-meeting/", "body": "After the Audience Ceremony, His Majesty and the Prime Minister of Malaysia held a Four-Eyes Meeting discussing several key sectors to further deepen strategic and bilateral cooperation."}, {"id": "a5", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "His Majesty received in audience the Prime Minister of Malaysia", "date": "22 Aug 2026", "iso": "2026-08-22", "loc": "Istana Nurul Iman", "url": "https://www.pmo.gov.bn/his-majesty-received-in-audience-the-prime-minister-of-malaysia/", "body": "His Majesty received the Prime Minister of Malaysia for the Audience Ceremony at Cheradi Laila Kenchana, Istana Nurul Iman, attended by members of the Royal Family and the Malaysian delegation."}, {"id": "a6", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "Islamic heritage showcased to commemorate Prophet's birth", "date": "15 Aug 2026", "iso": "2026-08-15", "loc": "Bandar Seri Begawan", "url": "https://www.pmo.gov.bn/islamic-heritage-showcased-to-commemorate-prophets-birth/", "body": "Members of the public will have the opportunity to learn about a valuable treasure of Islamic heritage preserved at the Balai Khazanah Islam Sultan Haji Hassanal Bolkiah (BKISHHB), following the opening of the Sacred Hair of Prophet Muhammad exhibit."}, {"id": "a7", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "Royalty conclude official visit to Australia", "date": "15 Aug 2026", "iso": "2026-08-15", "loc": "Australia", "url": "https://www.pmo.gov.bn/royalty-conclude-official-visit-to-australia/", "body": "His Royal Highness Prince Haji Al-Muhtadee Billah, the Crown Prince and Senior Minister at the Prime Minister's Office, and Her Royal Highness Paduka Seri Pengiran Anak Isteri Pengiran Anak Sarah concluded their official visit to Australia."}, {"id": "a8", "org": "PMO", "orgId": "pmo", "orgName": "Prime Minister's Office (PMO)", "title": "His Majesty received in audience outgoing Ambassador of Myanmar", "date": "15 Aug 2026", "iso": "2026-08-15", "loc": "Bandar Seri Begawan", "url": "https://www.pmo.gov.bn/his-majesty-receives-in-audience-outgoing-ambassador/", "body": "His Majesty Sultan Haji Hassanal Bolkiah, on Saturday afternoon, received in audience the outgoing Ambassador of Myanmar to Brunei."}, {"id": "a9", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Majlis Persembahan Dikir Syarafil Anam Sempena Sambutan Maulud Nabi Muhammad SAW 1448/2026 (II)", "date": "20 Aug 2026", "iso": "2026-08-20", "loc": "Bandar Seri Begawan", "url": "https://www.mofe.gov.bn/2026/08/20/pr_20082026_dikirmaulud/", "body": "Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Majlis Persembahan Dikir Syarafil Anam sempena Sambutan Maulud Nabi Muhammad Sallallahu Alaihi Wasallam bagi Tahun 1448 Hijrah pada 20 Ogos 2026."}, {"id": "a10", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Majlis Persembahan Dikir Syarafil Anam Sempena Sambutan Maulud Nabi Muhammad SAW", "date": "14 Aug 2026", "iso": "2026-08-14", "loc": "Bandar Seri Begawan", "url": "https://www.mofe.gov.bn/2026/08/14/pr_14082026_majlispersembahandikir/", "body": "Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Majlis Persembahan Dikir Syarafil Anam sempena Sambutan Maulud Nabi Muhammad Sallallahu Alaihi Wasallam bagi Tahun 1448 Hijrah pada 14 Ogos 2026."}, {"id": "a11", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Walkathon 2026 bagi Warga Kementerian Kewangan serta Jabatan-Jabatan di Dalamnya", "date": "12 Aug 2026", "iso": "2026-08-12", "loc": "Ministry of Finance", "url": "https://www.mofe.gov.bn/2026/08/12/pr_12082026_walkathon2026/", "body": "Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Walkathon 2026 bermula di kawasan letak kereta VIP, Kementerian Kewangan, mengelilingi Taman Rekreasi Jalan Menteri Besar."}, {"id": "a12", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Brunei Darussalam Capital Market Development Seminar Series: An Introduction to Sukuk Issuance", "date": "12 Aug 2026", "iso": "2026-08-12", "loc": "The Empire Brunei", "url": "https://www.mofe.gov.bn/2026/08/12/pr_12082026_sukukissuance/", "body": "Credit Guarantee and Investment Facility (CGIF), a trust fund of the Asian Development Bank, in collaboration with Bank Islam Brunei Darussalam and the International Capital Market Association, organized a seminar on Sukuk issuance."}, {"id": "a13", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Contract Signing Between Piper Aircraft, Inc. and Alpha Aviation Group", "date": "5 Aug 2026", "iso": "2026-08-05", "loc": "Ministry of Finance", "url": "https://www.mofe.gov.bn/2026/08/05/pr_05082026_sdcfund/", "body": "Piper Aircraft, Inc. and Alpha Aviation Group (AAG) have signed a contract for the acquisition of six Piper training aircraft, with delivery scheduled within this year."}, {"id": "a14", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "2026 Asia/Pacific Group on Money Laundering Annual Meeting and Technical Assistance Forum", "date": "30 Jul 2026", "iso": "2026-07-30", "loc": "The Empire Hotel", "url": "https://www.mofe.gov.bn/2026/07/30/pr_31072026_2026apgannualmeeting/", "body": "The Ministry of Finance, in collaboration with Brunei Darussalam Central Bank, organised the 2026 Asia/Pacific Group on Money Laundering Annual Meeting and Technical Assistance Forum from 27 to 31 July 2026."}, {"id": "a15", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Taklimat Pencegahan Scam bagi Pegawai dan Kakitangan Kementerian Kewangan", "date": "23 Jul 2026", "iso": "2026-07-23", "loc": "Ministry of Finance", "url": "https://www.mofe.gov.bn/2026/07/23/pr_23072026_taklimatscam/", "body": "Jabatan Perbendaharaan, Kementerian Kewangan, telah menjemput Pasukan Polis Diraja Brunei untuk menyampaikan Taklimat Pencegahan Scam bertempat di Dewan Teater, Bangunan Kementerian Kewangan."}, {"id": "a16", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Majlis Doa Kesyukuran Sempena Ulang Tahun Hari Keputeraan Sultan Ke-80", "date": "16 Jul 2026", "iso": "2026-07-16", "loc": "Ministry of Finance", "url": "https://www.mofe.gov.bn/2026/07/16/pr_16072026_majlisdoakesyukuran/", "body": "Kementerian Kewangan serta Jabatan-Jabatan di dalamnya telah mengadakan Majlis Doa Kesyukuran sempena Ulang Tahun Hari Keputeraan Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan yang ke-80 tahun."}, {"id": "a17", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "Roadshow on Accounting Profession", "date": "8 Jul 2026", "iso": "2026-07-08", "loc": "Tutong Sixth Form Centre", "url": "https://www.mofe.gov.bn/2026/07/08/pr_08072026_accountingprofessionroadshow/", "body": "The Ministry of Finance, in collaboration with the Brunei Darussalam Institute of Certified Public Accountants, held a Roadshow on Accounting Profession at the Lecture Theatre Trustworthy, Tutong Sixth Form Centre."}, {"id": "a18", "org": "MOFE", "orgId": "mofe", "orgName": "Ministry of Finance and Economy (MOFE)", "title": "World Customs Organisation (WCO) 147th/148th Council Sessions", "date": "30 Jun 2026", "iso": "2026-06-30", "loc": "Ministry of Finance", "url": "https://www.mofe.gov.bn/2026/06/30/pr_30062026_147th-148thwco/", "body": "Acting Controller of Customs, along with senior officers from the Royal Customs and Excise Department, attended the 147th/148th Sessions of the World Customs Organization Council."}, {"id": "a19", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Defence White Paper Update 2026 Briefing", "date": "31 Aug 2026", "iso": "2026-08-31", "loc": "Berakas Garrison", "url": "https://www.mindef.gov.bn/defence-white-paper-update-2026-briefing-2/", "body": "The Ministry of Defence held a Defence White Paper Update 2026 (DWPU 2026) briefing for officers and warrant officers of the Royal Brunei Armed Forces (RBAF)."}, {"id": "a20", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "His Majesty Bestows State Decoration to Ministry of Defence Officers", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Bandar Seri Begawan", "url": "https://www.mindef.gov.bn/his-majesty-the-sultan-and-yang-di-pertuan-of-brunei-darussalam-bestows-state-decoration-to-ministry-of-defence-officers/", "body": "His Majesty the Sultan has graciously consented to bestow a state decoration upon Ministry of Defence officers in recognition of their dedicated service."}, {"id": "a21", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Commander RBAF Receives Courtesy Call from C-in-C Royal Thai Air Force", "date": "26 Aug 2026", "iso": "2026-08-26", "loc": "Bolkiah Garrison", "url": "https://www.mindef.gov.bn/commander-of-the-royal-brunei-armed-forces-receives-courtesy-call-from-commander-in-chief-of-the-royal-thai-air-force/", "body": "Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the RBAF, received a courtesy call from Air Chief Marshal Sakesan Kantha, Commander-in-Chief of the Royal Thai Air Force."}, {"id": "a22", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Passing-Out Parade Ceremony for Male Recruits of the 180th Intake", "date": "21 Aug 2026", "iso": "2026-08-21", "loc": "Penanjong Garrison", "url": "https://www.mindef.gov.bn/passing-out-parade-ceremony-for-male-recruits-of-the-180th-intake-of-the-royal-brunei-armed-forces/", "body": "194 male recruits from the 180th Intake of the RBAF successfully completed their Basic Military Training during a Passing-Out Parade Ceremony at Training Institute RBAF."}, {"id": "a23", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "His Majesty Graces the Parade Ceremony of the Special Forces Regiment, RBAF Golden Jubilee", "date": "19 Aug 2026", "iso": "2026-08-19", "loc": "Penanjong Garrison", "url": "https://www.mindef.gov.bn/his-majesty-the-sultan-and-yang-di-pertuan-of-brunei-darussalam-graces-the-parade-ceremony-of-the-special-forces-regiment-royal-brunei-armed-forces-golden-jubilee-celebration/", "body": "His Majesty the Sultan graced the Parade Ceremony of the Special Forces Regiment in conjunction with the RBAF's Golden Jubilee celebration."}, {"id": "a24", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Joint Statement on the 27th Annual Leaders' Consultation Between Brunei Darussalam and Malaysia", "date": "22 Aug 2026", "iso": "2026-08-22", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1229", "body": "A joint statement was issued following the 27th Annual Leaders' Consultation between Brunei Darussalam and Malaysia."}, {"id": "a25", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Salam Maulidur Rasul 1448/2026", "date": "24 Aug 2026", "iso": "2026-08-24", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/News%20Headlines/NDispForm.aspx?ID=326&Source=/Lists/News%20Headlines/News%20Highlights.aspx", "body": "The Ministry of Foreign Affairs extends greetings for Maulidur Rasul 1448 Hijrah/2026 Masehi."}, {"id": "a26", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Prince 'Abdul Mateen Attends the 27th ASEAN Plus Three Foreign Ministers' Meeting, 33rd ARF & 16th EAS Foreign Ministers' Meeting", "date": "23 Jul 2026", "iso": "2026-07-23", "loc": "Manila, Philippines", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1228", "body": "His Royal Highness Prince 'Abdul Mateen, Minister of Foreign Affairs, attended the 27th ASEAN Plus Three Foreign Ministers' Meeting, the 33rd ASEAN Regional Forum, and the 16th East Asia Summit Foreign Ministers' Meeting in Manila."}, {"id": "a27", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Prince 'Abdul Mateen Attends the ASEAN Post-Ministerial Conference Sessions with Dialogue Partners", "date": "22 Jul 2026", "iso": "2026-07-22", "loc": "Manila, Philippines", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1227", "body": "His Royal Highness Prince 'Abdul Mateen, Minister of Foreign Affairs, attended the ASEAN Post-Ministerial Conference sessions with Dialogue Partners in Manila."}, {"id": "a28", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Prince 'Abdul Mateen Attends the 59th ASEAN Foreign Ministers' Meeting", "date": "21 Jul 2026", "iso": "2026-07-21", "loc": "Manila, Philippines", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1226", "body": "His Royal Highness Prince 'Abdul Mateen, Minister of Foreign Affairs of Brunei Darussalam, attended the 59th ASEAN Foreign Ministers' Meeting in Manila."}, {"id": "a29", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "The Signing of the Joint Communiqué Between Brunei Darussalam and the Royal Government of Bhutan to Establish Diplomatic Relations", "date": "14 Jul 2026", "iso": "2026-07-14", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1225", "body": "The Government of His Majesty the Sultan and the Royal Government of Bhutan signed a Joint Communiqué to establish diplomatic relations."}, {"id": "a30", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Prince 'Abdul Mateen Hosts a Farewell Luncheon for Outgoing Ambassador of the Philippines", "date": "14 Jul 2026", "iso": "2026-07-14", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/News%20Headlines/NDispForm.aspx?ID=320&Source=/Lists/News%20Headlines/News%20Highlights.aspx", "body": "His Royal Highness Prince 'Abdul Mateen, Minister of Foreign Affairs, hosted a farewell luncheon for the outgoing Ambassador of the Republic of the Philippines."}, {"id": "a31", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Brunei Darussalam's Statement on the Recent Developments in the Middle East", "date": "16 Jun 2026", "iso": "2026-06-16", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1223", "body": "Brunei Darussalam issued a statement on recent developments in the Middle East."}, {"id": "a32", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Prince 'Abdul Mateen Receives the Outgoing Ambassador of the United States of America", "date": "20 Jun 2026", "iso": "2026-06-20", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/News%20Headlines/NDispForm.aspx?ID=319&Source=/Lists/News%20Headlines/News%20Highlights.aspx", "body": "His Royal Highness Prince 'Abdul Mateen, Minister of Foreign Affairs, received the outgoing Ambassador of the United States of America."}, {"id": "a33", "org": "MFA", "orgId": "mfa", "orgName": "Ministry of Foreign Affairs (MFA)", "title": "Brunei Darussalam's Statement on the Recent Developments in the Middle East", "date": "3 Jun 2026", "iso": "2026-06-03", "loc": "Bandar Seri Begawan", "url": "https://www.mfa.gov.bn/Lists/Press%20Room/news.aspx?id=1220", "body": "Brunei Darussalam issued a further statement on recent developments in the Middle East."}, {"id": "a34", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Kursus Conflict Management and Negotiations Strategies (Sesi Kedua)", "date": "1 Sep 2026", "iso": "2026-09-01", "loc": "Jabatan Daerah Brunei dan Muara", "url": "https://www.moha.gov.bn/", "body": "Kursus bagi Pegawai dan Kakitangan KHEDN dan jabatan-jabatan di bawahnya diteruskan bagi sesi kedua selama tiga hari pada 31 Ogos, 1 dan 2 September 2026, dihadiri 23 orang pegawai dan kakitangan Bahagian II dan III, disampaikan oleh Dr Kamril Abdul Karim dari Malaysia."}, {"id": "a35", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Kursus Conflict Management and Negotiations Strategies (Sesi Pertama)", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Jabatan Daerah Brunei dan Muara", "url": "https://www.moha.gov.bn/", "body": "Kursus bagi Pegawai dan Kakitangan KHEDN dan jabatan-jabatan di bawahnya diadakan selama tiga hari pada 26, 27 dan 29 Ogos 2026, dihadiri 22 orang pegawai dan kakitangan Bahagian II."}, {"id": "a36", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Lawatan Menteri Hal Ehwal Dalam Negeri ke Persidangan dan Pameran Milipol TechX 2026, Republik Singapura", "date": "Aug 2026", "iso": "2026-08-15", "loc": "Singapore", "url": "https://www.moha.gov.bn/lawatan-yang-berhormat-menteri-hal-ehwal-dalam-negeri-ke-persidangan-dan-pameran-milipol-techx-2026-republik-singapura/", "body": "Yang Berhormat Menteri Hal Ehwal Dalam Negeri melawat Persidangan dan Pameran Milipol TechX 2026 di Republik Singapura."}, {"id": "a37", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Mesyuarat Pertama Jawatankuasa Kebangsaan Sambutan Ulang Tahun Hari Keputeraan Sultan Ke-80", "date": "Aug 2026", "iso": "2026-08-15", "loc": "Bandar Seri Begawan", "url": "https://www.moha.gov.bn/mesyuarat-pertama-jawatankuasa-kebangsaan-sambutan-perayaan-ulang-tahun-hari-keputeraan-kebawah-duli-yang-maha-mulia-paduka-seri-baginda-sultan-dan-yang-di-pertuan-negara-brunei-darussalam-ke-80-bagi/", "body": "Mesyuarat pertama Jawatankuasa Kebangsaan bagi Sambutan Perayaan Ulang Tahun Hari Keputeraan Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan yang ke-80 Tahun bagi 2026."}, {"id": "a38", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Majlis Doa Selamat bagi Pegawai dan Kakitangan KHEDN yang akan Menunaikan Fardhu Haji 1447/2026", "date": "Jul 2026", "iso": "2026-07-15", "loc": "Berakas", "url": "https://www.moha.gov.bn/majlis-doa-selamat-bagi-pegawai-dan-kakitangan-kementerian-hal-ehwal-dalam-negeri-dan-jabatan-jabatan-di-bawahnya-yang-akan-menunaikan-fardhu-haji-tahun-1447-2026/", "body": "Majlis Doa Selamat diadakan bagi pegawai dan kakitangan Kementerian Hal Ehwal Dalam Negeri dan jabatan-jabatan di bawahnya yang akan menunaikan Fardhu Haji bagi Tahun 1447H/2026M."}, {"id": "a39", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Mesyuarat Majlis Bencana Kebangsaan", "date": "Jul 2026", "iso": "2026-07-15", "loc": "Bandar Seri Begawan", "url": "https://www.moha.gov.bn/mesyuarat-majlis-bencana-kebangsaan-2/", "body": "Majlis Bencana Kebangsaan mengadakan mesyuarat membincangkan kesediaan dan pengurusan bencana di peringkat kebangsaan."}, {"id": "a40", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Menteri Hal Ehwal Dalam Negeri Mengetuai Delegasi Negara Brunei Darussalam ke Malaysia", "date": "Jul 2026", "iso": "2026-07-15", "loc": "Malaysia", "url": "https://www.moha.gov.bn/yang-berhormat-menteri-hal-ehwal-dalam-negeri-mengetuai-delegasi-negara-brunei-darussalam-ke-malaysia/", "body": "Yang Berhormat Menteri Hal Ehwal Dalam Negeri mengetuai delegasi Negara Brunei Darussalam dalam lawatan ke Malaysia."}, {"id": "a41", "org": "MOHA", "orgId": "moha", "orgName": "Ministry of Home Affairs (MOHA)", "title": "Majlis Penyampaian Sijil Taraf Kerakyatan Kali Ke-44", "date": "Jun 2026", "iso": "2026-06-15", "loc": "Bandar Seri Begawan", "url": "https://www.moha.gov.bn/majlis-penyampaian-sijil-taraf-kerakyatan-kali-ke-44/", "body": "KHEDN mengadakan Majlis Penyampaian Sijil Taraf Kerakyatan buat kali ke-44 kepada penerima-penerima yang layak."}, {"id": "a42", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "Bruneian Student Wins Award at the 15th ASEAN+3 Student Camp for the Gifted in Science", "date": "15 Jan 2026", "iso": "2026-01-15", "loc": "Brunei Darussalam", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "A student from Brunei Darussalam received an award at the 15th ASEAN+3 Student Camp for the Gifted in Science (ACGS) 2026."}, {"id": "a43", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "Muzakarah Session Between the Ministry of Education and Members of the Legislative Council 2026", "date": "14 Jan 2026", "iso": "2026-01-14", "loc": "Ministry of Education, Berakas", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "The Ministry of Education held a Muzakarah Session with Legislative Council Members at the Dewan Persidangan 1, Ministry of Education, Berakas."}, {"id": "a44", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "Registration for Brunei-Cambridge GCE 'A' and 'AS' Level October/November 2025 Examination Results via SMS", "date": "14 Jan 2026", "iso": "2026-01-14", "loc": "Brunei Darussalam", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "The Ministry of Education, with Datastream Digital, Progresif, Imagine and MachTel, announced SMS registration for examination results."}, {"id": "a45", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "Surat Pemberitahuan for the Education Loan Assistance Scheme (SBPP) Academic Session 2026/2027", "date": "12 Jan 2026", "iso": "2026-01-12", "loc": "Brunei Darussalam", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "The Ministry of Education announced the Surat Pemberitahuan for the Education Loan Assistance Scheme (Skim Bantuan Pinjaman Pendidikan) for Academic Session 2026/2027."}, {"id": "a46", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "Closing Ceremony of Coffee with DP 2025", "date": "7 Jan 2026", "iso": "2026-01-07", "loc": "Brunei Darussalam", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "The Ministry of Education, through the Department of Planning, Development and Research, held the closing ceremony of Coffee with DP 2025."}, {"id": "a47", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "The Commencement of the First School Term for 2026 Academic Year", "date": "3 Jan 2026", "iso": "2026-01-03", "loc": "Brunei Darussalam", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "The First School Term of the 2026 Academic Year for all primary, secondary, colleges and sixth form centres, government and private, commenced on Saturday, 3 January 2026."}, {"id": "a48", "org": "MOE", "orgId": "moe", "orgName": "Ministry of Education (MOE)", "title": "Registration for the Brunei-Cambridge GCE 'O', 'AS', 'A' Level and IGCSE Examinations May/June 2026 Session", "date": "2 Jan 2026", "iso": "2026-01-02", "loc": "Brunei Darussalam", "url": "https://www.moe.gov.bn/SitePages/News.aspx", "body": "The Examinations Department opened registration for Brunei-Cambridge GCE 'O', 'AS', 'A' Level and IGCSE Examinations for the May/June 2026 session from 3 January to 12 February 2026."}, {"id": "a49", "org": "MPRT", "orgId": "mprt", "orgName": "Ministry of Primary Resources and Tourism (MPRT)", "title": "MPRT Focuses on Food Security, Tourism in 2025/2026 Budget", "date": "7 Mar 2025", "iso": "2025-03-07", "loc": "Legislative Council", "url": "https://www.councils.gov.bn/Lists/News/NDispForm.aspx?ID=1632", "body": "Minister of Primary Resources and Tourism highlighted the primary focus of the proposed 2025/2026 allocation, including upgrading industrial infrastructure for agricultural and aquaculture development areas, during the 21st Legislative Council session."}, {"id": "a50", "org": "MPRT", "orgId": "mprt", "orgName": "Ministry of Primary Resources and Tourism (MPRT)", "title": "Minister Outlines Efforts to Grow Tourism Industry", "date": "6 Mar 2024", "iso": "2024-03-06", "loc": "Legislative Council", "url": "https://www.councils.gov.bn/Lists/News/NDispForm.aspx?ID=1433", "body": "MPRT lined up a series of activities to grow the tourism industry, said the Minister of Primary Resources and Tourism during the 20th session of the Legislative Council."}, {"id": "a51", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Sesi Dialog Bersama Belia Mengenai Isu Kebersihan Persekitaran", "date": "31 Aug 2026", "iso": "2026-08-31", "loc": "Kementerian Pembangunan", "url": "https://www.mod.gov.bn/sesi-dialog-bersama-belia-mengenai-isu-kebersihan-persekitaran/", "body": "Kementerian Pembangunan selaku Urusetia Jawatankuasa Induk Isu-Isu Kebersihan mengadakan Sesi Dialog Bersama Belia Mengenai Isu Kebersihan di Dewan Betabur, Kementerian Pembangunan."}, {"id": "a52", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Situasi Jerebu di Negara Brunei Darussalam", "date": "30 Aug 2026", "iso": "2026-08-30", "loc": "Brunei Darussalam", "url": "https://www.mod.gov.bn/situasi-jerebu-di-negara-brunei-darussalam-2/", "body": "Imej satelit ASEAN Specialised Meteorological Centre mengesan 514 titik panas pada 27 Ogos, 1734 titik panas pada 28 Ogos 2026, menyebabkan keadaan berjerebu di negara ini."}, {"id": "a53", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Perasmian Pertunjukan Seni Landskap, Bunga-Bunga Hidup 2026", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Taman Rekreasi Menteri Besar, Berakas", "url": "https://www.mod.gov.bn/perasmian-pertunjukan-seni-landskap-bunga-bunga-hidup-2026/", "body": "Majlis Perasmian Pertunjukan Seni Landskap dan Bunga-Bunga Hidup 2026 disempurnakan di Taman Rekreasi Menteri Besar, Berakas, dianjurkan oleh JASTRe, Kementerian Pembangunan."}, {"id": "a54", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Ceramah Khas Sempena Maulud Nabi Muhammad SAW", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Kementerian Pembangunan", "url": "https://www.mod.gov.bn/ceramah-khas-sempena-maulud-nabi-muhammad-s-a-w/", "body": "Kementerian Pembangunan mengadakan Majlis Sambutan Maulud Nabi Muhammad Shallallahu 'Alaihi Wasallam di Dewan Betabur, Kementerian Pembangunan."}, {"id": "a55", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Perhimpunan dan Perarakan Maulud Nabi Muhammad SAW", "date": "25 Aug 2026", "iso": "2026-08-25", "loc": "Brunei Darussalam", "url": "https://www.mod.gov.bn/warga-kementerian-pembangunan-sertai-perhimpunan-dan-perarakan-maulud-nabi-muhammad-s-a-w/", "body": "Warga Kementerian Pembangunan dan jabatan-jabatan di bawahnya menyertai Perhimpunan dan Perarakan Majlis Sambutan Maulud Nabi Muhammad Peringkat Negara bagi Tahun 1448 Hijrah."}, {"id": "a56", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Majlis Dikir Maulud di Masjid Kampung Kilanas", "date": "24 Aug 2026", "iso": "2026-08-24", "loc": "Masjid Kampung Kilanas", "url": "https://www.mod.gov.bn/majlis-dikir-maulud-di-masjid-kampung-kilanas/", "body": "Rombongan Kementerian Pembangunan meneruskan Majlis Dikir Maulud di Masjid Kampung Kilanas bagi menyambut Sambutan Maulud Nabi Muhammad SAW."}, {"id": "a57", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Situasi Jerebu di Negara Brunei Darussalam", "date": "8 Aug 2026", "iso": "2026-08-08", "loc": "Brunei Darussalam", "url": "https://www.mod.gov.bn/situasi-jerebu-di-negara-brunei-darussalam/", "body": "Negara Brunei Darussalam mengalami keadaan berjerebu disebabkan titik panas akibat kebakaran hutan dan lahan di kepulauan Borneo, ditiup angin perlahan dari Barat Daya."}, {"id": "a58", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Pelantikan Setiausaha Tetap Kementerian Pembangunan yang Baharu", "date": "3 Aug 2026", "iso": "2026-08-03", "loc": "Kementerian Pembangunan", "url": "https://www.mod.gov.bn/pelantikan-setiausaha-tetap-kementerian-pembangunan-yang-baharu/", "body": "Menjunjung titah perintah Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan, seorang Setiausaha Tetap baharu dilantik bagi Kementerian Pembangunan."}, {"id": "a59", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "NBD Sokong 'Ipoh Accord', Perkukuhkan Komitmen Pembangunan Mampan ASEAN", "date": "2 Aug 2026", "iso": "2026-08-02", "loc": "Malaysia", "url": "https://www.mod.gov.bn/nbd-sokong-ipoh-accord-perkukuhkan-komitmen-pembangunan-mampan-asean/", "body": "Negara Brunei Darussalam menyertai negara-negara ASEAN dan China dalam pemeteraian persetujuan 'Ipoh Accord' sempena ASEAN-Ministerial Roundtable on Construction and Housing 2026."}, {"id": "a60", "org": "MOD", "orgId": "mod", "orgName": "Ministry of Development (MOD)", "title": "Perpindahan Pejabat Jabatan Tanah dan Ibu Pejabat JASTRe ke Bangunan Baharu", "date": "1 Aug 2026", "iso": "2026-08-01", "loc": "Brunei Darussalam", "url": "https://www.mod.gov.bn/perpindahan-pejabat-jabatan-tanah-dan-ibu-pejabat-jastre-ke-bangunan-baharu/", "body": "Pejabat Jabatan Tanah Daerah Brunei dan Muara dan Ibu Pejabat JASTRe berpindah ke bangunan baharu, bekas Bangunan TelBru, berkuat kuasa 1 Ogos 2026."}, {"id": "a61", "org": "KKBS", "orgId": "kkbs", "orgName": "Ministry of Culture, Youth and Sports (MCYS/KKBS)", "title": "Kunjungan Hormat daripada Tunku Temenggong Kedah", "date": "27 Aug 2026", "iso": "2026-08-27", "loc": "Bandar Seri Begawan", "url": "https://www.kkbs.gov.bn/kunjungan-hormat-daripada-ytm-brigedier-jeneral-dato-seri-diraja-tan-sri-tunku-puteri-intan-safinaz-binti-almarhum-sultan-abdul-halim-muadzam-shah-tunku-temenggong-kedah/", "body": "Yang Berhormat Pengiran Dato Seri Setia Shamhary bin Pengiran Dato Paduka Haji Mustapha menerima kunjungan hormat daripada Tunku Temenggong Kedah."}, {"id": "a62", "org": "KKBS", "orgId": "kkbs", "orgName": "Ministry of Culture, Youth and Sports (MCYS/KKBS)", "title": "3,537 Sertai Majlis Sambutan Maulud Nabi Peringkat Daerah Tutong", "date": "26 Aug 2026", "iso": "2026-08-26", "loc": "Tutong", "url": "https://www.kkbs.gov.bn/3537-sertai-majlis-sambutan-maulud-nabi-peringkat-daerah-tutong/", "body": "Majlis Sambutan Maulud Nabi Muhammad Sallallahu Alaihi Wasallam diadakan di Daerah Tutong dengan penyertaan seramai 3,537 orang."}, {"id": "a63", "org": "KKBS", "orgId": "kkbs", "orgName": "Ministry of Culture, Youth and Sports (MCYS/KKBS)", "title": "Majlis Pelancaran Projek Rintis Program Khidmat Bakti Negara (PKBN) Enam Bulan", "date": "26 Aug 2026", "iso": "2026-08-26", "loc": "Temburong", "url": "https://www.kkbs.gov.bn/majlis-pelancaran-projek-rintis-program-khidmat-bakti-negara-pkbn-enam-6-bulan/", "body": "Seramai 28 orang belia, terdiri daripada 15 lelaki dan 13 perempuan berumur 20 hingga 25 tahun, menyertai pelancaran Projek Rintis PKBN Enam Bulan di Temburong."}, {"id": "a64", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Nasihat Kesihatan Semasa Jerebu", "date": "1 Sep 2026", "iso": "2026-09-01", "loc": "Brunei Darussalam", "url": "https://moh.gov.bn/news/nasihat-kesihatan-semasa-jerebu/", "body": "Berikutan Siaran Akhbar Bersama mengenai situasi jerebu di Negara Brunei Darussalam, Kementerian Kesihatan mengeluarkan nasihat kesihatan kepada orang ramai."}, {"id": "a65", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Majlis Sambutan Maulud Nabi Muhammad SAW Kementerian Kesihatan 1448H/2026M", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Rimba", "url": "https://moh.gov.bn/news/majlis-sambutan-maulud-nabi-muhammad-shallallahu-alaihi-wasallam-kementerian-kesihatan-bagi-tahun-1448-hijrah-2026-masehi/", "body": "Jabatan Perkhidmatan Pergigian dan Jabatan Perkhidmatan Kesihatan, Kementerian Kesihatan, menganjurkan Majlis Sambutan Maulud Nabi Muhammad Shallallahu Alaihi Wasallam."}, {"id": "a66", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Brunei Darussalam National One Health Joint Plan of Action (NOHJPA) Workshop", "date": "26 Aug 2026", "iso": "2026-08-26", "loc": "Jerudong", "url": "https://moh.gov.bn/news/brunei-darussalam-national-one-health-joint-plan-of-action-nohjpa-workshop/", "body": "The Ministry of Health, through the Brunei Centre for Disease Control and Prevention (Brunei CDC), held the National One Health Joint Plan of Action Workshop."}, {"id": "a67", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Sambutan Minggu Penyusuan Susu Ibu Sedunia 2026 Bagi Daerah Temburong", "date": "26 Aug 2026", "iso": "2026-08-26", "loc": "Tutong", "url": "https://moh.gov.bn/news/sambutan-minggu-penyusuan-susu-ibu-sedunia-tahun-2026-bagi-daerah-temburong/", "body": "Hospital Pengiran Muda Mahkota Pengiran Muda Haji Al-Muhtadee Billah, Tutong, mengadakan Majlis Sambutan Minggu Penyusuan Susu Ibu Sedunia bagi Daerah Temburong."}, {"id": "a68", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "RIPAS Hospital Marks Milestone With First Robotic-Assisted Knee Replacement Surgery", "date": "Aug 2026", "iso": "2026-08-15", "loc": "RIPAS Hospital", "url": "https://moh.gov.bn/news/ripas-hospital-marks-milestone-with-first-robotic-assisted-knee-replacement-surgery/", "body": "Raja Isteri Pengiran Anak Saleha (RIPAS) Hospital achieved a significant milestone with the successful completion of its first robotic-assisted knee replacement surgery."}, {"id": "a69", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Sambutan Minggu Penyusuan Susu Ibu Sedunia 2026 Bagi PMMPMHAMB, Tutong", "date": "24 Aug 2026", "iso": "2026-08-24", "loc": "Tutong", "url": "https://moh.gov.bn/news/sambutan-minggu-penyusuan-susu-ibu-sedunia-tahun-2026-bagi-hospital-pengiran-muda-mahkota-pengiran-muda-haji-al-muhtadee-billah-tutong/", "body": "Hospital Pengiran Muda Mahkota Pengiran Muda Haji Al-Muhtadee Billah, Tutong, mengadakan Majlis Sambutan Minggu Penyusuan Susu Ibu Sedunia Tahun 2026."}, {"id": "a70", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Sambutan Minggu Penyusuan Susu Ibu Sedunia 2026 Bagi Hospital Suri Seri Begawan", "date": "18 Aug 2026", "iso": "2026-08-18", "loc": "Kuala Belait", "url": "https://moh.gov.bn/news/sambutan-minggu-penyusuan-susu-ibu-sedunia-tahun-2026-bagi-hospital-suri-seri-begawan-kuala-belait/", "body": "Minggu Penyusuan Susu Ibu Sedunia disambut di Hospital Suri Seri Begawan, Kuala Belait, sebagai aktiviti tahunan bulan Ogos."}, {"id": "a71", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Ministry of Health Advances Controlled Proof-of-Concept for Healthcare AI Initiative", "date": "Aug 2026", "iso": "2026-08-15", "loc": "Brunei Darussalam", "url": "https://moh.gov.bn/news/ministry-of-health-advances-controlled-proof-of-concept-for-healthcare-ai-initiative/", "body": "EVYD Technology supports the Ministry of Health in the development and evaluation of an AI use case for healthcare."}, {"id": "a72", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "MOU Exchange Between Ministry of Health and Faculty of Medicine, Kagawa University, Japan", "date": "28 Jul 2026", "iso": "2026-07-28", "loc": "Brunei Darussalam", "url": "https://moh.gov.bn/news/majlis-pertukaran-dokumen-memorandum-persefahaman-mou-antara-kementerian-kesihatan-negara-brunei-darussalam-dan-fakulti-perubatan-universiti-kagawa-jepun/", "body": "Kementerian Kesihatan Negara Brunei Darussalam dan Fakulti Perubatan, Universiti Kagawa, Jepun mengadakan Majlis Pertukaran Dokumen Memorandum Persefahaman (MOU)."}, {"id": "a73", "org": "MOH", "orgId": "moh", "orgName": "Ministry of Health (MOH)", "title": "Sambutan Hari Jururawat dan Bidan Antarabangsa 2026 Bagi Daerah Belait", "date": "4 Jul 2026", "iso": "2026-07-04", "loc": "Kuala Belait", "url": "https://moh.gov.bn/news/sambutan-hari-jururawat-dan-bidan-antarabangsa-2026-bagi-daerah-belait/", "body": "Hospital Suri Seri Begawan, Kuala Belait mengadakan Sambutan Hari Jururawat dan Bidan Antarabangsa bagi Daerah Belait."}, {"id": "a74", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Majlis Perhimpunan Khas Wanita Peringkat Negara Sempena Sambutan Maulud Nabi Muhammad SAW 1448H", "date": "3 Sep 2026", "iso": "2026-09-03", "loc": "Jerudong", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4942", "body": "Yang Teramat Mulia Paduka Seri Pengiran Anak Isteri Pengiran Anak Sarah binti Pengiran Haji Salleh Ab Rahaman berangkat ke Majlis Perhimpunan Khas Wanita Peringkat Negara di Dewan Royal Berkshire, Jerudong."}, {"id": "a75", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Haflut Takharruj Kali Ke-14 Institut Tahfiz Al-Quran Sultan Haji Hassanal Bolkiah 1448H/2026M", "date": "2 Sep 2026", "iso": "2026-09-02", "loc": "Berakas", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4941", "body": "Duli Yang Teramat Mulia Paduka Seri Pengiran Muda Mahkota Pengiran Muda (Dr) Haji Al-Muhtadee Billah menyempurnakan pengurniaan Syahadah Diploma di Majlis Konvokesyen Ke-14 ITQSHHB."}, {"id": "a76", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Program Kembara Da'wah dan Umrah Belia Da'ie 2026", "date": "1 Sep 2026", "iso": "2026-09-01", "loc": "Berakas", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4939", "body": "Badan Sukarelawan Belia Da'ie, dengan sokongan Pusat Da'wah Islamiah, mengadakan Kembara Da'wah dan Umrah Belia Da'ie 2026 selama 15 hari, bermula perjalanan ke Kuala Lumpur dan Taif."}, {"id": "a77", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Program Workplace and Health (WAH) Bagi Warga Kementerian Hal Ehwal Ugama", "date": "1 Sep 2026", "iso": "2026-09-01", "loc": "Berakas", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4938", "body": "Unit Kesihatan, Keselamatan, Kawalan Keselamatan dan Alam Sekitar (HSSE) KHEU, dengan kerjasama Pusat Da'wah Islamiah, mengadakan Program Workplace and Health bagi warga KHEU."}, {"id": "a78", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Zahirkan Cinta dan Rindu Kepada Baginda Rasulullah SAW Dengan Berselawat", "date": "1 Sep 2026", "iso": "2026-09-01", "loc": "Belait", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4937", "body": "Bahagian Hal Ehwal Muslimah, Jabatan Hal Ehwal Masjid, dengan kerjasama Pejabat Ugama Daerah Belait, mengadakan Majlis Berselawat sempena Sambutan Ihya Maulidur Rasulullah SAW."}, {"id": "a79", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Majlis Doa Kesyukuran Bagi Penganugerahan Biasiswa KHEU Sesi 2026/2027", "date": "31 Aug 2026", "iso": "2026-08-31", "loc": "Berakas", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4936", "body": "Jabatan Pengajian Islam, KHEU, mengadakan Majlis Doa Kesyukuran bagi penganugerahan Biasiswa KHEU Sesi Akademik 2026/2027 kepada 29 orang pelajar."}, {"id": "a80", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Majlis Haflut Takharruj dan Penghargaan Pelajar Cemerlang Sekolah Arab Sultan Haji Hassanal Bolkiah 1447H/2025M", "date": "31 Aug 2026", "iso": "2026-08-31", "loc": "Rimba", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4935", "body": "Seramai 210 orang pelajar diraikan dalam Majlis Haflut Takharruj dan Penghargaan Pelajar Cemerlang Sekolah Arab Sultan Haji Hassanal Bolkiah bagi Tahun 10 dan Tahun 11."}, {"id": "a81", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Malam Munajat Anjuran KHEU Kali Ke-244", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Brunei Darussalam", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4934", "body": "Kementerian Hal Ehwal Ugama menganjurkan Malam Munajat buat kali ke-244 bagi menghidupkan sunnah Rasulullah SAW."}, {"id": "a82", "org": "MORA", "orgId": "mora", "orgName": "Ministry of Religious Affairs (MORA)", "title": "Ceramah Perdana Sambutan Jubli Intan Masjid Hassanal Bolkiah Pekan Tutong", "date": "29 Aug 2026", "iso": "2026-08-29", "loc": "Tutong", "url": "https://www.mora.gov.bn/SitePages/Pengumuman.aspx?itemid=4933", "body": "Sempena Sambutan Jubli Intan Ke-60 Masjid Hassanal Bolkiah Pekan Tutong, Majlis Ceramah Perdana diadakan di Dewan Solat Utama masjid berkenaan."}, {"id": "a83", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "Majlis Membaca Surah Yassin dan Tahlil Di Kubah Makam Diraja bagi MTIC 1447H/2026M", "date": "2 Mar 2026", "iso": "2026-03-02", "loc": "Kubah Makam Diraja", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "Kementerian Pengangkutan dan Infokomunikasi serta jabatan-jabatan, autoriti dan pihak berkuasa di bawahnya mengadakan Majlis Membaca Surah Yasin dan Bertahlil di Kubah Makam Diraja."}, {"id": "a84", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "Majlis Pembukaan Tadarus Al-Quran Sempena Ramadhan 1447H/2026M bagi MTIC", "date": "24 Feb 2026", "iso": "2026-02-24", "loc": "Lapangan Terbang Antarabangsa Brunei", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "MTIC serta jabatan-jabatan, autoriti dan pihak berkuasa di bawahnya mengadakan Majlis Pembukaan Tadarus Al-Quran sempena bulan Ramadhan di Surau LTAB."}, {"id": "a85", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "Second OIC Conference of Transport Ministers (OICCTM)", "date": "12 Feb 2026", "iso": "2026-02-12", "loc": "Istanbul, Türkiye", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "Brunei Darussalam participated in the Second OIC Conference of Transport Ministers under the theme 'Strengthening Transport Connectivity to Deepen Fraternity among OIC Member States'."}, {"id": "a86", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "MTIC Organised Isra' and Mi'raj Ceremony 1447H/2026M", "date": "5 Feb 2026", "iso": "2026-02-05", "loc": "Amar Pahlawan Hall, MTIC", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "MTIC, together with its departments and regulatory agencies, held a ceremony to celebrate Isra' and Mi'raj 1447H/2026M, organised by AITI."}, {"id": "a87", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "Sesi Perjumpaan Muhibah MTIC Bersama Ahli-Ahli Majlis Mesyuarat Negara", "date": "29 Jan 2026", "iso": "2026-01-29", "loc": "Dewan Amar Pahlawan, MTIC", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "Sesi Perjumpaan Muhibah antara MTIC bersama Ahli-Ahli Majlis Mesyuarat Negara (MMN) diadakan di Dewan Amar Pahlawan, Bangunan MTIC."}, {"id": "a88", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "The 6th ASEAN Digital Ministers' Meeting (ADGMIN) and Related Meetings", "date": "18 Jan 2026", "iso": "2026-01-18", "loc": "Ha Noi, Viet Nam", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "Minister of Transport and Infocommunications led Brunei's delegation to the 6th ASEAN Digital Ministers' Meeting and Related Meetings in Ha Noi, Viet Nam."}, {"id": "a89", "org": "MTIC", "orgId": "mtic", "orgName": "Ministry of Transport and Infocommunications (MTIC)", "title": "Launch of BruneiID as the National Digital Identity of Brunei Darussalam", "date": "3 Jan 2026", "iso": "2026-01-03", "loc": "Brunei Darussalam", "url": "https://www.mtic.gov.bn/SitePages/News.aspx", "body": "MOHA and MTIC introduced BruneiID, a national digital identity system functioning as an electronic form of personal identification for individuals."}];
+
+const TODAY = new Date('2026-09-05T23:59:59');
+
+const searchInput = document.getElementById('searchInput');
+const searchMeta = document.getElementById('searchMeta');
+const noResults = document.getElementById('noResults');
+const tfButtons = document.querySelectorAll('.tf-btn');
+const customRange = document.getElementById('customRange');
+const dateFrom = document.getElementById('dateFrom');
+const dateTo = document.getElementById('dateTo');
+const applyCustom = document.getElementById('applyCustom');
+const orgChips = document.querySelectorAll('.org-chip');
+
+let activeRange = 'all';
+let customFrom = null;
+let customTo = null;
+let activeOrg = 'all';
+
+function normalize(s) {
+  return s.toLowerCase();
+}
+
+function cardInTimeframe(card) {
+  if (activeRange === 'all') return true;
+  const d = new Date(card.getAttribute('data-date') + 'T12:00:00');
+  if (activeRange === 'custom') {
+    if (customFrom && d < customFrom) return false;
+    if (customTo && d > customTo) return false;
+    return true;
+  }
+  const days = parseInt(activeRange, 10);
+  const cutoff = new Date(TODAY);
+  cutoff.setDate(cutoff.getDate() - days);
+  return d >= cutoff && d <= TODAY;
+}
+
+function highlight(text, terms) {
+  if (!terms.length) return text;
+  let out = text;
+  terms.forEach(t => {
+    if (!t) return;
+    const re = new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    out = out.replace(re, '<mark>$1</mark>');
+  });
+  return out;
+}
+
+function applySearch() {
+  const raw = searchInput.value.trim();
+  const q = normalize(raw);
+  const terms = q.split(/\s+/).filter(Boolean);
+  const cards = document.querySelectorAll('.card');
+  let visibleCount = 0;
+  const sectionsWithVisible = new Set();
+
+  cards.forEach(card => {
+    const haystack = card.getAttribute('data-search');
+    const cardOrg = card.getAttribute('data-org');
+    const textMatch = terms.every(t => haystack.includes(t));
+    const timeMatch = cardInTimeframe(card);
+    const orgMatch = (activeOrg === 'all') || (cardOrg === activeOrg);
+    const match = textMatch && timeMatch && orgMatch;
+    if (match) {
+      card.classList.remove('hidden');
+      visibleCount++;
+      sectionsWithVisible.add(card.closest('section.org').id);
+      const h3 = card.querySelector('h3');
+      const p = card.querySelector('p');
+      const origTitle = card.getAttribute('data-orig-title') || h3.textContent;
+      const origSnippet = card.getAttribute('data-orig-snippet') || p.textContent;
+      card.setAttribute('data-orig-title', origTitle);
+      card.setAttribute('data-orig-snippet', origSnippet);
+      h3.innerHTML = highlight(origTitle, terms);
+      p.innerHTML = highlight(origSnippet, terms);
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  document.querySelectorAll('section.org').forEach(sec => {
+    if (sectionsWithVisible.has(sec.id)) {
+      sec.classList.remove('empty-section');
+    } else {
+      sec.classList.add('empty-section');
+    }
+  });
+
+  noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+
+  let metaParts = [];
+  if (raw !== '') metaParts.push('"' + raw + '"');
+  if (activeRange === '7') metaParts.push('last 7 days');
+  else if (activeRange === '30') metaParts.push('last 30 days');
+  else if (activeRange === 'custom') metaParts.push('custom range');
+  if (activeOrg !== 'all') metaParts.push(activeOrg);
+
+  if (metaParts.length > 0) {
+    searchMeta.textContent = visibleCount + ' result' + (visibleCount === 1 ? '' : 's') + (metaParts.length ? ' for ' + metaParts.join(', ') : '');
+  } else {
+    searchMeta.textContent = '';
+  }
+}
+
+searchInput.addEventListener('input', applySearch);
+
+tfButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const range = btn.getAttribute('data-range');
+    tfButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (range === 'custom') {
+      customRange.classList.add('open');
+      activeRange = (customFrom || customTo) ? 'custom' : 'all';
+    } else {
+      customRange.classList.remove('open');
+      activeRange = range;
+    }
+    applySearch();
+  });
+});
+
+applyCustom.addEventListener('click', () => {
+  customFrom = dateFrom.value ? new Date(dateFrom.value + 'T00:00:00') : null;
+  customTo = dateTo.value ? new Date(dateTo.value + 'T23:59:59') : null;
+  activeRange = 'custom';
+  applySearch();
+});
+
+orgChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    orgChips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    activeOrg = chip.getAttribute('data-org');
+    applySearch();
+    const target = chip.getAttribute('data-target');
+    if (target) {
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+const overlay = document.getElementById('modalOverlay');
+const modalOrg = document.getElementById('modalOrg');
+const modalTitle = document.getElementById('modalTitle');
+const modalDate = document.getElementById('modalDate');
+const modalBody = document.getElementById('modalBody');
+const modalLink = document.getElementById('modalLink');
+
+function openModal(id) {
+  const art = ARTICLES.find(a => a.id === id);
+  if (!art) return;
+  modalOrg.textContent = art.org;
+  modalTitle.textContent = art.title;
+  modalDate.textContent = art.date + ' · ' + art.loc;
+  modalBody.textContent = art.body;
+  modalLink.href = art.url;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.read-more').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.getAttribute('data-id')));
+});
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>

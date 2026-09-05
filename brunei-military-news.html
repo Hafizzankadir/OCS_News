@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brunei Military News Compilation</title>
+<style>
+  :root{
+    --navy:#0b1f3a;
+    --gold:#c8a24a;
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --text:#1c2530;
+    --muted:#5b6675;
+    --border:#e2e5ea;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',Georgia,'Times New Roman',serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+  header{
+    background:linear-gradient(135deg,var(--navy),#132c52);
+    color:#fff;
+    padding:2.2rem 1.5rem 1.6rem;
+    text-align:center;
+    border-bottom:4px solid var(--gold);
+  }
+  header h1{
+    margin:0 0 .3rem;
+    font-size:1.8rem;
+    letter-spacing:.5px;
+  }
+  header p{
+    margin:0;
+    color:#cdd6e6;
+    font-size:.95rem;
+  }
+  header .updated{
+    margin-top:.6rem;
+    font-size:.8rem;
+    color:var(--gold);
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+  .search-wrap{
+    max-width:700px;
+    margin:1.4rem auto 0;
+    padding:0 1rem;
+  }
+  #searchInput{
+    width:100%;
+    padding:.75rem 1rem;
+    font-size:1rem;
+    border-radius:999px;
+    border:1px solid var(--border);
+    outline:none;
+    box-shadow:0 1px 3px rgba(0,0,0,.06);
+  }
+  #searchInput:focus{
+    border-color:var(--navy);
+  }
+  #searchMeta{
+    text-align:center;
+    font-size:.8rem;
+    color:var(--muted);
+    margin-top:.4rem;
+  }
+  .filter-wrap{
+    max-width:900px;
+    margin:1rem auto 0;
+    padding:0 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+  }
+  .filter-label{
+    font-size:.78rem;
+    color:var(--muted);
+    font-weight:600;
+    margin-right:.2rem;
+  }
+  .tf-btn{
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--navy);
+    padding:.4rem .85rem;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.15s;
+    font-family:inherit;
+  }
+  .tf-btn:hover{
+    border-color:var(--navy);
+  }
+  .tf-btn.active{
+    background:var(--navy);
+    color:#fff;
+    border-color:var(--navy);
+  }
+  .custom-range{
+    display:none;
+    align-items:center;
+    gap:.4rem;
+    flex-wrap:wrap;
+  }
+  .custom-range.open{
+    display:flex;
+  }
+  .custom-range input[type="date"]{
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:.35rem .5rem;
+    font-size:.8rem;
+    font-family:inherit;
+    color:var(--text);
+  }
+  .custom-range button{
+    background:var(--gold);
+    border:none;
+    color:var(--navy);
+    font-weight:700;
+    padding:.35rem .8rem;
+    border-radius:999px;
+    font-size:.78rem;
+    cursor:pointer;
+  }
+  .older-note{
+    margin-top:.9rem;
+    font-size:.78rem;
+    color:var(--muted);
+    background:var(--card);
+    border:1px dashed var(--border);
+    border-radius:8px;
+    padding:.6rem .9rem;
+  }
+  .older-note a{color:var(--navy); font-weight:600; text-decoration:none;}
+  .older-note a:hover{text-decoration:underline;}
+  nav.toc{
+    max-width:1100px;
+    margin:1.2rem auto 0;
+    padding:0 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    justify-content:center;
+  }
+  nav.toc a{
+    text-decoration:none;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--navy);
+    padding:.45rem .9rem;
+    border-radius:999px;
+    font-size:.82rem;
+    font-weight:600;
+    transition:.15s;
+  }
+  nav.toc a:hover{
+    background:var(--navy);
+    color:#fff;
+    border-color:var(--navy);
+  }
+  main{
+    max-width:1100px;
+    margin:1.5rem auto 3rem;
+    padding:0 1rem;
+  }
+  section.org{
+    margin-bottom:2.5rem;
+    scroll-margin-top:1rem;
+  }
+  .org-header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:.5rem;
+    border-bottom:2px solid var(--navy);
+    padding-bottom:.4rem;
+    margin-bottom:1rem;
+  }
+  .org-header h2{
+    margin:0;
+    font-size:1.25rem;
+    color:var(--navy);
+  }
+  .org-header a.source-link{
+    font-size:.78rem;
+    color:var(--muted);
+    text-decoration:none;
+    border:1px solid var(--border);
+    padding:.2rem .6rem;
+    border-radius:6px;
+  }
+  .org-header a.source-link:hover{
+    color:var(--navy);
+    border-color:var(--navy);
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:1rem;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-left:4px solid var(--gold);
+    border-radius:8px;
+    padding:1rem 1.1rem;
+    display:flex;
+    flex-direction:column;
+    gap:.5rem;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .card.hidden{
+    display:none;
+  }
+  .card .date{
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--navy);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+  .card h3{
+    margin:0;
+    font-size:.98rem;
+    line-height:1.35;
+    color:var(--text);
+  }
+  .card p{
+    margin:0;
+    font-size:.85rem;
+    color:var(--muted);
+    line-height:1.5;
+    flex-grow:1;
+  }
+  .card mark, .modal mark{
+    background:#fdeeb8;
+    color:inherit;
+    border-radius:2px;
+  }
+  button.read-more{
+    align-self:flex-start;
+    font-size:.78rem;
+    font-weight:600;
+    color:var(--navy);
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    font-family:inherit;
+  }
+  button.read-more:hover{
+    text-decoration:underline;
+  }
+  section.org.empty-section{
+    display:none;
+  }
+  footer{
+    text-align:center;
+    padding:1.5rem 1rem 2.5rem;
+    font-size:.78rem;
+    color:var(--muted);
+  }
+  footer a{color:var(--navy);}
+  .backtotop{
+    display:block;
+    text-align:right;
+    font-size:.75rem;
+    margin-top:.6rem;
+  }
+  .backtotop a{color:var(--muted); text-decoration:none;}
+  .backtotop a:hover{color:var(--navy);}
+
+  /* Modal */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(11,31,58,.55);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:4vh 1rem;
+    z-index:1000;
+    overflow-y:auto;
+  }
+  .modal-overlay.open{
+    display:flex;
+  }
+  .modal{
+    background:#fff;
+    max-width:680px;
+    width:100%;
+    border-radius:10px;
+    padding:1.8rem 1.8rem 1.5rem;
+    position:relative;
+    box-shadow:0 10px 40px rgba(0,0,0,.3);
+    border-top:5px solid var(--gold);
+  }
+  .modal .modal-close{
+    position:absolute;
+    top:.8rem;
+    right:1rem;
+    background:none;
+    border:none;
+    font-size:1.4rem;
+    color:var(--muted);
+    cursor:pointer;
+    line-height:1;
+  }
+  .modal .modal-close:hover{color:var(--navy);}
+  .modal .modal-org{
+    font-size:.75rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    color:var(--gold);
+    background:var(--navy);
+    display:inline-block;
+    padding:.2rem .6rem;
+    border-radius:5px;
+    margin-bottom:.7rem;
+  }
+  .modal h2{
+    margin:0 0 .4rem;
+    font-size:1.25rem;
+    color:var(--navy);
+    line-height:1.35;
+  }
+  .modal .modal-date{
+    font-size:.8rem;
+    color:var(--muted);
+    margin-bottom:1rem;
+    font-weight:600;
+  }
+  .modal .modal-body{
+    font-size:.96rem;
+    line-height:1.7;
+    color:var(--text);
+    margin-bottom:1.2rem;
+  }
+  .modal .modal-note{
+    font-size:.75rem;
+    color:var(--muted);
+    background:var(--bg);
+    border-radius:6px;
+    padding:.6rem .8rem;
+    margin-bottom:1rem;
+  }
+  .modal .modal-link{
+    display:inline-block;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    padding:.55rem 1.1rem;
+    border-radius:6px;
+    font-size:.85rem;
+    font-weight:600;
+  }
+  .modal .modal-link:hover{
+    background:#132c52;
+  }
+  #noResults{
+    text-align:center;
+    color:var(--muted);
+    padding:3rem 1rem;
+    display:none;
+  }
+</style>
+</head>
+<body id="top">
+
+<header>
+  <h1>🇧🇳 Brunei Military News Compilation</h1>
+  <p>Latest official releases from the Ministry of Defence Brunei and all RBAF component commands</p>
+  <div class="updated">Compiled 5 September 2026</div>
+</header>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="Search headlines, units, locations, keywords…">
+  <div id="searchMeta"></div>
+</div>
+
+<div class="filter-wrap">
+  <span class="filter-label">Timeframe:</span>
+  <button class="tf-btn active" data-range="all">All time</button>
+  <button class="tf-btn" data-range="7">Last 7 days</button>
+  <button class="tf-btn" data-range="30">Last 30 days</button>
+  <button class="tf-btn" data-range="custom">Custom range</button>
+  <span class="custom-range" id="customRange">
+    <input type="date" id="dateFrom">
+    <span style="color:var(--muted);font-size:.8rem;">to</span>
+    <input type="date" id="dateTo">
+    <button id="applyCustom">Apply</button>
+  </span>
+</div>
+
+<nav class="toc" id="tocNav">
+  <a href="#mindef">MINDEF</a>
+  <a href="#rblf">RBLF</a>
+  <a href="#rbairf">RBAirF</a>
+  <a href="#rbn">RBN</a>
+  <a href="#da">DA RBAF</a>
+  <a href="#ti">TI RBAF</a>
+  <a href="#jfhq">JFHQ</a>
+  <a href="#ocs">OCS</a>
+</nav>
+
+<main>
+
+<section class="org" id="mindef">
+  <div class="org-header">
+    <h2>Ministry of Defence (MINDEF)</h2>
+    <a class="source-link" href="https://www.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a0" data-org="MINDEF" data-date="2026-08-31" data-search="defence white paper update 2026 briefing berakas garrison, monday, 31 august 2026 – the ministry of defence held a defence white paper update 2026 (dwpu 2026) briefing today for officers and warrant officers of the royal brunei armed forces (rbaf). the event commenced with a dwpu 2026 briefing delivered by senior officials, providing an update on the ministry&#x27;s evolving defence priorities and strategic direction for the force. ministry of defence (mindef) mon, 31 aug 2026 berakas garrison">
+      <span class="date">Mon, 31 Aug 2026 · Berakas Garrison</span>
+      <h3>Defence White Paper Update 2026 Briefing</h3>
+      <p>BERAKAS GARRISON, Monday, 31 August 2026 – The Ministry of Defence held a Defence White Paper Update 2026 (DWPU 2026) briefing today for officers and warrant officers of the Royal Brunei…</p>
+      <button class="read-more" data-id="a0">Read full article →</button>
+    </div>
+    <div class="card" data-id="a1" data-org="MINDEF" data-date="2026-08-29" data-search="his majesty the sultan bestows state decoration to ministry of defence officers bandar seri begawan, saturday, 29 august 2026 – his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien, sultan and yang di-pertuan of brunei darussalam, has graciously consented to bestow a state decoration upon ministry of defence officers in recognition of their dedicated service and contribution to the nation&#x27;s defence. ministry of defence (mindef) sat, 29 aug 2026 bandar seri begawan">
+      <span class="date">Sat, 29 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>His Majesty the Sultan Bestows State Decoration to Ministry of Defence Officers</h3>
+      <p>BANDAR SERI BEGAWAN, Saturday, 29 August 2026 – His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar &#x27;Ali Saifuddien Sa&#x27;adul Khairi Waddien, Sultan…</p>
+      <button class="read-more" data-id="a1">Read full article →</button>
+    </div>
+    <div class="card" data-id="a2" data-org="MINDEF" data-date="2026-08-27" data-search="the republic of the philippines convenes the adsom and adsom-plus meetings video conference, thursday, 27 august 2026 – the asean defence senior officials&#x27; meeting (adsom) and asean defence senior officials&#x27; meeting-plus (adsom-plus) meetings under the asean 2026 chairmanship of the republic of the philippines were held virtually from 26 to 27 august 2026, bringing together senior defence officials from asean member states and dialogue partners to discuss regional security cooperation. ministry of defence (mindef) thu, 27 aug 2026 video conference">
+      <span class="date">Thu, 27 Aug 2026 · Video Conference</span>
+      <h3>The Republic of the Philippines Convenes the ADSOM and ADSOM-Plus Meetings</h3>
+      <p>VIDEO CONFERENCE, Thursday, 27 August 2026 – The ASEAN Defence Senior Officials&#x27; Meeting (ADSOM) and ASEAN Defence Senior Officials&#x27; Meeting-Plus (ADSOM-Plus) meetings under the ASEAN 2026…</p>
+      <button class="read-more" data-id="a2">Read full article →</button>
+    </div>
+    <div class="card" data-id="a3" data-org="MINDEF" data-date="2026-08-26" data-search="commander of the royal brunei armed forces receives courtesy call from commander-in-chief of the royal thai air force bolkiah garrison, wednesday, 26 august 2026 – major general dato paduka seri haji muhammad haszaimi bin bol hassan, commander of the royal brunei armed forces (rbaf), received a courtesy call from air chief marshal sakesan kantha, commander-in-chief of the royal thai air force, as part of ongoing efforts to strengthen bilateral defence relations between brunei and thailand. ministry of defence (mindef) wed, 26 aug 2026 bolkiah garrison">
+      <span class="date">Wed, 26 Aug 2026 · Bolkiah Garrison</span>
+      <h3>Commander of the Royal Brunei Armed Forces Receives Courtesy Call from Commander-in-Chief of the Royal Thai Air Force</h3>
+      <p>BOLKIAH GARRISON, Wednesday, 26 August 2026 – Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the Royal Brunei Armed Forces (RBAF), received a courtesy…</p>
+      <button class="read-more" data-id="a3">Read full article →</button>
+    </div>
+    <div class="card" data-id="a4" data-org="MINDEF" data-date="2026-08-25" data-search="ministry of defence participates in the national level celebration of maulud nabi muhammad saw 1448h bandar seri begawan, tuesday, 25 august 2026 – the ministry of defence joined his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien, sultan and yang di-pertuan of brunei darussalam, in the national level celebration commemorating the birth of prophet muhammad (pbuh) 1448 hijrah. ministry of defence (mindef) tue, 25 aug 2026 bandar seri begawan">
+      <span class="date">Tue, 25 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Ministry of Defence Participates in the National Level Celebration of Maulud Nabi Muhammad SAW 1448H</h3>
+      <p>BANDAR SERI BEGAWAN, Tuesday, 25 August 2026 – The Ministry of Defence joined His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar &#x27;Ali Saifuddien…</p>
+      <button class="read-more" data-id="a4">Read full article →</button>
+    </div>
+    <div class="card" data-id="a5" data-org="MINDEF" data-date="2026-08-24" data-search="ministry of defence holds gema marhaban ceremony in commemoration of the birth of prophet muhammad (pbuh) 1448h/2026m rimba air force base, monday, 24 august 2026 – a gema marhaban ceremony to mark the 12th night of dikir maulud in commemoration of the birth of prophet muhammad (pbuh) for the ministry of defence was held simultaneously at several locations, drawing personnel together for a night of religious recitation and reflection. ministry of defence (mindef) mon, 24 aug 2026 rimba air force base">
+      <span class="date">Mon, 24 Aug 2026 · Rimba Air Force Base</span>
+      <h3>Ministry of Defence Holds Gema Marhaban Ceremony in Commemoration of the Birth of Prophet Muhammad (PBUH) 1448H/2026M</h3>
+      <p>RIMBA AIR FORCE BASE, MONDAY, 24 August 2026 – A Gema Marhaban ceremony to mark the 12th night of Dikir Maulud in commemoration of the birth of Prophet Muhammad (PBUH) for the Ministry of…</p>
+      <button class="read-more" data-id="a5">Read full article →</button>
+    </div>
+    <div class="card" data-id="a6" data-org="MINDEF" data-date="2026-08-24" data-search="defence white paper update 2026 briefing (senior officers) berakas garrison, monday, 24 august 2026 – the ministry of defence held a defence white paper update 2026 (dwpu 2026) briefing today for senior officers of the ministry of defence and the royal brunei armed forces (rbaf). the event commenced with a dwpu 2026 briefing outlining strategic updates for senior leadership. ministry of defence (mindef) mon, 24 aug 2026 berakas garrison">
+      <span class="date">Mon, 24 Aug 2026 · Berakas Garrison</span>
+      <h3>Defence White Paper Update 2026 Briefing (Senior Officers)</h3>
+      <p>BERAKAS GARRISON, Monday, 24 August 2026 – The Ministry of Defence held a Defence White Paper Update 2026 (DWPU 2026) briefing today for senior officers of the Ministry of Defence and the…</p>
+      <button class="read-more" data-id="a6">Read full article →</button>
+    </div>
+    <div class="card" data-id="a7" data-org="MINDEF" data-date="2026-08-21" data-search="passing-out parade ceremony for male recruits of the 180th intake of the royal brunei armed forces penanjong garrison, friday, 21 august 2026 – a total of 194 male recruits from the 180th intake of the royal brunei armed forces (rbaf) successfully completed their basic military training during the passing-out parade ceremony held at the parade square of the training institute rbaf (ti rbaf). ministry of defence (mindef) fri, 21 aug 2026 penanjong garrison">
+      <span class="date">Fri, 21 Aug 2026 · Penanjong Garrison</span>
+      <h3>Passing-Out Parade Ceremony for Male Recruits of the 180th Intake of the Royal Brunei Armed Forces</h3>
+      <p>PENANJONG GARRISON, Friday, 21 August 2026 – A total of 194 male recruits from the 180th Intake of the Royal Brunei Armed Forces (RBAF) successfully completed their Basic Military Training…</p>
+      <button class="read-more" data-id="a7">Read full article →</button>
+    </div>
+    <div class="card" data-id="a8" data-org="MINDEF" data-date="2026-08-21" data-search="commander of the royal brunei armed forces receives courtesy call from head of intelligence assessments, defence intelligence organisation, australia bolkiah garrison, friday, 21 august 2026 – major general dato paduka seri haji muhammad haszaimi bin bol hassan, commander of the royal brunei armed forces (rbaf), received a courtesy call from major general mark ascough, head of intelligence assessments, defence intelligence organisation, australia, reaffirming cooperation between the two countries&#x27; defence establishments. ministry of defence (mindef) fri, 21 aug 2026 bolkiah garrison">
+      <span class="date">Fri, 21 Aug 2026 · Bolkiah Garrison</span>
+      <h3>Commander of the Royal Brunei Armed Forces Receives Courtesy Call from Head of Intelligence Assessments, Defence Intelligence Organisation, Australia</h3>
+      <p>BOLKIAH GARRISON, Friday, 21 August 2026 – Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the Royal Brunei Armed Forces (RBAF), received a courtesy call…</p>
+      <button class="read-more" data-id="a8">Read full article →</button>
+    </div>
+    <div class="card" data-id="a9" data-org="MINDEF" data-date="2026-08-20" data-search="coordinating minister for national security, minister at the prime minister&#x27;s office and minister of defence ii receives a courtesy call prime minister&#x27;s office, thursday, 20 august 2026 – yang berhormat pehin datu lailaraja major general (retired) dato paduka seri awang haji halbi bin haji mohd yussof, coordinating minister for national security, minister at the prime minister&#x27;s office, and minister of defence ii, received a courtesy call as part of ongoing diplomatic engagements. ministry of defence (mindef) thu, 20 aug 2026 prime minister&#x27;s office">
+      <span class="date">Thu, 20 Aug 2026 · Prime Minister&#x27;s Office</span>
+      <h3>Coordinating Minister for National Security, Minister at the Prime Minister&#x27;s Office and Minister of Defence II Receives a Courtesy Call</h3>
+      <p>PRIME MINISTER&#x27;S OFFICE, Thursday, 20 August 2026 – Yang Berhormat Pehin Datu Lailaraja Major General (Retired) Dato Paduka Seri Awang Haji Halbi bin Haji Mohd Yussof, Coordinating Minister…</p>
+      <button class="read-more" data-id="a9">Read full article →</button>
+    </div>
+    <div class="card" data-id="a10" data-org="MINDEF" data-date="2026-08-19" data-search="his majesty the sultan graces the parade ceremony of the special forces regiment, rbaf golden jubilee celebration penanjong garrison, wednesday, 19 august 2026 - his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien, sultan and yang di-pertuan of negara brunei darussalam, today graced the parade ceremony of the special forces regiment in conjunction with the rbaf&#x27;s golden jubilee celebration. ministry of defence (mindef) wed, 19 aug 2026 penanjong garrison">
+      <span class="date">Wed, 19 Aug 2026 · Penanjong Garrison</span>
+      <h3>His Majesty the Sultan Graces the Parade Ceremony of the Special Forces Regiment, RBAF Golden Jubilee Celebration</h3>
+      <p>PENANJONG GARRISON, Wednesday, 19 August 2026 - His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar &#x27;Ali Saifuddien Sa&#x27;adul Khairi Waddien, Sultan…</p>
+      <button class="read-more" data-id="a10">Read full article →</button>
+    </div>
+    <div class="card" data-id="a11" data-org="MINDEF" data-date="2026-08-14" data-search="ministry participates in the nightly dikir ceremony for maulidur rasul 1448h at istana nurul iman bandar seri begawan, friday, 14 august 2026 - the ministry of defence participated in the nightly dikir ceremony in commemoration of maulidur rasul 1448h at istana nurul iman this evening, joined by senior ministry officials. ministry of defence (mindef) fri, 14 aug 2026 bandar seri begawan">
+      <span class="date">Fri, 14 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Ministry Participates in the Nightly Dikir Ceremony for Maulidur Rasul 1448H at Istana Nurul Iman</h3>
+      <p>BANDAR SERI BEGAWAN, Friday, 14 August 2026 - The Ministry of Defence participated in the Nightly Dikir Ceremony in commemoration of Maulidur Rasul 1448H at Istana Nurul Iman this evening,…</p>
+      <button class="read-more" data-id="a11">Read full article →</button>
+    </div>
+    <div class="card" data-id="a12" data-org="MINDEF" data-date="2026-08-14" data-search="sc rbaf scholarship and rbaf scholarship awarded to five outstanding students bandar seri begawan, friday, 14 august 2026 - his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien, sultan and yang di-pertuan of brunei darussalam, has consented to award the 2026 supreme commander of the royal brunei armed forces (sc rbaf) scholarship and the rbaf scholarship to five outstanding students. ministry of defence (mindef) fri, 14 aug 2026 bandar seri begawan">
+      <span class="date">Fri, 14 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>SC RBAF Scholarship and RBAF Scholarship Awarded to Five Outstanding Students</h3>
+      <p>BANDAR SERI BEGAWAN, Friday, 14 August 2026 - His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar &#x27;Ali Saifuddien Sa&#x27;adul Khairi Waddien, Sultan…</p>
+      <button class="read-more" data-id="a12">Read full article →</button>
+    </div>
+    <div class="card" data-id="a13" data-org="MINDEF" data-date="2026-08-13" data-search="ministry of defence holds the opening ceremony of dikir maulud 1448h berakas garrison, thursday, 13 august 2026 – to commemorate the birth of prophet muhammad sallallahu alaihi wassallam, and as an expression of gratitude and love for the prophet, as well as to seek blessings from allah subhanahu wa ta&#x27;ala, the ministry of defence held the opening ceremony of dikir maulud 1448h. ministry of defence (mindef) thu, 13 aug 2026 berakas garrison">
+      <span class="date">Thu, 13 Aug 2026 · Berakas Garrison</span>
+      <h3>Ministry of Defence Holds the Opening Ceremony of Dikir Maulud 1448H</h3>
+      <p>BERAKAS GARRISON, Thursday, 13 August 2026 – To commemorate the birth of Prophet Muhammad Sallallahu Alaihi Wassallam, and as an expression of gratitude and love for the Prophet, as well as…</p>
+      <button class="read-more" data-id="a13">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers MINDEF's most recent releases. Visit the <a href="https://www.mindef.gov.bn/news/" target="_blank" rel="noopener">MINDEF news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="rblf">
+  <div class="org-header">
+    <h2>Royal Brunei Land Forces (RBLF)</h2>
+    <a class="source-link" href="https://land.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a14" data-org="RBLF" data-date="2026-09-01" data-search="16th brunei-indonesia army working group meeting bandung, indonesia, tuesday, 1st september 2026 - the 16th brunei-indonesia army working group (brunesia awg 16/2026) meeting between the royal brunei land forces (rblf) and the indonesian army tentara nasional indonesia – angkatan darat (tni-ad) is currently held in bandung, continuing the two armies&#x27; long-standing bilateral engagement. royal brunei land forces (rblf) tue, 1 sep 2026 bandung, indonesia">
+      <span class="date">Tue, 1 Sep 2026 · Bandung, Indonesia</span>
+      <h3>16th Brunei-Indonesia Army Working Group Meeting</h3>
+      <p>BANDUNG, INDONESIA, Tuesday, 1st September 2026 - The 16th Brunei-Indonesia Army Working Group (BRUNESIA AWG 16/2026) meeting between the Royal Brunei Land Forces (RBLF) and the Indonesian…</p>
+      <button class="read-more" data-id="a14">Read full article →</button>
+    </div>
+    <div class="card" data-id="a15" data-org="RBLF" data-date="2026-08-28" data-search="matip 2026 closing event bolkiah garrison, friday, 28th august 2026 – the closing event of the medical assistant trainee induction program (matip) 2026 was held at the medical training wing, medical services headquarters, bolkiah garrison, marking the completion of the six-week programme for the latest cohort of medical assistant trainees. royal brunei land forces (rblf) fri, 28 aug 2026 bolkiah garrison">
+      <span class="date">Fri, 28 Aug 2026 · Bolkiah Garrison</span>
+      <h3>MATIP 2026 Closing Event</h3>
+      <p>BOLKIAH GARRISON, Friday, 28th August 2026 – The closing event of the Medical Assistant Trainee Induction Program (MATIP) 2026 was held at the Medical Training Wing, Medical Services…</p>
+      <button class="read-more" data-id="a15">Read full article →</button>
+    </div>
+    <div class="card" data-id="a16" data-org="RBLF" data-date="2026-08-28" data-search="rblf participates in national one health joint plan of action workshop jerudong, friday, 28th august 2026 – two officers from the royal brunei land forces (rblf) participated in the brunei darussalam national one health joint plan of action workshop, held from 26 to 28 august 2026 at evyd tech campus, jerudong, representing the ministry of defence in cross-agency health security planning. royal brunei land forces (rblf) fri, 28 aug 2026 jerudong">
+      <span class="date">Fri, 28 Aug 2026 · Jerudong</span>
+      <h3>RBLF Participates in National One Health Joint Plan of Action Workshop</h3>
+      <p>JERUDONG, Friday, 28th August 2026 – Two officers from the Royal Brunei Land Forces (RBLF) participated in the Brunei Darussalam National One Health Joint Plan of Action Workshop, held from…</p>
+      <button class="read-more" data-id="a16">Read full article →</button>
+    </div>
+    <div class="card" data-id="a17" data-org="RBLF" data-date="2026-08-27" data-search="basic, intermediate and advanced special task platoon courses 2026 closing event nyamukying, daerah tutong, thursday, 27 august 2026 - the combined arms training centre, royal brunei land forces (catc rblf), in collaboration with the 1bn rblf, held the closing event of the basic, intermediate and advanced special task platoon (stp) courses 2026, marking the graduation of personnel across the three course levels. royal brunei land forces (rblf) thu, 27 aug 2026 nyamukying, daerah tutong">
+      <span class="date">Thu, 27 Aug 2026 · Nyamukying, Daerah Tutong</span>
+      <h3>Basic, Intermediate and Advanced Special Task Platoon Courses 2026 Closing Event</h3>
+      <p>NYAMUKYING, DAERAH TUTONG, Thursday, 27 August 2026 - The Combined Arms Training Centre, Royal Brunei Land Forces (CATC RBLF), in collaboration with the 1Bn RBLF, held the Closing Event of…</p>
+      <button class="read-more" data-id="a17">Read full article →</button>
+    </div>
+    <div class="card" data-id="a18" data-org="RBLF" data-date="2026-08-27" data-search="three dental services personnel successfully complete emt and dental assistant course republic of singapore, thursday, 27th august 2026 – three personnel from dental services, royal brunei land forces (rblf), have successfully completed the emergency medical technician (emt) and dental assistant course conducted by the singapore armed forces medical corps, enhancing their clinical and emergency-response capabilities. royal brunei land forces (rblf) thu, 27 aug 2026 republic of singapore">
+      <span class="date">Thu, 27 Aug 2026 · Republic of Singapore</span>
+      <h3>Three Dental Services Personnel Successfully Complete EMT and Dental Assistant Course</h3>
+      <p>REPUBLIC OF SINGAPORE, Thursday, 27th August 2026 – Three personnel from Dental Services, Royal Brunei Land Forces (RBLF), have successfully completed the Emergency Medical Technician (EMT)…</p>
+      <button class="read-more" data-id="a18">Read full article →</button>
+    </div>
+    <div class="card" data-id="a19" data-org="RBLF" data-date="2026-08-25" data-search="rblf participates in maulidur rasul celebration 1448h bandar seri begawan, tuesday, 25th august 2026 – a total of 152 officers and personnel from the royal brunei land forces (rblf) joined his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien in the national maulidur rasul celebration. royal brunei land forces (rblf) tue, 25 aug 2026 bandar seri begawan">
+      <span class="date">Tue, 25 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>RBLF Participates in Maulidur Rasul Celebration 1448H</h3>
+      <p>BANDAR SERI BEGAWAN, Tuesday, 25th August 2026 – A total of 152 officers and personnel from the Royal Brunei Land Forces (RBLF) joined His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin…</p>
+      <button class="read-more" data-id="a19">Read full article →</button>
+    </div>
+    <div class="card" data-id="a20" data-org="RBLF" data-date="2026-08-24" data-search="gema marhaban for the 12th night of rabiulawal in commemoration of maulud nabi muhammad saw 1448 hijrah berakas garrison, monday, 24th august 2026 – the royal brunei land forces (rblf) held a ceremony for dikir maulud, marking the completion of 12 consecutive nights of dikir maulud in commemoration of the birth of prophet muhammad (pbuh) 1448 hijrah. royal brunei land forces (rblf) mon, 24 aug 2026 berakas garrison">
+      <span class="date">Mon, 24 Aug 2026 · Berakas Garrison</span>
+      <h3>Gema Marhaban for the 12th Night of Rabiulawal in Commemoration of Maulud Nabi Muhammad SAW 1448 Hijrah</h3>
+      <p>BERAKAS GARRISON, Monday, 24th August 2026 – The Royal Brunei Land Forces (RBLF) held a ceremony for Dikir Maulud, marking the completion of 12 consecutive nights of Dikir Maulud in…</p>
+      <button class="read-more" data-id="a20">Read full article →</button>
+    </div>
+    <div class="card" data-id="a21" data-org="RBLF" data-date="2026-08-22" data-search="rblf attends gema marhaban event at masjid kampung kilanas kampung kilanas, saturday, 22nd august 2026 – the royal brunei land forces (rblf) attended the gema marhaban event at kampung kilanas mosque. leading the rblf delegation was the rblf commander, brigadier general aldi bin haji hassan. royal brunei land forces (rblf) sat, 22 aug 2026 kampung kilanas">
+      <span class="date">Sat, 22 Aug 2026 · Kampung Kilanas</span>
+      <h3>RBLF Attends Gema Marhaban Event at Masjid Kampung Kilanas</h3>
+      <p>KAMPUNG KILANAS, Saturday, 22nd August 2026 – The Royal Brunei Land Forces (RBLF) attended the Gema Marhaban Event at Kampung Kilanas Mosque. Leading the RBLF delegation was the RBLF…</p>
+      <button class="read-more" data-id="a21">Read full article →</button>
+    </div>
+    <div class="card" data-id="a22" data-org="RBLF" data-date="2026-08-21" data-search="passing out parade ceremony for the 180th intake male recruits of the rbaf penanjong garrison, friday, 21 august 2026 – a total of 194 male recruits of the 180th intake successfully completed their basic military training during a passing out parade ceremony held at the parade square, training institute royal brunei armed forces (ti rbaf). royal brunei land forces (rblf) fri, 21 aug 2026 penanjong garrison">
+      <span class="date">Fri, 21 Aug 2026 · Penanjong Garrison</span>
+      <h3>Passing Out Parade Ceremony for the 180th Intake Male Recruits of the RBAF</h3>
+      <p>PENANJONG GARRISON, Friday, 21 August 2026 – A total of 194 male recruits of the 180th Intake successfully completed their Basic Military Training during a Passing Out Parade Ceremony held…</p>
+      <button class="read-more" data-id="a22">Read full article →</button>
+    </div>
+    <div class="card" data-id="a23" data-org="RBLF" data-date="2026-08-20" data-search="closing ceremony of exercise pahlawan warrior 04/2026 binturan, thursday, 20 august 2026 – the closing ceremony of exercise pahlawan warrior 04/2026 was held at the binturan field firing area (ffa), penanjong garrison, marking the conclusion of the bilateral exercise between the royal brunei land forces (rblf) and its counterpart force. royal brunei land forces (rblf) thu, 20 aug 2026 binturan">
+      <span class="date">Thu, 20 Aug 2026 · Binturan</span>
+      <h3>Closing Ceremony of Exercise Pahlawan Warrior 04/2026</h3>
+      <p>BINTURAN, Thursday, 20 August 2026 – The Closing Ceremony of Exercise Pahlawan Warrior 04/2026 was held at the Binturan Field Firing Area (FFA), Penanjong Garrison, marking the conclusion…</p>
+      <button class="read-more" data-id="a23">Read full article →</button>
+    </div>
+    <div class="card" data-id="a24" data-org="RBLF" data-date="2026-08-17" data-search="commander rblf leadership talk session with advanced infantry course participants lumut camp, monday, 17th august 2026 – the commander of the royal brunei land forces (rblf), brigadier general aldi bin haji hassan, conducted a leadership talk session with 173 personnel from the advanced infantry course (aic) 10/2026 at ad-din hall, third battalion rblf. royal brunei land forces (rblf) mon, 17 aug 2026 lumut camp">
+      <span class="date">Mon, 17 Aug 2026 · Lumut Camp</span>
+      <h3>Commander RBLF Leadership Talk Session with Advanced Infantry Course Participants</h3>
+      <p>LUMUT CAMP, Monday, 17th August 2026 – The Commander of the Royal Brunei Land Forces (RBLF), Brigadier General Aldi bin Haji Hassan, conducted a leadership talk session with 173 personnel…</p>
+      <button class="read-more" data-id="a24">Read full article →</button>
+    </div>
+    <div class="card" data-id="a25" data-org="RBLF" data-date="2026-08-14" data-search="advanced infantry course serial 10/2026 closing ceremony held at lumut camp lumut camp, friday, 14 august 2026 – the combined arms training centre, royal brunei land forces (catc rblf), in collaboration with the third battalion, royal brunei land forces (3bn rblf), held the closing ceremony and combat self-defence badge presentation for the advanced infantry course. royal brunei land forces (rblf) fri, 14 aug 2026 lumut camp">
+      <span class="date">Fri, 14 Aug 2026 · Lumut Camp</span>
+      <h3>Advanced Infantry Course Serial 10/2026 Closing Ceremony Held at Lumut Camp</h3>
+      <p>LUMUT CAMP, Friday, 14 August 2026 – The Combined Arms Training Centre, Royal Brunei Land Forces (CATC RBLF), in collaboration with the Third Battalion, Royal Brunei Land Forces (3Bn RBLF),…</p>
+      <button class="read-more" data-id="a25">Read full article →</button>
+    </div>
+    <div class="card" data-id="a26" data-org="RBLF" data-date="2026-08-13" data-search="royal brunei land forces held the opening ceremony of dikir maulud 1448h berakas garrison, thursday, 13th august 2026 – the royal brunei land forces (rblf) held the opening ceremony of dikir maulud 1448h to commemorate the birth of prophet muhammad sallallahu &#x27;alaihi wassallam (pbuh), and as an expression of love and gratitude towards him. royal brunei land forces (rblf) thu, 13 aug 2026 berakas garrison">
+      <span class="date">Thu, 13 Aug 2026 · Berakas Garrison</span>
+      <h3>Royal Brunei Land Forces Held the Opening Ceremony of Dikir Maulud 1448H</h3>
+      <p>BERAKAS GARRISON, Thursday, 13th August 2026 – The Royal Brunei Land Forces (RBLF) held the Opening Ceremony of Dikir Maulud 1448H to commemorate the birth of Prophet Muhammad Sallallahu…</p>
+      <button class="read-more" data-id="a26">Read full article →</button>
+    </div>
+    <div class="card" data-id="a27" data-org="RBLF" data-date="2026-08-13" data-search="certificate presentation and closing ceremony of combat net radio management course session 2026 penanjong garrison, thursday, 13th august 2026 – the closing ceremony of the combat net radio network management course session 2026 was held at the parade square, combined arms training centre, royal brunei land forces (catc rblf), penanjong garrison. a total of 12 personnel completed the course. royal brunei land forces (rblf) thu, 13 aug 2026 penanjong garrison">
+      <span class="date">Thu, 13 Aug 2026 · Penanjong Garrison</span>
+      <h3>Certificate Presentation and Closing Ceremony of Combat Net Radio Management Course Session 2026</h3>
+      <p>PENANJONG GARRISON, Thursday, 13th August 2026 – The Closing Ceremony of the Combat Net Radio Network Management Course Session 2026 was held at the Parade Square, Combined Arms Training…</p>
+      <button class="read-more" data-id="a27">Read full article →</button>
+    </div>
+    <div class="card" data-id="a28" data-org="RBLF" data-date="2026-08-11" data-search="introductory visit by commander of the royal brunei land forces to malaysia malaysia, tuesday, 11 august 2026 – brigadier general aldi bin haji hassan, commander of the royal brunei land forces (rblf), undertook an introductory visit to malaysia from 10 to 13 august 2026 as part of ongoing efforts to strengthen defence relations and military cooperation between the two countries. royal brunei land forces (rblf) tue, 11 aug 2026 malaysia">
+      <span class="date">Tue, 11 Aug 2026 · Malaysia</span>
+      <h3>Introductory Visit by Commander of the Royal Brunei Land Forces to Malaysia</h3>
+      <p>MALAYSIA, Tuesday, 11 August 2026 – Brigadier General Aldi bin Haji Hassan, Commander of the Royal Brunei Land Forces (RBLF), undertook an Introductory Visit to Malaysia from 10 to 13…</p>
+      <button class="read-more" data-id="a28">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers RBLF's most recent releases. Visit the <a href="https://land.mindef.gov.bn/news/" target="_blank" rel="noopener">RBLF news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="rbairf">
+  <div class="org-header">
+    <h2>Royal Brunei Air Force (RBAirF)</h2>
+    <a class="source-link" href="https://airforce.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a29" data-org="RBAirF" data-date="2026-08-20" data-search="enlisted air power forum 2026 berakas garrison, thursday, 20 august 2026 – the enlisted air power forum 2026 was held at dewan pahlawan, berakas garrison. the event was organised by the air force sergeant major (afsm) in collaboration with the senior warrant officers and senior non-commissioned officers of the rbairf. royal brunei air force (rbairf) thu, 20 aug 2026 berakas garrison">
+      <span class="date">Thu, 20 Aug 2026 · Berakas Garrison</span>
+      <h3>Enlisted Air Power Forum 2026</h3>
+      <p>BERAKAS GARRISON, Thursday, 20 August 2026 – The Enlisted Air Power Forum 2026 was held at Dewan Pahlawan, Berakas Garrison. The event was organised by the Air Force Sergeant Major (AFSM)…</p>
+      <button class="read-more" data-id="a29">Read full article →</button>
+    </div>
+    <div class="card" data-id="a30" data-org="RBAirF" data-date="2026-08-20" data-search="rbairf participates in the 13th asean air forces education and training (aafet) working group meeting rimba air force base, thursday, 20 august 2026 – the royal brunei air force (rbairf) participated in the 13th asean air forces education and training (aafet) working group meeting, hosted virtually by the philippine air force (paf) via video teleconference (vtc), continuing regional cooperation on training standards. royal brunei air force (rbairf) thu, 20 aug 2026 rimba air force base">
+      <span class="date">Thu, 20 Aug 2026 · Rimba Air Force Base</span>
+      <h3>RBAirF Participates in the 13th ASEAN Air Forces Education and Training (AAFET) Working Group Meeting</h3>
+      <p>RIMBA AIR FORCE BASE, Thursday, 20 August 2026 – The Royal Brunei Air Force (RBAirF) participated in the 13th ASEAN Air Forces Education and Training (AAFET) Working Group Meeting, hosted…</p>
+      <button class="read-more" data-id="a30">Read full article →</button>
+    </div>
+    <div class="card" data-id="a31" data-org="RBAirF" data-date="2026-08-20" data-search="rbairf delegation concludes four-day senior officers&#x27; exchange program kuala lumpur, thursday, 20 august 2026 – the royal malaysian air force (rmaf) successfully hosted the inaugural senior officers&#x27; exchange program (soep) with the royal brunei air force (rbairf) from 17 to 20 august 2026, led by a senior rbairf delegation. royal brunei air force (rbairf) thu, 20 aug 2026 kuala lumpur">
+      <span class="date">Thu, 20 Aug 2026 · Kuala Lumpur</span>
+      <h3>RBAirF Delegation Concludes Four-Day Senior Officers&#x27; Exchange Program</h3>
+      <p>KUALA LUMPUR, Thursday, 20 August 2026 – The Royal Malaysian Air Force (RMAF) successfully hosted the inaugural Senior Officers&#x27; Exchange Program (SOEP) with the Royal Brunei Air Force…</p>
+      <button class="read-more" data-id="a31">Read full article →</button>
+    </div>
+    <div class="card" data-id="a32" data-org="RBAirF" data-date="2026-08-13" data-search="rbairf officers attend aviation investigation, techniques and management training programme jerudong, 13 august 2026 – two officers from the royal brunei air force (rbairf), captain (udara) nur hasinah binti haji rosli and lieutenant (udara) muhammad abdul syakir bin haji basri, attended the aviation investigation, techniques and management training programme. royal brunei air force (rbairf) thu, 13 aug 2026 jerudong">
+      <span class="date">Thu, 13 Aug 2026 · Jerudong</span>
+      <h3>RBAirF Officers Attend Aviation Investigation, Techniques and Management Training Programme</h3>
+      <p>JERUDONG, 13 August 2026 – Two officers from the Royal Brunei Air Force (RBAirF), Captain (Udara) Nur Hasinah binti Haji Rosli and Lieutenant (Udara) Muhammad Abdul Syakir bin Haji Basri,…</p>
+      <button class="read-more" data-id="a32">Read full article →</button>
+    </div>
+    <div class="card" data-id="a33" data-org="RBAirF" data-date="2026-08-11" data-search="royal brunei air force hosts 2026 prospective scholarship recipients rimba air force base, tuesday, 11 august 2026 – the royal brunei air force (rbairf) hosted a visit by prospective recipients of the royal brunei armed forces (rbaf) supreme commander&#x27;s scholarship and the rbaf scholarship for the year 2026 at rimba air force base. royal brunei air force (rbairf) tue, 11 aug 2026 rimba air force base">
+      <span class="date">Tue, 11 Aug 2026 · Rimba Air Force Base</span>
+      <h3>Royal Brunei Air Force Hosts 2026 Prospective Scholarship Recipients</h3>
+      <p>RIMBA AIR FORCE BASE, Tuesday, 11 August 2026 – The Royal Brunei Air Force (RBAirF) hosted a visit by prospective recipients of the Royal Brunei Armed Forces (RBAF) Supreme Commander&#x27;s…</p>
+      <button class="read-more" data-id="a33">Read full article →</button>
+    </div>
+    <div class="card" data-id="a34" data-org="RBAirF" data-date="2026-08-12" data-search="royal brunei air force blood donation campaign for the 65th anniversary of the rbaf dewan punai, wednesday, 12 august 2026 - the royal brunei air force (rbairf) organised a blood donation campaign in conjunction with the 65th anniversary of the royal brunei armed forces (rbaf), as part of its community outreach initiatives. royal brunei air force (rbairf) wed, 12 aug 2026 dewan punai">
+      <span class="date">Wed, 12 Aug 2026 · Dewan Punai</span>
+      <h3>Royal Brunei Air Force Blood Donation Campaign for the 65th Anniversary of the RBAF</h3>
+      <p>DEWAN PUNAI, WEDNESDAY, 12 AUGUST 2026 - The Royal Brunei Air Force (RBAirF) organised a Blood Donation Campaign in conjunction with the 65th Anniversary of the Royal Brunei Armed Forces…</p>
+      <button class="read-more" data-id="a34">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers RBAirF's most recent releases. Visit the <a href="https://airforce.mindef.gov.bn/news/" target="_blank" rel="noopener">RBAirF news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="rbn">
+  <div class="org-header">
+    <h2>Royal Brunei Navy (RBN)</h2>
+    <a class="source-link" href="https://navy.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a35" data-org="RBN" data-date="2026-08-24" data-search="the rbn concludes 12 nights of religious recitations in remembrance of maulidur rasul muara, monday, 24 august 2026 - the royal brunei navy (rbn) hosted the closing ceremony for the zikir maulud nabi muhammad s.a.w. at surau al-huda, rbn. this marked the conclusion of 12 consecutive nights of zikir maulidur rasul s.a.w., which commenced on thursday, 13 august 2026. royal brunei navy (rbn) mon, 24 aug 2026 muara">
+      <span class="date">Mon, 24 Aug 2026 · Muara</span>
+      <h3>The RBN Concludes 12 Nights of Religious Recitations in Remembrance of Maulidur Rasul</h3>
+      <p>MUARA, Monday, 24 August 2026 - The Royal Brunei Navy (RBN) hosted the Closing Ceremony for the Zikir Maulud Nabi Muhammad S.A.W. at Surau Al-Huda, RBN. This marked the conclusion of 12…</p>
+      <button class="read-more" data-id="a35">Read full article →</button>
+    </div>
+    <div class="card" data-id="a36" data-org="RBN" data-date="2026-08-19" data-search="rbn participates in the 20th asean navy chiefs&#x27; meeting in bangkok, thailand bangkok, thailand, wednesday, 19 august 2026 - the 20th asean navy chiefs&#x27; meeting (ancm) is taking place in bangkok from 18 to 21 august 2026. hosted by the royal thai navy (rtn), the event has drawn naval chiefs and delegates representing all asean member nations. royal brunei navy (rbn) wed, 19 aug 2026 bangkok, thailand">
+      <span class="date">Wed, 19 Aug 2026 · Bangkok, Thailand</span>
+      <h3>RBN Participates in the 20th ASEAN Navy Chiefs&#x27; Meeting in Bangkok, Thailand</h3>
+      <p>BANGKOK, THAILAND, Wednesday, 19 August 2026 - The 20th ASEAN Navy Chiefs&#x27; Meeting (ANCM) is taking place in Bangkok from 18 to 21 August 2026. Hosted by the Royal Thai Navy (RTN), the…</p>
+      <button class="read-more" data-id="a36">Read full article →</button>
+    </div>
+    <div class="card" data-id="a37" data-org="RBN" data-date="2026-08-19" data-search="the rbn attends the united kingdom hydrographic office data deliverables workshop bandar seri begawan, wednesday, 19 august 2026 — two officers from the royal brunei navy (rbn) participated in the united kingdom hydrographic office (ukho) data deliverables workshop, held from 17 to 19 august 2026 in bandar seri begawan. the three-day workshop covered hydrographic data standards. royal brunei navy (rbn) wed, 19 aug 2026 bandar seri begawan">
+      <span class="date">Wed, 19 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>The RBN Attends the United Kingdom Hydrographic Office Data Deliverables Workshop</h3>
+      <p>BANDAR SERI BEGAWAN, Wednesday, 19 August 2026 — Two officers from the Royal Brunei Navy (RBN) participated in the United Kingdom Hydrographic Office (UKHO) Data Deliverables Workshop, held…</p>
+      <button class="read-more" data-id="a37">Read full article →</button>
+    </div>
+    <div class="card" data-id="a38" data-org="RBN" data-date="2026-07-31" data-search="rbn support services headquarters holds jasamu dikenang ceremony to honour retiring personnel kiulap, friday, 31 july 2026 - the support services headquarters (sshq) of the royal brunei navy (rbn) hosted a jasamu dikenang ceremony on friday evening at the seri sutera hall, kiulap mall. the event was held to honour retiring personnel, formally recognising their years of service. royal brunei navy (rbn) fri, 31 jul 2026 kiulap">
+      <span class="date">Fri, 31 Jul 2026 · Kiulap</span>
+      <h3>RBN Support Services Headquarters Holds Jasamu Dikenang Ceremony to Honour Retiring Personnel</h3>
+      <p>KIULAP, Friday, 31 July 2026 - The Support Services Headquarters (SSHQ) of the Royal Brunei Navy (RBN) hosted a Jasamu Dikenang ceremony on Friday evening at the Seri Sutera Hall, Kiulap…</p>
+      <button class="read-more" data-id="a38">Read full article →</button>
+    </div>
+    <div class="card" data-id="a39" data-org="RBN" data-date="2026-08-03" data-search="rbn participates in final planning conference and shore phase of seacat 2026 singapore, monday, 3 august 2026 – officers from the royal brunei navy (rbn) and joint force headquarters, royal brunei armed forces (jfhq rbaf), participated in the final planning conference (fpc) and shore phase of the southeast asia cooperation and training (seacat) 2026 exercise. royal brunei navy (rbn) mon, 3 aug 2026 singapore">
+      <span class="date">Mon, 3 Aug 2026 · Singapore</span>
+      <h3>RBN Participates in Final Planning Conference and Shore Phase of SEACAT 2026</h3>
+      <p>SINGAPORE, MONDAY, 3 AUGUST 2026 – Officers from the Royal Brunei Navy (RBN) and Joint Force Headquarters, Royal Brunei Armed Forces (JFHQ RBAF), participated in the Final Planning…</p>
+      <button class="read-more" data-id="a39">Read full article →</button>
+    </div>
+    <div class="card" data-id="a40" data-org="RBN" data-date="2026-08-08" data-search="royal brunei navy honours flag lowering ceremony for his majesty&#x27;s 80th birthday celebration bandar seri begawan, saturday, 8 august 2026 – the royal brunei navy had the honour of conducting the flag lowering ceremony held in conjunction with the 80th birthday celebrations of his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan. royal brunei navy (rbn) sat, 8 aug 2026 bandar seri begawan">
+      <span class="date">Sat, 8 Aug 2026 · Bandar Seri Begawan</span>
+      <h3>Royal Brunei Navy Honours Flag Lowering Ceremony for His Majesty&#x27;s 80th Birthday Celebration</h3>
+      <p>BANDAR SERI BEGAWAN, Saturday, 8 August 2026 – The Royal Brunei Navy had the honour of conducting the Flag Lowering Ceremony held in conjunction with the 80th birthday celebrations of His…</p>
+      <button class="read-more" data-id="a40">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers RBN's most recent releases. Visit the <a href="https://navy.mindef.gov.bn/news/" target="_blank" rel="noopener">RBN news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="da">
+  <div class="org-header">
+    <h2>Defence Academy RBAF (DA RBAF)</h2>
+    <a class="source-link" href="https://da.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a41" data-org="DA RBAF" data-date="2026-08-24" data-search="da rbaf held the 12th night of rabiulawal marhaban ceremony for maulud nabi muhammad saw 1448h tanah jambu, monday, 24 august 2026 - the defence academy, royal brunei armed forces (da rbaf) held the 12th night of rabiulawal marhaban ceremony in commemoration of the prophet muhammad&#x27;s (pbuh) mawlid at surau asy-syuhada, da rbaf. defence academy rbaf (da rbaf) mon, 24 aug 2026 tanah jambu">
+      <span class="date">Mon, 24 Aug 2026 · Tanah Jambu</span>
+      <h3>DA RBAF Held the 12th Night of Rabiulawal Marhaban Ceremony for Maulud Nabi Muhammad SAW 1448H</h3>
+      <p>TANAH JAMBU, Monday, 24 August 2026 - The Defence Academy, Royal Brunei Armed Forces (DA RBAF) held the 12th Night of Rabiulawal Marhaban Ceremony in commemoration of the Prophet Muhammad&#x27;s…</p>
+      <button class="read-more" data-id="a41">Read full article →</button>
+    </div>
+    <div class="card" data-id="a42" data-org="DA RBAF" data-date="2026-08-20" data-search="opening ceremony for intermediate staff course 26/2026 tanah jambu, thursday, 20 august 2026 – the opening ceremony for the intermediate staff course 26/2026 (isc 26/2026) was held at the defence academy royal brunei armed forces (da rbaf), kampung tanah jambu, marking the start of the intermediate command and staff training programme. defence academy rbaf (da rbaf) thu, 20 aug 2026 tanah jambu">
+      <span class="date">Thu, 20 Aug 2026 · Tanah Jambu</span>
+      <h3>Opening Ceremony for Intermediate Staff Course 26/2026</h3>
+      <p>TANAH JAMBU, Thursday, 20 August 2026 – The Opening Ceremony for the Intermediate Staff Course 26/2026 (ISC 26/2026) was held at the Defence Academy Royal Brunei Armed Forces (DA RBAF),…</p>
+      <button class="read-more" data-id="a42">Read full article →</button>
+    </div>
+    <div class="card" data-id="a43" data-org="DA RBAF" data-date="2026-08-13" data-search="da rbaf holds opening dikir ceremony for maulud nabi muhammad saw 1448h tanah jambu, thursday, 13 august 2026 – the defence academy royal brunei armed forces (da rbaf) held the opening dikir ceremony for maulud nabi muhammad saw 1448h at surau asy-syuhada, da rbaf. present at the ceremony was the acting commandant of da rbaf. defence academy rbaf (da rbaf) thu, 13 aug 2026 tanah jambu">
+      <span class="date">Thu, 13 Aug 2026 · Tanah Jambu</span>
+      <h3>DA RBAF Holds Opening Dikir Ceremony for Maulud Nabi Muhammad SAW 1448H</h3>
+      <p>TANAH JAMBU, Thursday, 13 August 2026 – The Defence Academy Royal Brunei Armed Forces (DA RBAF) held the Opening Dikir Ceremony for Maulud Nabi Muhammad SAW 1448H at Surau Asy-Syuhada, DA…</p>
+      <button class="read-more" data-id="a43">Read full article →</button>
+    </div>
+    <div class="card" data-id="a44" data-org="DA RBAF" data-date="2026-08-12" data-search="farewell and introductory calls with commandant, defence academy rbaf (viet nam defence attachés) tanah jambu, wednesday, 12 august 2026 – colonel (u) azmie iskandar bin ariffin, commandant of the defence academy, royal brunei armed forces (rbaf), today received a farewell call from senior colonel nguyen ngoc huan, the outgoing defence attaché of the socialist republic of viet nam, and an introductory call from the incoming attaché. defence academy rbaf (da rbaf) wed, 12 aug 2026 tanah jambu">
+      <span class="date">Wed, 12 Aug 2026 · Tanah Jambu</span>
+      <h3>Farewell and Introductory Calls with Commandant, Defence Academy RBAF (Viet Nam Defence Attachés)</h3>
+      <p>TANAH JAMBU, Wednesday, 12 August 2026 – Colonel (U) Azmie Iskandar bin Ariffin, Commandant of the Defence Academy, Royal Brunei Armed Forces (RBAF), today received a farewell call from…</p>
+      <button class="read-more" data-id="a44">Read full article →</button>
+    </div>
+    <div class="card" data-id="a45" data-org="DA RBAF" data-date="2026-08-11" data-search="historic milestone for rbaf and ubd as inaugural mdss cohort graduates chancellor hall, universiti brunei darussalam, tuesday, 11 august 2026 – his royal highness prince (dr) haji al-muhtadee billah ibni his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah, the crown prince and senior minister at the prime minister&#x27;s office, presided over the graduation of the inaugural mdss cohort. defence academy rbaf (da rbaf) tue, 11 aug 2026 ubd, chancellor hall">
+      <span class="date">Tue, 11 Aug 2026 · UBD, Chancellor Hall</span>
+      <h3>Historic Milestone for RBAF and UBD as Inaugural MDSS Cohort Graduates</h3>
+      <p>CHANCELLOR HALL, UNIVERSITI BRUNEI DARUSSALAM, Tuesday, 11 August 2026 – His Royal Highness Prince (Dr) Haji Al-Muhtadee Billah ibni His Majesty Sultan Haji Hassanal Bolkiah Mu&#x27;izzaddin…</p>
+      <button class="read-more" data-id="a45">Read full article →</button>
+    </div>
+    <div class="card" data-id="a46" data-org="DA RBAF" data-date="2026-08-07" data-search="da rbaf held khatam al-quran ceremony for his majesty&#x27;s 80th birthday celebration 1448h/2026m tanah jambu, friday, 07 august 2026 - defence academy royal brunei armed forces (da rbaf) commenced the khatam al-qur&#x27;an in conjunction with his majesty sultan haji hassanal bolkiah mu&#x27;izzaddin waddaulah ibni al-marhum sultan haji omar &#x27;ali saifuddien sa&#x27;adul khairi waddien&#x27;s 80th birthday celebration. defence academy rbaf (da rbaf) fri, 7 aug 2026 tanah jambu">
+      <span class="date">Fri, 7 Aug 2026 · Tanah Jambu</span>
+      <h3>DA RBAF Held Khatam Al-Quran Ceremony for His Majesty&#x27;s 80th Birthday Celebration 1448H/2026M</h3>
+      <p>TANAH JAMBU, Friday, 07 August 2026 - Defence Academy Royal Brunei Armed Forces (DA RBAF) commenced The Khatam Al-Qur&#x27;an in conjunction with His Majesty Sultan Haji Hassanal Bolkiah…</p>
+      <button class="read-more" data-id="a46">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers DA RBAF's most recent releases. Visit the <a href="https://da.mindef.gov.bn/news/" target="_blank" rel="noopener">DA RBAF news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="ti">
+  <div class="org-header">
+    <h2>Training Institute RBAF (TI RBAF / ILABDB)</h2>
+    <a class="source-link" href="https://ilabdb.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a47" data-org="TI RBAF" data-date="2026-08-07" data-search="certificate, badge presentation and closing ceremony for advanced logistic course serial 01/2026 penanjong garrison, thursday, 07 august 2026 – the certificate, badge presentation and closing ceremony of the advanced logistics course serial 1/2026 was held at the logistics training wing, school of military trade, training institute royal brunei armed forces (ti rbaf). training institute rbaf (ti rbaf / ilabdb) thu, 7 aug 2026 penanjong garrison">
+      <span class="date">Thu, 7 Aug 2026 · Penanjong Garrison</span>
+      <h3>Certificate, Badge Presentation and Closing Ceremony for Advanced Logistic Course Serial 01/2026</h3>
+      <p>PENANJONG GARRISON, THURSDAY, 07 AUGUST 2026 – The Certificate, Badge Presentation and Closing Ceremony of the Advanced Logistics Course Serial 1/2026 was held at the Logistics Training…</p>
+      <button class="read-more" data-id="a47">Read full article →</button>
+    </div>
+    <div class="card" data-id="a48" data-org="TI RBAF" data-date="2026-08-06" data-search="certificate presentation &amp; closing ceremony for the unit ammunition store management course session 2026 penanjong garrison, thursday, 06 august 2026 – the certificate presentation and closing ceremony for the unit ammunition store management course conducted by the logistics training wing was successfully implemented. present as the guest of honor for this ceremony was a senior ti rbaf officer. training institute rbaf (ti rbaf / ilabdb) thu, 6 aug 2026 penanjong garrison">
+      <span class="date">Thu, 6 Aug 2026 · Penanjong Garrison</span>
+      <h3>Certificate Presentation &amp; Closing Ceremony for the Unit Ammunition Store Management Course Session 2026</h3>
+      <p>Penanjong Garrison, Thursday, 06 August 2026 – The Certificate Presentation and Closing Ceremony For The Unit Ammunition Store Management Course conducted by the Logistics Training Wing was…</p>
+      <button class="read-more" data-id="a48">Read full article →</button>
+    </div>
+    <div class="card" data-id="a49" data-org="TI RBAF" data-date="2026-08-03" data-search="the opening ceremony of the occupational health and safety supervisor course serial 2/2026 penanjong garrison, monday 3 august 2026 – occupational health and safety supervisors&#x27; course serial 2/2026 took place at the evolution centre, training institute, royal brunei armed forces. present to officiate the opening of the course were the acting head of the relevant training wing. training institute rbaf (ti rbaf / ilabdb) mon, 3 aug 2026 evolution centre, penanjong">
+      <span class="date">Mon, 3 Aug 2026 · Evolution Centre, Penanjong</span>
+      <h3>The Opening Ceremony of the Occupational Health and Safety Supervisor Course Serial 2/2026</h3>
+      <p>Penanjong Garrison, Monday 3 August 2026 – Occupational Health and Safety Supervisors&#x27; Course Serial 2/2026 took place at the Evolution Centre, Training Institute, Royal Brunei Armed…</p>
+      <button class="read-more" data-id="a49">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers TI RBAF's most recent releases. Visit the <a href="https://ilabdb.mindef.gov.bn/news/" target="_blank" rel="noopener">TI RBAF news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="jfhq">
+  <div class="org-header">
+    <h2>Joint Force Headquarters (JFHQ)</h2>
+    <a class="source-link" href="https://jfhq.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a50" data-org="JFHQ" data-date="2026-09-04" data-search="closing of collective planning exercise ahead of exercise hikmat bersatu vii (hb vii) tanah jambu, jumaat, 4 september 2026 - majlis penutup collective planning exercise (cpe) sebagai persediaan bagi eksesais hb vii telah berlangsung di auditorium, akademi pertahanan angkatan bersenjata diraja brunei (ap abdb), kampung tanah jambu, menandakan selesainya fasa perancangan bersama sebelum eksesais penuh. joint force headquarters (jfhq) fri, 4 sep 2026 tanah jambu">
+      <span class="date">Fri, 4 Sep 2026 · Tanah Jambu</span>
+      <h3>Closing of Collective Planning Exercise ahead of Exercise Hikmat Bersatu VII (HB VII)</h3>
+      <p>TANAH JAMBU, Jumaat, 4 September 2026 - Majlis Penutup Collective Planning Exercise (CPE) sebagai persediaan bagi Eksesais HB VII telah berlangsung di Auditorium, Akademi Pertahanan…</p>
+      <button class="read-more" data-id="a50">Read full article →</button>
+    </div>
+    <div class="card" data-id="a51" data-org="JFHQ" data-date="2026-09-01" data-search="opening of collective planning exercise ahead of exercise hikmat bersatu vii (hb vii) tanah jambu, selasa, 1 september 2026 - majlis pembukaan collective planning exercise (cpe) telah berlangsung di akademi pertahanan angkatan bersenjata diraja brunei (ap abdb), kampung tanah jambu pada hari selasa, 1 september 2026. majlis berkenaan telah dirasmikan oleh pegawai kanan markas angkatan bersama. joint force headquarters (jfhq) tue, 1 sep 2026 tanah jambu">
+      <span class="date">Tue, 1 Sep 2026 · Tanah Jambu</span>
+      <h3>Opening of Collective Planning Exercise ahead of Exercise Hikmat Bersatu VII (HB VII)</h3>
+      <p>TANAH JAMBU, Selasa, 1 September 2026 - Majlis Pembukaan Collective Planning Exercise (CPE) telah berlangsung di Akademi Pertahanan Angkatan Bersenjata Diraja Brunei (AP ABDB), Kampung…</p>
+      <button class="read-more" data-id="a51">Read full article →</button>
+    </div>
+    <div class="card" data-id="a52" data-org="JFHQ" data-date="2026-08-26" data-search="joint force commander receives courtesy call from regional humanitarian civil-military advisor, cfe-dm, us pacom bolkiah garrison, wednesday, 26 august 2026 – colonel pengiran noor rumaizi bin pengiran othman, joint force commander, royal brunei armed forces (rbaf), received a courtesy call from mr josh szimonisz, regional humanitarian civil-military advisor, center for excellence in disaster management &amp; humanitarian assistance (cfe-dm), us pacom. joint force headquarters (jfhq) wed, 26 aug 2026 bolkiah garrison">
+      <span class="date">Wed, 26 Aug 2026 · Bolkiah Garrison</span>
+      <h3>Joint Force Commander Receives Courtesy Call from Regional Humanitarian Civil-Military Advisor, CFE-DM, US PACOM</h3>
+      <p>BOLKIAH GARRISON, Wednesday, 26 August 2026 – Colonel Pengiran Noor Rumaizi bin Pengiran Othman, Joint Force Commander, Royal Brunei Armed Forces (RBAF), received a courtesy call from Mr…</p>
+      <button class="read-more" data-id="a52">Read full article →</button>
+    </div>
+    <div class="card" data-id="a53" data-org="JFHQ" data-date="2026-08-21" data-search="joint force commander attends the 180th recruit intake passing-out ceremony penanjong garrison, friday, 21 august 2026 – colonel pengiran noor rumaizi bin pengiran othman, joint force commander, royal brunei armed forces (rbaf) attended as the guest of honour for the passing-out parade ceremony for the male recruits from the 180th intake. joint force headquarters (jfhq) fri, 21 aug 2026 penanjong garrison">
+      <span class="date">Fri, 21 Aug 2026 · Penanjong Garrison</span>
+      <h3>Joint Force Commander Attends the 180th Recruit Intake Passing-Out Ceremony</h3>
+      <p>PENANJONG GARRISON, Friday, 21 August 2026 – Colonel Pengiran Noor Rumaizi bin Pengiran Othman, Joint Force Commander, Royal Brunei Armed Forces (RBAF) attended as the Guest of Honour for…</p>
+      <button class="read-more" data-id="a53">Read full article →</button>
+    </div>
+    <div class="card" data-id="a54" data-org="JFHQ" data-date="2026-08-13" data-search="joint force rbaf personnel complete the combat network radio communications management course session 2026 penanjong garrison, thursday, 13th august 2026 – a total of two officers and 10 other ranks from royal brunei land forces (rblf) royal brunei armed forces (rbaf) and joint force (jf) rbaf completed the combat network radio communications management course session 2026. joint force headquarters (jfhq) thu, 13 aug 2026 penanjong garrison">
+      <span class="date">Thu, 13 Aug 2026 · Penanjong Garrison</span>
+      <h3>Joint Force RBAF Personnel Complete the Combat Network Radio Communications Management Course Session 2026</h3>
+      <p>PENANJONG GARRISON, Thursday, 13th August 2026 – A total of two Officers and 10 Other Ranks from Royal Brunei Land Forces (RBLF) Royal Brunei Armed Forces (RBAF) and Joint Force (JF) RBAF…</p>
+      <button class="read-more" data-id="a54">Read full article →</button>
+    </div>
+    <div class="card" data-id="a55" data-org="JFHQ" data-date="2026-08-08" data-search="rbaf strengthens regional maritime security through seacat 2026 participation republic of singapore, saturday, 08 august 2026 – a total of five officers from the royal brunei armed forces (rbaf), participated in the final planning conference (fpc), shore phase exercise and senior leader forum (slf) of the southeast asia cooperation and training (seacat) 2026 exercise. joint force headquarters (jfhq) sat, 8 aug 2026 republic of singapore">
+      <span class="date">Sat, 8 Aug 2026 · Republic of Singapore</span>
+      <h3>RBAF Strengthens Regional Maritime Security through SEACAT 2026 Participation</h3>
+      <p>REPUBLIC OF SINGAPORE, Saturday, 08 August 2026 – A total of five officers from the Royal Brunei Armed Forces (RBAF), participated in the Final Planning Conference (FPC), Shore Phase…</p>
+      <button class="read-more" data-id="a55">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers JFHQ's most recent releases. Visit the <a href="https://jfhq.mindef.gov.bn/news/" target="_blank" rel="noopener">JFHQ news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+
+<section class="org" id="ocs">
+  <div class="org-header">
+    <h2>Officer Cadet School (OCS Brunei)</h2>
+    <a class="source-link" href="https://ocs.mindef.gov.bn/news/" target="_blank" rel="noopener">Source ↗</a>
+  </div>
+  <div class="cards">
+    <div class="card" data-id="a56" data-org="OCS" data-date="2026-08-11" data-search="ocs intake 25 of da rbaf begins special-to-service term with urban operations training in singapore rimba air base, tuesday, 11 august 2026 - officer cadets (ocdts) of intake 25 from the defence academy royal brunei armed forces (da rbaf) departed for singapore to undertake a three-week urban operations training package (uotp) at safti military institute (safti mi), beginning their special-to-service term. officer cadet school (ocs brunei) tue, 11 aug 2026 rimba air base / singapore">
+      <span class="date">Tue, 11 Aug 2026 · Rimba Air Base / Singapore</span>
+      <h3>OCS Intake 25 of DA RBAF Begins Special-to-Service Term with Urban Operations Training in Singapore</h3>
+      <p>RIMBA AIR BASE, Tuesday, 11 August 2026 - Officer Cadets (OCdts) of Intake 25 from the Defence Academy Royal Brunei Armed Forces (DA RBAF) departed for Singapore to undertake a three-week…</p>
+      <button class="read-more" data-id="a56">Read full article →</button>
+    </div>
+    <div class="card" data-id="a57" data-org="OCS" data-date="2026-08-10" data-search="ocs intake 25 rbaf commander&#x27;s leadership talk tanah jambu, monday, 10 august 2026 – officer cadets (ocdts) of intake 25 had the privilege of attending a leadership talk delivered by yang mulia major general dato paduka seri haji muhammad haszaimi bin bol hassan, commander of the royal brunei armed forces (rbaf). officer cadet school (ocs brunei) mon, 10 aug 2026 tanah jambu">
+      <span class="date">Mon, 10 Aug 2026 · Tanah Jambu</span>
+      <h3>OCS Intake 25 RBAF Commander&#x27;s Leadership Talk</h3>
+      <p>TANAH JAMBU, Monday, 10 August 2026 – Officer Cadets (OCdts) of Intake 25 had the privilege of attending a leadership talk delivered by Yang Mulia Major General Dato Paduka Seri Haji…</p>
+      <button class="read-more" data-id="a57">Read full article →</button>
+    </div>
+    <div class="card" data-id="a58" data-org="OCS" data-date="2026-07-31" data-search="officer cadets of intake 25 celebrate the completion of the generic term with khatam al-quran tanah jambu, friday, 31 july 2026 – officer cadets (ocdts) of intake 25 from the officer cadet school (ocs), defence academy royal brunei armed forces (da rbaf), commemorated the successful completion of their generic term with a khatam al-quran ceremony held at surau grounds within da rbaf. officer cadet school (ocs brunei) fri, 31 jul 2026 tanah jambu">
+      <span class="date">Fri, 31 Jul 2026 · Tanah Jambu</span>
+      <h3>Officer Cadets of Intake 25 Celebrate the Completion of the Generic Term with Khatam Al-Quran</h3>
+      <p>TANAH JAMBU, Friday, 31 July 2026 – Officer Cadets (OCdts) of Intake 25 from the Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), commemorated the successful…</p>
+      <button class="read-more" data-id="a58">Read full article →</button>
+    </div>
+    <div class="card" data-id="a59" data-org="OCS" data-date="2026-07-29" data-search="ocs intake 25 end of generic term parade and executive generic term lunch tanah jambu, wednesday, 29 july 2026 – officer cadets (ocdts) of intake 25 from the officer cadet school (ocs), defence academy royal brunei armed forces (da rbaf), marked a significant milestone with the successful conduct of the end of generic term parade, followed by an executive lunch. officer cadet school (ocs brunei) wed, 29 jul 2026 tanah jambu">
+      <span class="date">Wed, 29 Jul 2026 · Tanah Jambu</span>
+      <h3>OCS Intake 25 End of Generic Term Parade and Executive Generic Term Lunch</h3>
+      <p>TANAH JAMBU, Wednesday, 29 July 2026 – Officer Cadets (OCdts) of Intake 25 from the Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), marked a significant…</p>
+      <button class="read-more" data-id="a59">Read full article →</button>
+    </div>
+    <div class="card" data-id="a60" data-org="OCS" data-date="2026-07-27" data-search="people&#x27;s liberation army navy officer cadets visit officer cadet school, da rbaf tanah jambu, monday, 27 july 2026 – the officer cadet school (ocs), defence academy royal brunei armed forces (da rbaf), welcomed a delegation from the chinese people&#x27;s liberation army-navy (pla-n), comprising approximately 40 officers and officer cadets, as part of a defence exchange visit. officer cadet school (ocs brunei) mon, 27 jul 2026 tanah jambu">
+      <span class="date">Mon, 27 Jul 2026 · Tanah Jambu</span>
+      <h3>People&#x27;s Liberation Army Navy Officer Cadets Visit Officer Cadet School, DA RBAF</h3>
+      <p>TANAH JAMBU, Monday, 27 July 2026 – The Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), welcomed a delegation from the Chinese People&#x27;s Liberation Army-Navy…</p>
+      <button class="read-more" data-id="a60">Read full article →</button>
+    </div>
+    <div class="card" data-id="a61" data-org="OCS" data-date="2026-07-24" data-search="ocs intake 25 successfully completes exercise ground control penanjong garrison, friday, 24 july 2026 – officer cadets (ocdts) of intake 25 from the officer cadet school (ocs), defence academy royal brunei armed forces (da rbaf), completed exercise ground control at the fighting in built-up areas (fibua) village, penanjong garrison. officer cadet school (ocs brunei) fri, 24 jul 2026 penanjong garrison">
+      <span class="date">Fri, 24 Jul 2026 · Penanjong Garrison</span>
+      <h3>OCS Intake 25 Successfully Completes Exercise Ground Control</h3>
+      <p>PENANJONG GARRISON, Friday, 24 July 2026 – Officer Cadets (OCdts) of Intake 25 from the Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), completed Exercise…</p>
+      <button class="read-more" data-id="a61">Read full article →</button>
+    </div>
+  </div>
+  <div class="older-note">Looking further back? This compilation covers OCS's most recent releases. Visit the <a href="https://ocs.mindef.gov.bn/news/" target="_blank" rel="noopener">OCS news archive ↗</a> and click "Older Entries" for anything before this range.</div>
+  <div class="backtotop"><a href="#top">↑ Back to top</a></div>
+</section>
+<div id="noResults">No articles match your search.</div>
+</main>
+
+<footer>
+  Compiled from official RBAF/MINDEF sources. For the very latest, visit each organisation's news page directly.<br>
+  <a href="https://www.mindef.gov.bn/news/" target="_blank" rel="noopener">MINDEF</a> ·
+  <a href="https://land.mindef.gov.bn/news/" target="_blank" rel="noopener">RBLF</a> ·
+  <a href="https://airforce.mindef.gov.bn/news/" target="_blank" rel="noopener">RBAirF</a> ·
+  <a href="https://navy.mindef.gov.bn/news/" target="_blank" rel="noopener">RBN</a> ·
+  <a href="https://da.mindef.gov.bn/news/" target="_blank" rel="noopener">DA RBAF</a> ·
+  <a href="https://ilabdb.mindef.gov.bn/news/" target="_blank" rel="noopener">TI RBAF</a> ·
+  <a href="https://jfhq.mindef.gov.bn/news/" target="_blank" rel="noopener">JFHQ</a> ·
+  <a href="https://ocs.mindef.gov.bn/news/" target="_blank" rel="noopener">OCS</a>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <span class="modal-org" id="modalOrg"></span>
+    <h2 id="modalTitle"></h2>
+    <div class="modal-date" id="modalDate"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-note">This is the full official excerpt published on the source site. For the complete original article (additional photos, quotes, etc.), open the link below.</div>
+    <a class="modal-link" id="modalLink" href="#" target="_blank" rel="noopener">Open original on source site ↗</a>
+  </div>
+</div>
+
+<script>
+const ARTICLES = [{"id": "a0", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Defence White Paper Update 2026 Briefing", "date": "Mon, 31 Aug 2026", "iso": "2026-08-31", "loc": "Berakas Garrison", "url": "https://www.mindef.gov.bn/defence-white-paper-update-2026-briefing-2/", "body": "BERAKAS GARRISON, Monday, 31 August 2026 – The Ministry of Defence held a Defence White Paper Update 2026 (DWPU 2026) briefing today for officers and warrant officers of the Royal Brunei Armed Forces (RBAF). The event commenced with a DWPU 2026 briefing delivered by senior officials, providing an update on the ministry's evolving defence priorities and strategic direction for the force."}, {"id": "a1", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "His Majesty the Sultan Bestows State Decoration to Ministry of Defence Officers", "date": "Sat, 29 Aug 2026", "iso": "2026-08-29", "loc": "Bandar Seri Begawan", "url": "https://www.mindef.gov.bn/his-majesty-the-sultan-and-yang-di-pertuan-of-brunei-darussalam-bestows-state-decoration-to-ministry-of-defence-officers/", "body": "BANDAR SERI BEGAWAN, Saturday, 29 August 2026 – His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien, Sultan and Yang Di-Pertuan of Brunei Darussalam, has graciously consented to bestow a state decoration upon Ministry of Defence officers in recognition of their dedicated service and contribution to the nation's defence."}, {"id": "a2", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "The Republic of the Philippines Convenes the ADSOM and ADSOM-Plus Meetings", "date": "Thu, 27 Aug 2026", "iso": "2026-08-27", "loc": "Video Conference", "url": "https://www.mindef.gov.bn/the-republic-of-the-philippines-convenes-the-adsom-and-adsom-plus-meetings/", "body": "VIDEO CONFERENCE, Thursday, 27 August 2026 – The ASEAN Defence Senior Officials' Meeting (ADSOM) and ASEAN Defence Senior Officials' Meeting-Plus (ADSOM-Plus) meetings under the ASEAN 2026 Chairmanship of the Republic of the Philippines were held virtually from 26 to 27 August 2026, bringing together senior defence officials from ASEAN member states and dialogue partners to discuss regional security cooperation."}, {"id": "a3", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Commander of the Royal Brunei Armed Forces Receives Courtesy Call from Commander-in-Chief of the Royal Thai Air Force", "date": "Wed, 26 Aug 2026", "iso": "2026-08-26", "loc": "Bolkiah Garrison", "url": "https://www.mindef.gov.bn/commander-of-the-royal-brunei-armed-forces-receives-courtesy-call-from-commander-in-chief-of-the-royal-thai-air-force/", "body": "BOLKIAH GARRISON, Wednesday, 26 August 2026 – Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the Royal Brunei Armed Forces (RBAF), received a courtesy call from Air Chief Marshal Sakesan Kantha, Commander-in-Chief of the Royal Thai Air Force, as part of ongoing efforts to strengthen bilateral defence relations between Brunei and Thailand."}, {"id": "a4", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Ministry of Defence Participates in the National Level Celebration of Maulud Nabi Muhammad SAW 1448H", "date": "Tue, 25 Aug 2026", "iso": "2026-08-25", "loc": "Bandar Seri Begawan", "url": "https://www.mindef.gov.bn/ministry-of-defence-participates-in-the-national-level-celebration-of-maulud-nabi-muhammad-sallallahu-alaihi-wasallam-1448h/", "body": "BANDAR SERI BEGAWAN, Tuesday, 25 August 2026 – The Ministry of Defence joined His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien, Sultan and Yang Di-Pertuan of Brunei Darussalam, in the National Level Celebration commemorating the birth of Prophet Muhammad (PBUH) 1448 Hijrah."}, {"id": "a5", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Ministry of Defence Holds Gema Marhaban Ceremony in Commemoration of the Birth of Prophet Muhammad (PBUH) 1448H/2026M", "date": "Mon, 24 Aug 2026", "iso": "2026-08-24", "loc": "Rimba Air Force Base", "url": "https://www.mindef.gov.bn/ministry-of-defence-holds-gema-marhaban-ceremony-in-commemoration-of-the-birth-of-prophet-muhammad-pbuh-1448h-2026m/", "body": "RIMBA AIR FORCE BASE, MONDAY, 24 August 2026 – A Gema Marhaban ceremony to mark the 12th night of Dikir Maulud in commemoration of the birth of Prophet Muhammad (PBUH) for the Ministry of Defence was held simultaneously at several locations, drawing personnel together for a night of religious recitation and reflection."}, {"id": "a6", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Defence White Paper Update 2026 Briefing (Senior Officers)", "date": "Mon, 24 Aug 2026", "iso": "2026-08-24", "loc": "Berakas Garrison", "url": "https://www.mindef.gov.bn/defence-white-paper-update-2026-briefing/", "body": "BERAKAS GARRISON, Monday, 24 August 2026 – The Ministry of Defence held a Defence White Paper Update 2026 (DWPU 2026) briefing today for senior officers of the Ministry of Defence and the Royal Brunei Armed Forces (RBAF). The event commenced with a DWPU 2026 briefing outlining strategic updates for senior leadership."}, {"id": "a7", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Passing-Out Parade Ceremony for Male Recruits of the 180th Intake of the Royal Brunei Armed Forces", "date": "Fri, 21 Aug 2026", "iso": "2026-08-21", "loc": "Penanjong Garrison", "url": "https://www.mindef.gov.bn/passing-out-parade-ceremony-for-male-recruits-of-the-180th-intake-of-the-royal-brunei-armed-forces/", "body": "PENANJONG GARRISON, Friday, 21 August 2026 – A total of 194 male recruits from the 180th Intake of the Royal Brunei Armed Forces (RBAF) successfully completed their Basic Military Training during the Passing-Out Parade Ceremony held at the Parade Square of the Training Institute RBAF (TI RBAF)."}, {"id": "a8", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Commander of the Royal Brunei Armed Forces Receives Courtesy Call from Head of Intelligence Assessments, Defence Intelligence Organisation, Australia", "date": "Fri, 21 Aug 2026", "iso": "2026-08-21", "loc": "Bolkiah Garrison", "url": "https://www.mindef.gov.bn/commander-of-the-royal-brunei-armed-forces-receives-courtesy-call-from-head-of-intelligence-assessments-defence-intelligence-organisation-australia/", "body": "BOLKIAH GARRISON, Friday, 21 August 2026 – Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the Royal Brunei Armed Forces (RBAF), received a courtesy call from Major General Mark Ascough, Head of Intelligence Assessments, Defence Intelligence Organisation, Australia, reaffirming cooperation between the two countries' defence establishments."}, {"id": "a9", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Coordinating Minister for National Security, Minister at the Prime Minister's Office and Minister of Defence II Receives a Courtesy Call", "date": "Thu, 20 Aug 2026", "iso": "2026-08-20", "loc": "Prime Minister's Office", "url": "https://www.mindef.gov.bn/coordinating-minister-for-national-security-minister-at-the-prime-ministers-office-and-minister-of-defence-ii-receives-an-introductory-call/", "body": "PRIME MINISTER'S OFFICE, Thursday, 20 August 2026 – Yang Berhormat Pehin Datu Lailaraja Major General (Retired) Dato Paduka Seri Awang Haji Halbi bin Haji Mohd Yussof, Coordinating Minister for National Security, Minister at the Prime Minister's Office, and Minister of Defence II, received a courtesy call as part of ongoing diplomatic engagements."}, {"id": "a10", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "His Majesty the Sultan Graces the Parade Ceremony of the Special Forces Regiment, RBAF Golden Jubilee Celebration", "date": "Wed, 19 Aug 2026", "iso": "2026-08-19", "loc": "Penanjong Garrison", "url": "https://www.mindef.gov.bn/his-majesty-the-sultan-and-yang-di-pertuan-of-brunei-darussalam-graces-the-parade-ceremony-of-the-special-forces-regiment-royal-brunei-armed-forces-golden-jubilee-celebration/", "body": "PENANJONG GARRISON, Wednesday, 19 August 2026 - His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien, Sultan and Yang Di-Pertuan of Negara Brunei Darussalam, today graced the Parade Ceremony of the Special Forces Regiment in conjunction with the RBAF's Golden Jubilee celebration."}, {"id": "a11", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Ministry Participates in the Nightly Dikir Ceremony for Maulidur Rasul 1448H at Istana Nurul Iman", "date": "Fri, 14 Aug 2026", "iso": "2026-08-14", "loc": "Bandar Seri Begawan", "url": "https://www.mindef.gov.bn/ministry-of-defence-participates-in-the-nightly-dikir-ceremony-in-conjunction-with-maulidur-rasul-1448h-at-istana-nurul-iman/", "body": "BANDAR SERI BEGAWAN, Friday, 14 August 2026 - The Ministry of Defence participated in the Nightly Dikir Ceremony in commemoration of Maulidur Rasul 1448H at Istana Nurul Iman this evening, joined by senior ministry officials."}, {"id": "a12", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "SC RBAF Scholarship and RBAF Scholarship Awarded to Five Outstanding Students", "date": "Fri, 14 Aug 2026", "iso": "2026-08-14", "loc": "Bandar Seri Begawan", "url": "https://www.mindef.gov.bn/supreme-commander-of-the-royal-brunei-armed-forces-sc-rbaf-scholarship-and-the-royal-brunei-armed-forces-rbaf-scholarship-awarded-to-five-outstanding-students/", "body": "BANDAR SERI BEGAWAN, Friday, 14 August 2026 - His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien, Sultan and Yang Di-Pertuan of Brunei Darussalam, has consented to award the 2026 Supreme Commander of the Royal Brunei Armed Forces (SC RBAF) Scholarship and the RBAF Scholarship to five outstanding students."}, {"id": "a13", "org": "MINDEF", "orgId": "mindef", "orgName": "Ministry of Defence (MINDEF)", "title": "Ministry of Defence Holds the Opening Ceremony of Dikir Maulud 1448H", "date": "Thu, 13 Aug 2026", "iso": "2026-08-13", "loc": "Berakas Garrison", "url": "https://www.mindef.gov.bn/ministry-of-defence-holds-the-opening-ceremony-of-dikir-maulud-1448h/", "body": "BERAKAS GARRISON, Thursday, 13 August 2026 – To commemorate the birth of Prophet Muhammad Sallallahu Alaihi Wassallam, and as an expression of gratitude and love for the Prophet, as well as to seek blessings from Allah Subhanahu Wa Ta'ala, the Ministry of Defence held the Opening Ceremony of Dikir Maulud 1448H."}, {"id": "a14", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "16th Brunei-Indonesia Army Working Group Meeting", "date": "Tue, 1 Sep 2026", "iso": "2026-09-01", "loc": "Bandung, Indonesia", "url": "https://land.mindef.gov.bn/16th-brunei-indonesia-army-working-group-meeting/", "body": "BANDUNG, INDONESIA, Tuesday, 1st September 2026 - The 16th Brunei-Indonesia Army Working Group (BRUNESIA AWG 16/2026) meeting between the Royal Brunei Land Forces (RBLF) and the Indonesian Army Tentara Nasional Indonesia – Angkatan Darat (TNI-AD) is currently held in Bandung, continuing the two armies' long-standing bilateral engagement."}, {"id": "a15", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "MATIP 2026 Closing Event", "date": "Fri, 28 Aug 2026", "iso": "2026-08-28", "loc": "Bolkiah Garrison", "url": "https://land.mindef.gov.bn/matip-2026-closing-event/", "body": "BOLKIAH GARRISON, Friday, 28th August 2026 – The closing event of the Medical Assistant Trainee Induction Program (MATIP) 2026 was held at the Medical Training Wing, Medical Services Headquarters, Bolkiah Garrison, marking the completion of the six-week programme for the latest cohort of medical assistant trainees."}, {"id": "a16", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "RBLF Participates in National One Health Joint Plan of Action Workshop", "date": "Fri, 28 Aug 2026", "iso": "2026-08-28", "loc": "Jerudong", "url": "https://land.mindef.gov.bn/rblf-participates-in-national-one-health-joint-plan-of-action-workshop/", "body": "JERUDONG, Friday, 28th August 2026 – Two officers from the Royal Brunei Land Forces (RBLF) participated in the Brunei Darussalam National One Health Joint Plan of Action Workshop, held from 26 to 28 August 2026 at EVYD Tech Campus, Jerudong, representing the Ministry of Defence in cross-agency health security planning."}, {"id": "a17", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Basic, Intermediate and Advanced Special Task Platoon Courses 2026 Closing Event", "date": "Thu, 27 Aug 2026", "iso": "2026-08-27", "loc": "Nyamukying, Daerah Tutong", "url": "https://land.mindef.gov.bn/basic-intermediate-and-advanced-special-task-platoon-courses-2026-closing-event/", "body": "NYAMUKYING, DAERAH TUTONG, Thursday, 27 August 2026 - The Combined Arms Training Centre, Royal Brunei Land Forces (CATC RBLF), in collaboration with the 1Bn RBLF, held the Closing Event of the Basic, Intermediate and Advanced Special Task Platoon (STP) Courses 2026, marking the graduation of personnel across the three course levels."}, {"id": "a18", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Three Dental Services Personnel Successfully Complete EMT and Dental Assistant Course", "date": "Thu, 27 Aug 2026", "iso": "2026-08-27", "loc": "Republic of Singapore", "url": "https://land.mindef.gov.bn/three-dental-services-personnel-successfully-complete-emt-and-dental-assistant-course/", "body": "REPUBLIC OF SINGAPORE, Thursday, 27th August 2026 – Three personnel from Dental Services, Royal Brunei Land Forces (RBLF), have successfully completed the Emergency Medical Technician (EMT) and Dental Assistant Course conducted by the Singapore Armed Forces Medical Corps, enhancing their clinical and emergency-response capabilities."}, {"id": "a19", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "RBLF Participates in Maulidur Rasul Celebration 1448H", "date": "Tue, 25 Aug 2026", "iso": "2026-08-25", "loc": "Bandar Seri Begawan", "url": "https://land.mindef.gov.bn/rblf-participates-in-maulidur-rasul-celebration-1448h/", "body": "BANDAR SERI BEGAWAN, Tuesday, 25th August 2026 – A total of 152 officers and personnel from the Royal Brunei Land Forces (RBLF) joined His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien in the national Maulidur Rasul celebration."}, {"id": "a20", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Gema Marhaban for the 12th Night of Rabiulawal in Commemoration of Maulud Nabi Muhammad SAW 1448 Hijrah", "date": "Mon, 24 Aug 2026", "iso": "2026-08-24", "loc": "Berakas Garrison", "url": "https://land.mindef.gov.bn/gema-marhaban-for-the-12th-night-of-rabiulawal-in-commemoration-of-maulud-nabi-muhammad-sallallahu-alaihi-wasallam-1448-hijrah/", "body": "BERAKAS GARRISON, Monday, 24th August 2026 – The Royal Brunei Land Forces (RBLF) held a ceremony for Dikir Maulud, marking the completion of 12 consecutive nights of Dikir Maulud in commemoration of the birth of Prophet Muhammad (PBUH) 1448 Hijrah."}, {"id": "a21", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "RBLF Attends Gema Marhaban Event at Masjid Kampung Kilanas", "date": "Sat, 22 Aug 2026", "iso": "2026-08-22", "loc": "Kampung Kilanas", "url": "https://land.mindef.gov.bn/rblf-attends-gema-marhaban-event-at-masjid-kampung-kilanas/", "body": "KAMPUNG KILANAS, Saturday, 22nd August 2026 – The Royal Brunei Land Forces (RBLF) attended the Gema Marhaban Event at Kampung Kilanas Mosque. Leading the RBLF delegation was the RBLF Commander, Brigadier General Aldi bin Haji Hassan."}, {"id": "a22", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Passing Out Parade Ceremony for the 180th Intake Male Recruits of the RBAF", "date": "Fri, 21 Aug 2026", "iso": "2026-08-21", "loc": "Penanjong Garrison", "url": "https://land.mindef.gov.bn/passing-out-parade-ceremony-for-the-180th-intake-male-recruits-of-the-royal-brunei-armed-forces/", "body": "PENANJONG GARRISON, Friday, 21 August 2026 – A total of 194 male recruits of the 180th Intake successfully completed their Basic Military Training during a Passing Out Parade Ceremony held at the Parade Square, Training Institute Royal Brunei Armed Forces (TI RBAF)."}, {"id": "a23", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Closing Ceremony of Exercise Pahlawan Warrior 04/2026", "date": "Thu, 20 Aug 2026", "iso": "2026-08-20", "loc": "Binturan", "url": "https://land.mindef.gov.bn/closing-ceremony-of-exercise-pahlawan-warrior-04-2026/", "body": "BINTURAN, Thursday, 20 August 2026 – The Closing Ceremony of Exercise Pahlawan Warrior 04/2026 was held at the Binturan Field Firing Area (FFA), Penanjong Garrison, marking the conclusion of the bilateral exercise between the Royal Brunei Land Forces (RBLF) and its counterpart force."}, {"id": "a24", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Commander RBLF Leadership Talk Session with Advanced Infantry Course Participants", "date": "Mon, 17 Aug 2026", "iso": "2026-08-17", "loc": "Lumut Camp", "url": "https://land.mindef.gov.bn/commander-rblf-leadership-talk-session-with-advanced-infantry-course-participants/", "body": "LUMUT CAMP, Monday, 17th August 2026 – The Commander of the Royal Brunei Land Forces (RBLF), Brigadier General Aldi bin Haji Hassan, conducted a leadership talk session with 173 personnel from the Advanced Infantry Course (AIC) 10/2026 at Ad-Din Hall, Third Battalion RBLF."}, {"id": "a25", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Advanced Infantry Course Serial 10/2026 Closing Ceremony Held at Lumut Camp", "date": "Fri, 14 Aug 2026", "iso": "2026-08-14", "loc": "Lumut Camp", "url": "https://land.mindef.gov.bn/advanced-infantry-course-serial-10-2026-closing-ceremony-held-at-lumut-camp/", "body": "LUMUT CAMP, Friday, 14 August 2026 – The Combined Arms Training Centre, Royal Brunei Land Forces (CATC RBLF), in collaboration with the Third Battalion, Royal Brunei Land Forces (3Bn RBLF), held the Closing Ceremony and Combat Self-Defence Badge Presentation for the Advanced Infantry Course."}, {"id": "a26", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Royal Brunei Land Forces Held the Opening Ceremony of Dikir Maulud 1448H", "date": "Thu, 13 Aug 2026", "iso": "2026-08-13", "loc": "Berakas Garrison", "url": "https://land.mindef.gov.bn/royal-brunei-land-forces-held-the-opening-ceremony-of-dikir-maulud-1448h/", "body": "BERAKAS GARRISON, Thursday, 13th August 2026 – The Royal Brunei Land Forces (RBLF) held the Opening Ceremony of Dikir Maulud 1448H to commemorate the birth of Prophet Muhammad Sallallahu 'Alaihi Wassallam (PBUH), and as an expression of love and gratitude towards him."}, {"id": "a27", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Certificate Presentation and Closing Ceremony of Combat Net Radio Management Course Session 2026", "date": "Thu, 13 Aug 2026", "iso": "2026-08-13", "loc": "Penanjong Garrison", "url": "https://land.mindef.gov.bn/ceritificate-presentation-ceremony-and-closing-ceremony-of-combat-net-radio-management-course-session-2026/", "body": "PENANJONG GARRISON, Thursday, 13th August 2026 – The Closing Ceremony of the Combat Net Radio Network Management Course Session 2026 was held at the Parade Square, Combined Arms Training Centre, Royal Brunei Land Forces (CATC RBLF), Penanjong Garrison. A total of 12 personnel completed the course."}, {"id": "a28", "org": "RBLF", "orgId": "rblf", "orgName": "Royal Brunei Land Forces (RBLF)", "title": "Introductory Visit by Commander of the Royal Brunei Land Forces to Malaysia", "date": "Tue, 11 Aug 2026", "iso": "2026-08-11", "loc": "Malaysia", "url": "https://land.mindef.gov.bn/introductory-visit-by-commander-of-the-royal-brunei-land-forces-to-malaysia/", "body": "MALAYSIA, Tuesday, 11 August 2026 – Brigadier General Aldi bin Haji Hassan, Commander of the Royal Brunei Land Forces (RBLF), undertook an Introductory Visit to Malaysia from 10 to 13 August 2026 as part of ongoing efforts to strengthen defence relations and military cooperation between the two countries."}, {"id": "a29", "org": "RBAirF", "orgId": "rbairf", "orgName": "Royal Brunei Air Force (RBAirF)", "title": "Enlisted Air Power Forum 2026", "date": "Thu, 20 Aug 2026", "iso": "2026-08-20", "loc": "Berakas Garrison", "url": "https://airforce.mindef.gov.bn/enlisted-air-power-forum-2026/", "body": "BERAKAS GARRISON, Thursday, 20 August 2026 – The Enlisted Air Power Forum 2026 was held at Dewan Pahlawan, Berakas Garrison. The event was organised by the Air Force Sergeant Major (AFSM) in collaboration with the Senior Warrant Officers and Senior Non-Commissioned Officers of the RBAirF."}, {"id": "a30", "org": "RBAirF", "orgId": "rbairf", "orgName": "Royal Brunei Air Force (RBAirF)", "title": "RBAirF Participates in the 13th ASEAN Air Forces Education and Training (AAFET) Working Group Meeting", "date": "Thu, 20 Aug 2026", "iso": "2026-08-20", "loc": "Rimba Air Force Base", "url": "https://airforce.mindef.gov.bn/rbairf-participates-in-the-13th-asean-air-forces-education-and-training-aafet-working-group-meeting/", "body": "RIMBA AIR FORCE BASE, Thursday, 20 August 2026 – The Royal Brunei Air Force (RBAirF) participated in the 13th ASEAN Air Forces Education and Training (AAFET) Working Group Meeting, hosted virtually by the Philippine Air Force (PAF) via Video Teleconference (VTC), continuing regional cooperation on training standards."}, {"id": "a31", "org": "RBAirF", "orgId": "rbairf", "orgName": "Royal Brunei Air Force (RBAirF)", "title": "RBAirF Delegation Concludes Four-Day Senior Officers' Exchange Program", "date": "Thu, 20 Aug 2026", "iso": "2026-08-20", "loc": "Kuala Lumpur", "url": "https://airforce.mindef.gov.bn/rbairf-delegation-concludes-four-day-senior-officers-exchange-program/", "body": "KUALA LUMPUR, Thursday, 20 August 2026 – The Royal Malaysian Air Force (RMAF) successfully hosted the inaugural Senior Officers' Exchange Program (SOEP) with the Royal Brunei Air Force (RBAirF) from 17 to 20 August 2026, led by a senior RBAirF delegation."}, {"id": "a32", "org": "RBAirF", "orgId": "rbairf", "orgName": "Royal Brunei Air Force (RBAirF)", "title": "RBAirF Officers Attend Aviation Investigation, Techniques and Management Training Programme", "date": "Thu, 13 Aug 2026", "iso": "2026-08-13", "loc": "Jerudong", "url": "https://airforce.mindef.gov.bn/royal-brunei-air-force-rbairf-officers-attend-aviation-investigation-techniques-and-management-training-programme/", "body": "JERUDONG, 13 August 2026 – Two officers from the Royal Brunei Air Force (RBAirF), Captain (Udara) Nur Hasinah binti Haji Rosli and Lieutenant (Udara) Muhammad Abdul Syakir bin Haji Basri, attended the Aviation Investigation, Techniques and Management Training Programme."}, {"id": "a33", "org": "RBAirF", "orgId": "rbairf", "orgName": "Royal Brunei Air Force (RBAirF)", "title": "Royal Brunei Air Force Hosts 2026 Prospective Scholarship Recipients", "date": "Tue, 11 Aug 2026", "iso": "2026-08-11", "loc": "Rimba Air Force Base", "url": "https://airforce.mindef.gov.bn/royal-brunei-air-force-hosts-2026-prospective-scholarship-recipients/", "body": "RIMBA AIR FORCE BASE, Tuesday, 11 August 2026 – The Royal Brunei Air Force (RBAirF) hosted a visit by prospective recipients of the Royal Brunei Armed Forces (RBAF) Supreme Commander's Scholarship and the RBAF Scholarship for the year 2026 at Rimba Air Force Base."}, {"id": "a34", "org": "RBAirF", "orgId": "rbairf", "orgName": "Royal Brunei Air Force (RBAirF)", "title": "Royal Brunei Air Force Blood Donation Campaign for the 65th Anniversary of the RBAF", "date": "Wed, 12 Aug 2026", "iso": "2026-08-12", "loc": "Dewan Punai", "url": "https://airforce.mindef.gov.bn/royal-brunei-air-force-blood-donation-campaign-in-conjunction-with-the-65th-anniversary-of-the-royal-brunei-armed-forces/", "body": "DEWAN PUNAI, WEDNESDAY, 12 AUGUST 2026 - The Royal Brunei Air Force (RBAirF) organised a Blood Donation Campaign in conjunction with the 65th Anniversary of the Royal Brunei Armed Forces (RBAF), as part of its community outreach initiatives."}, {"id": "a35", "org": "RBN", "orgId": "rbn", "orgName": "Royal Brunei Navy (RBN)", "title": "The RBN Concludes 12 Nights of Religious Recitations in Remembrance of Maulidur Rasul", "date": "Mon, 24 Aug 2026", "iso": "2026-08-24", "loc": "Muara", "url": "https://navy.mindef.gov.bn/the-rbn-concludes-12-nights-of-religious-recitations-in-remembrance-of-maulidur-rasul/", "body": "MUARA, Monday, 24 August 2026 - The Royal Brunei Navy (RBN) hosted the Closing Ceremony for the Zikir Maulud Nabi Muhammad S.A.W. at Surau Al-Huda, RBN. This marked the conclusion of 12 consecutive nights of Zikir Maulidur Rasul S.A.W., which commenced on Thursday, 13 August 2026."}, {"id": "a36", "org": "RBN", "orgId": "rbn", "orgName": "Royal Brunei Navy (RBN)", "title": "RBN Participates in the 20th ASEAN Navy Chiefs' Meeting in Bangkok, Thailand", "date": "Wed, 19 Aug 2026", "iso": "2026-08-19", "loc": "Bangkok, Thailand", "url": "https://navy.mindef.gov.bn/rbn-participates-in-the-20th-asean-navy-chiefs-meeting-in-bangkok-thailand/", "body": "BANGKOK, THAILAND, Wednesday, 19 August 2026 - The 20th ASEAN Navy Chiefs' Meeting (ANCM) is taking place in Bangkok from 18 to 21 August 2026. Hosted by the Royal Thai Navy (RTN), the event has drawn naval chiefs and delegates representing all ASEAN member nations."}, {"id": "a37", "org": "RBN", "orgId": "rbn", "orgName": "Royal Brunei Navy (RBN)", "title": "The RBN Attends the United Kingdom Hydrographic Office Data Deliverables Workshop", "date": "Wed, 19 Aug 2026", "iso": "2026-08-19", "loc": "Bandar Seri Begawan", "url": "https://navy.mindef.gov.bn/the-rbn-attends-the-united-kingdom-hydrographic-office-data-deliverables-workshop/", "body": "BANDAR SERI BEGAWAN, Wednesday, 19 August 2026 — Two officers from the Royal Brunei Navy (RBN) participated in the United Kingdom Hydrographic Office (UKHO) Data Deliverables Workshop, held from 17 to 19 August 2026 in Bandar Seri Begawan. The three-day workshop covered hydrographic data standards."}, {"id": "a38", "org": "RBN", "orgId": "rbn", "orgName": "Royal Brunei Navy (RBN)", "title": "RBN Support Services Headquarters Holds Jasamu Dikenang Ceremony to Honour Retiring Personnel", "date": "Fri, 31 Jul 2026", "iso": "2026-07-31", "loc": "Kiulap", "url": "https://navy.mindef.gov.bn/rbn-support-services-headquarters-holds-jasamu-dikenang-ceremony-to-honour-retiring-personnel/", "body": "KIULAP, Friday, 31 July 2026 - The Support Services Headquarters (SSHQ) of the Royal Brunei Navy (RBN) hosted a Jasamu Dikenang ceremony on Friday evening at the Seri Sutera Hall, Kiulap Mall. The event was held to honour retiring personnel, formally recognising their years of service."}, {"id": "a39", "org": "RBN", "orgId": "rbn", "orgName": "Royal Brunei Navy (RBN)", "title": "RBN Participates in Final Planning Conference and Shore Phase of SEACAT 2026", "date": "Mon, 3 Aug 2026", "iso": "2026-08-03", "loc": "Singapore", "url": "https://navy.mindef.gov.bn/rbn-participates-in-final-planning-conference-and-shore-phase-of-seacat-2026/", "body": "SINGAPORE, MONDAY, 3 AUGUST 2026 – Officers from the Royal Brunei Navy (RBN) and Joint Force Headquarters, Royal Brunei Armed Forces (JFHQ RBAF), participated in the Final Planning Conference (FPC) and Shore Phase of the Southeast Asia Cooperation and Training (SEACAT) 2026 exercise."}, {"id": "a40", "org": "RBN", "orgId": "rbn", "orgName": "Royal Brunei Navy (RBN)", "title": "Royal Brunei Navy Honours Flag Lowering Ceremony for His Majesty's 80th Birthday Celebration", "date": "Sat, 8 Aug 2026", "iso": "2026-08-08", "loc": "Bandar Seri Begawan", "url": "https://navy.mindef.gov.bn/royal-brunei-navy-honours-flag-lowering-ceremony-in-conjunction-with-his-majestys-80th-birthday-celebration/", "body": "BANDAR SERI BEGAWAN, Saturday, 8 August 2026 – The Royal Brunei Navy had the honour of conducting the Flag Lowering Ceremony held in conjunction with the 80th birthday celebrations of His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan."}, {"id": "a41", "org": "DA RBAF", "orgId": "da", "orgName": "Defence Academy RBAF (DA RBAF)", "title": "DA RBAF Held the 12th Night of Rabiulawal Marhaban Ceremony for Maulud Nabi Muhammad SAW 1448H", "date": "Mon, 24 Aug 2026", "iso": "2026-08-24", "loc": "Tanah Jambu", "url": "https://da.mindef.gov.bn/da-rbaf-held-the-12th-night-of-rabiulawal-marhaban-ceremony-in-conjunction-with-maulud-nabi-muhammad-saw-1448h/", "body": "TANAH JAMBU, Monday, 24 August 2026 - The Defence Academy, Royal Brunei Armed Forces (DA RBAF) held the 12th Night of Rabiulawal Marhaban Ceremony in commemoration of the Prophet Muhammad's (PBUH) Mawlid at Surau Asy-Syuhada, DA RBAF."}, {"id": "a42", "org": "DA RBAF", "orgId": "da", "orgName": "Defence Academy RBAF (DA RBAF)", "title": "Opening Ceremony for Intermediate Staff Course 26/2026", "date": "Thu, 20 Aug 2026", "iso": "2026-08-20", "loc": "Tanah Jambu", "url": "https://da.mindef.gov.bn/opening-ceremony-for-intermediate-staff-course-26-2026/", "body": "TANAH JAMBU, Thursday, 20 August 2026 – The Opening Ceremony for the Intermediate Staff Course 26/2026 (ISC 26/2026) was held at the Defence Academy Royal Brunei Armed Forces (DA RBAF), Kampung Tanah Jambu, marking the start of the intermediate command and staff training programme."}, {"id": "a43", "org": "DA RBAF", "orgId": "da", "orgName": "Defence Academy RBAF (DA RBAF)", "title": "DA RBAF Holds Opening Dikir Ceremony for Maulud Nabi Muhammad SAW 1448H", "date": "Thu, 13 Aug 2026", "iso": "2026-08-13", "loc": "Tanah Jambu", "url": "https://da.mindef.gov.bn/da-rbaf-holds-opening-dikir-ceremony-in-conjunction-with-maulud-nabi-muhammad-saw-1448h/", "body": "TANAH JAMBU, Thursday, 13 August 2026 – The Defence Academy Royal Brunei Armed Forces (DA RBAF) held the Opening Dikir Ceremony for Maulud Nabi Muhammad SAW 1448H at Surau Asy-Syuhada, DA RBAF. Present at the ceremony was the Acting Commandant of DA RBAF."}, {"id": "a44", "org": "DA RBAF", "orgId": "da", "orgName": "Defence Academy RBAF (DA RBAF)", "title": "Farewell and Introductory Calls with Commandant, Defence Academy RBAF (Viet Nam Defence Attachés)", "date": "Wed, 12 Aug 2026", "iso": "2026-08-12", "loc": "Tanah Jambu", "url": "https://da.mindef.gov.bn/outgoing-and-incoming-defence-attaches-of-the-socialist-republic-of-viet-nam-hold-farewell-and-introductory-calls-with-commandant-defence-academy-rbaf/", "body": "TANAH JAMBU, Wednesday, 12 August 2026 – Colonel (U) Azmie Iskandar bin Ariffin, Commandant of the Defence Academy, Royal Brunei Armed Forces (RBAF), today received a farewell call from Senior Colonel Nguyen Ngoc Huan, the outgoing Defence Attaché of the Socialist Republic of Viet Nam, and an introductory call from the incoming attaché."}, {"id": "a45", "org": "DA RBAF", "orgId": "da", "orgName": "Defence Academy RBAF (DA RBAF)", "title": "Historic Milestone for RBAF and UBD as Inaugural MDSS Cohort Graduates", "date": "Tue, 11 Aug 2026", "iso": "2026-08-11", "loc": "UBD, Chancellor Hall", "url": "https://da.mindef.gov.bn/historic-milestone-for-rbaf-and-ubd-as-inaugural-mdss-cohort-graduates/", "body": "CHANCELLOR HALL, UNIVERSITI BRUNEI DARUSSALAM, Tuesday, 11 August 2026 – His Royal Highness Prince (Dr) Haji Al-Muhtadee Billah ibni His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah, the Crown Prince and Senior Minister at the Prime Minister's Office, presided over the graduation of the inaugural MDSS cohort."}, {"id": "a46", "org": "DA RBAF", "orgId": "da", "orgName": "Defence Academy RBAF (DA RBAF)", "title": "DA RBAF Held Khatam Al-Quran Ceremony for His Majesty's 80th Birthday Celebration 1448H/2026M", "date": "Fri, 7 Aug 2026", "iso": "2026-08-07", "loc": "Tanah Jambu", "url": "https://da.mindef.gov.bn/da-rbaf-held-khatam-al-quran-ceremony-in-conjunction-with-his-majesty-the-sultan-and-yang-dipertuan-of-brunei-darussalam-80th-birthday-celebration-for-1448-hijrah-2026-masehi/", "body": "TANAH JAMBU, Friday, 07 August 2026 - Defence Academy Royal Brunei Armed Forces (DA RBAF) commenced The Khatam Al-Qur'an in conjunction with His Majesty Sultan Haji Hassanal Bolkiah Mu'izzaddin Waddaulah ibni Al-Marhum Sultan Haji Omar 'Ali Saifuddien Sa'adul Khairi Waddien's 80th Birthday Celebration."}, {"id": "a47", "org": "TI RBAF", "orgId": "ti", "orgName": "Training Institute RBAF (TI RBAF / ILABDB)", "title": "Certificate, Badge Presentation and Closing Ceremony for Advanced Logistic Course Serial 01/2026", "date": "Thu, 7 Aug 2026", "iso": "2026-08-07", "loc": "Penanjong Garrison", "url": "https://ilabdb.mindef.gov.bn/certificate-badge-presentation-and-closing-ceremony-for-the-advanced-logistic-course-serial-01-2026/", "body": "PENANJONG GARRISON, THURSDAY, 07 AUGUST 2026 – The Certificate, Badge Presentation and Closing Ceremony of the Advanced Logistics Course Serial 1/2026 was held at the Logistics Training Wing, School of Military Trade, Training Institute Royal Brunei Armed Forces (TI RBAF)."}, {"id": "a48", "org": "TI RBAF", "orgId": "ti", "orgName": "Training Institute RBAF (TI RBAF / ILABDB)", "title": "Certificate Presentation & Closing Ceremony for the Unit Ammunition Store Management Course Session 2026", "date": "Thu, 6 Aug 2026", "iso": "2026-08-06", "loc": "Penanjong Garrison", "url": "https://ilabdb.mindef.gov.bn/certificate-presentation-closing-ceremony-for-the-unit-ammunition-store-management-course-session-2026/", "body": "Penanjong Garrison, Thursday, 06 August 2026 – The Certificate Presentation and Closing Ceremony For The Unit Ammunition Store Management Course conducted by the Logistics Training Wing was successfully implemented. Present as the Guest of Honor for this ceremony was a senior TI RBAF officer."}, {"id": "a49", "org": "TI RBAF", "orgId": "ti", "orgName": "Training Institute RBAF (TI RBAF / ILABDB)", "title": "The Opening Ceremony of the Occupational Health and Safety Supervisor Course Serial 2/2026", "date": "Mon, 3 Aug 2026", "iso": "2026-08-03", "loc": "Evolution Centre, Penanjong", "url": "https://ilabdb.mindef.gov.bn/the-opening-ceremony-of-the-occupational-health-and-safety-supervisor-course-serial-2-2026/", "body": "Penanjong Garrison, Monday 3 August 2026 – Occupational Health and Safety Supervisors' Course Serial 2/2026 took place at the Evolution Centre, Training Institute, Royal Brunei Armed Forces. Present to officiate the opening of the course were the Acting Head of the relevant training wing."}, {"id": "a50", "org": "JFHQ", "orgId": "jfhq", "orgName": "Joint Force Headquarters (JFHQ)", "title": "Closing of Collective Planning Exercise ahead of Exercise Hikmat Bersatu VII (HB VII)", "date": "Fri, 4 Sep 2026", "iso": "2026-09-04", "loc": "Tanah Jambu", "url": "https://jfhq.mindef.gov.bn/majlis-penutup-eksesais-perancangan-kolektif-sebagai-persediaan-bagi-eksesais-hikmat-bersatu-vii-hb-vii/", "body": "TANAH JAMBU, Jumaat, 4 September 2026 - Majlis Penutup Collective Planning Exercise (CPE) sebagai persediaan bagi Eksesais HB VII telah berlangsung di Auditorium, Akademi Pertahanan Angkatan Bersenjata Diraja Brunei (AP ABDB), Kampung Tanah Jambu, menandakan selesainya fasa perancangan bersama sebelum eksesais penuh."}, {"id": "a51", "org": "JFHQ", "orgId": "jfhq", "orgName": "Joint Force Headquarters (JFHQ)", "title": "Opening of Collective Planning Exercise ahead of Exercise Hikmat Bersatu VII (HB VII)", "date": "Tue, 1 Sep 2026", "iso": "2026-09-01", "loc": "Tanah Jambu", "url": "https://jfhq.mindef.gov.bn/majlis-pembukaan-latihan-perancangan-kolektif-sebagai-persediaan-bagi-eksesais-hikmat-bersatu-vii-hb-vii/", "body": "TANAH JAMBU, Selasa, 1 September 2026 - Majlis Pembukaan Collective Planning Exercise (CPE) telah berlangsung di Akademi Pertahanan Angkatan Bersenjata Diraja Brunei (AP ABDB), Kampung Tanah Jambu pada hari Selasa, 1 September 2026. Majlis berkenaan telah dirasmikan oleh pegawai kanan Markas Angkatan Bersama."}, {"id": "a52", "org": "JFHQ", "orgId": "jfhq", "orgName": "Joint Force Headquarters (JFHQ)", "title": "Joint Force Commander Receives Courtesy Call from Regional Humanitarian Civil-Military Advisor, CFE-DM, US PACOM", "date": "Wed, 26 Aug 2026", "iso": "2026-08-26", "loc": "Bolkiah Garrison", "url": "https://jfhq.mindef.gov.bn/joint-force-commander-receives-courtesy-call-from-regional-humanitarian-civil-military-advisor-center-for-excellence-in-disaster-management-humanitarian-assistance-cfe-dm-united-states-indo/", "body": "BOLKIAH GARRISON, Wednesday, 26 August 2026 – Colonel Pengiran Noor Rumaizi bin Pengiran Othman, Joint Force Commander, Royal Brunei Armed Forces (RBAF), received a courtesy call from Mr Josh Szimonisz, Regional Humanitarian Civil-Military Advisor, Center for Excellence in Disaster Management & Humanitarian Assistance (CFE-DM), US PACOM."}, {"id": "a53", "org": "JFHQ", "orgId": "jfhq", "orgName": "Joint Force Headquarters (JFHQ)", "title": "Joint Force Commander Attends the 180th Recruit Intake Passing-Out Ceremony", "date": "Fri, 21 Aug 2026", "iso": "2026-08-21", "loc": "Penanjong Garrison", "url": "https://jfhq.mindef.gov.bn/joint-force-commander-attends-the-180th-recruit-intake-of-the-royal-brunei-armed-forces-passing-out-ceremony/", "body": "PENANJONG GARRISON, Friday, 21 August 2026 – Colonel Pengiran Noor Rumaizi bin Pengiran Othman, Joint Force Commander, Royal Brunei Armed Forces (RBAF) attended as the Guest of Honour for the Passing-Out Parade Ceremony for the male recruits from the 180th Intake."}, {"id": "a54", "org": "JFHQ", "orgId": "jfhq", "orgName": "Joint Force Headquarters (JFHQ)", "title": "Joint Force RBAF Personnel Complete the Combat Network Radio Communications Management Course Session 2026", "date": "Thu, 13 Aug 2026", "iso": "2026-08-13", "loc": "Penanjong Garrison", "url": "https://jfhq.mindef.gov.bn/joint-force-royal-brunei-armed-forces-personnel-completed-the-combat-network-radio-communications-management-course-session-2026/", "body": "PENANJONG GARRISON, Thursday, 13th August 2026 – A total of two Officers and 10 Other Ranks from Royal Brunei Land Forces (RBLF) Royal Brunei Armed Forces (RBAF) and Joint Force (JF) RBAF completed the Combat Network Radio Communications Management Course Session 2026."}, {"id": "a55", "org": "JFHQ", "orgId": "jfhq", "orgName": "Joint Force Headquarters (JFHQ)", "title": "RBAF Strengthens Regional Maritime Security through SEACAT 2026 Participation", "date": "Sat, 8 Aug 2026", "iso": "2026-08-08", "loc": "Republic of Singapore", "url": "https://jfhq.mindef.gov.bn/royal-brunei-armed-forces-strengthens-regional-maritime-security-through-seacat-2026-participation/", "body": "REPUBLIC OF SINGAPORE, Saturday, 08 August 2026 – A total of five officers from the Royal Brunei Armed Forces (RBAF), participated in the Final Planning Conference (FPC), Shore Phase Exercise and Senior Leader Forum (SLF) of the Southeast Asia Cooperation and Training (SEACAT) 2026 exercise."}, {"id": "a56", "org": "OCS", "orgId": "ocs", "orgName": "Officer Cadet School (OCS Brunei)", "title": "OCS Intake 25 of DA RBAF Begins Special-to-Service Term with Urban Operations Training in Singapore", "date": "Tue, 11 Aug 2026", "iso": "2026-08-11", "loc": "Rimba Air Base / Singapore", "url": "https://ocs.mindef.gov.bn/ocs-intake-25-of-da-rbaf-begins-special-to-service-term-with-urban-operations-training-in-singapore/", "body": "RIMBA AIR BASE, Tuesday, 11 August 2026 - Officer Cadets (OCdts) of Intake 25 from the Defence Academy Royal Brunei Armed Forces (DA RBAF) departed for Singapore to undertake a three-week Urban Operations Training Package (UOTP) at SAFTI Military Institute (SAFTI MI), beginning their Special-to-Service term."}, {"id": "a57", "org": "OCS", "orgId": "ocs", "orgName": "Officer Cadet School (OCS Brunei)", "title": "OCS Intake 25 RBAF Commander's Leadership Talk", "date": "Mon, 10 Aug 2026", "iso": "2026-08-10", "loc": "Tanah Jambu", "url": "https://ocs.mindef.gov.bn/ocsintake25rbafcommanders-leadershiptalk/", "body": "TANAH JAMBU, Monday, 10 August 2026 – Officer Cadets (OCdts) of Intake 25 had the privilege of attending a leadership talk delivered by Yang Mulia Major General Dato Paduka Seri Haji Muhammad Haszaimi bin Bol Hassan, Commander of the Royal Brunei Armed Forces (RBAF)."}, {"id": "a58", "org": "OCS", "orgId": "ocs", "orgName": "Officer Cadet School (OCS Brunei)", "title": "Officer Cadets of Intake 25 Celebrate the Completion of the Generic Term with Khatam Al-Quran", "date": "Fri, 31 Jul 2026", "iso": "2026-07-31", "loc": "Tanah Jambu", "url": "https://ocs.mindef.gov.bn/officer-cadets-of-intake-25-celebrate-the-completion-of-the-generic-term-with-khatam-al-quran/", "body": "TANAH JAMBU, Friday, 31 July 2026 – Officer Cadets (OCdts) of Intake 25 from the Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), commemorated the successful completion of their Generic Term with a Khatam Al-Quran ceremony held at Surau grounds within DA RBAF."}, {"id": "a59", "org": "OCS", "orgId": "ocs", "orgName": "Officer Cadet School (OCS Brunei)", "title": "OCS Intake 25 End of Generic Term Parade and Executive Generic Term Lunch", "date": "Wed, 29 Jul 2026", "iso": "2026-07-29", "loc": "Tanah Jambu", "url": "https://ocs.mindef.gov.bn/ocs-intake-25-end-of-generic-term-parade-and-executive-generic-term-lunch/", "body": "TANAH JAMBU, Wednesday, 29 July 2026 – Officer Cadets (OCdts) of Intake 25 from the Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), marked a significant milestone with the successful conduct of the End of Generic Term Parade, followed by an Executive lunch."}, {"id": "a60", "org": "OCS", "orgId": "ocs", "orgName": "Officer Cadet School (OCS Brunei)", "title": "People's Liberation Army Navy Officer Cadets Visit Officer Cadet School, DA RBAF", "date": "Mon, 27 Jul 2026", "iso": "2026-07-27", "loc": "Tanah Jambu", "url": "https://ocs.mindef.gov.bn/peoples-liberation-army-navy-officer-cadets-visit-officer-cadet-school-da-rbaf/", "body": "TANAH JAMBU, Monday, 27 July 2026 – The Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), welcomed a delegation from the Chinese People's Liberation Army-Navy (PLA-N), comprising approximately 40 officers and officer cadets, as part of a defence exchange visit."}, {"id": "a61", "org": "OCS", "orgId": "ocs", "orgName": "Officer Cadet School (OCS Brunei)", "title": "OCS Intake 25 Successfully Completes Exercise Ground Control", "date": "Fri, 24 Jul 2026", "iso": "2026-07-24", "loc": "Penanjong Garrison", "url": "https://ocs.mindef.gov.bn/ocs-intake-25-successfully-completes-exercise-ground-control/", "body": "PENANJONG GARRISON, Friday, 24 July 2026 – Officer Cadets (OCdts) of Intake 25 from the Officer Cadet School (OCS), Defence Academy Royal Brunei Armed Forces (DA RBAF), completed Exercise Ground Control at the Fighting in Built-Up Areas (FIBUA) Village, Penanjong Garrison."}];
+
+const TODAY = new Date('2026-09-05T23:59:59');
+
+const searchInput = document.getElementById('searchInput');
+const searchMeta = document.getElementById('searchMeta');
+const noResults = document.getElementById('noResults');
+const tocNav = document.getElementById('tocNav');
+const tfButtons = document.querySelectorAll('.tf-btn');
+const customRange = document.getElementById('customRange');
+const dateFrom = document.getElementById('dateFrom');
+const dateTo = document.getElementById('dateTo');
+const applyCustom = document.getElementById('applyCustom');
+
+let activeRange = 'all';
+let customFrom = null;
+let customTo = null;
+
+function normalize(s) {
+  return s.toLowerCase();
+}
+
+function cardInTimeframe(card) {
+  if (activeRange === 'all') return true;
+  const d = new Date(card.getAttribute('data-date') + 'T12:00:00');
+  if (activeRange === 'custom') {
+    if (customFrom && d < customFrom) return false;
+    if (customTo && d > customTo) return false;
+    return true;
+  }
+  const days = parseInt(activeRange, 10);
+  const cutoff = new Date(TODAY);
+  cutoff.setDate(cutoff.getDate() - days);
+  return d >= cutoff && d <= TODAY;
+}
+
+function highlight(text, terms) {
+  if (!terms.length) return text;
+  let out = text;
+  terms.forEach(t => {
+    if (!t) return;
+    const re = new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    out = out.replace(re, '<mark>$1</mark>');
+  });
+  return out;
+}
+
+function applySearch() {
+  const raw = searchInput.value.trim();
+  const q = normalize(raw);
+  const terms = q.split(/\s+/).filter(Boolean);
+  const cards = document.querySelectorAll('.card');
+  let visibleCount = 0;
+  const sectionsWithVisible = new Set();
+
+  cards.forEach(card => {
+    const haystack = card.getAttribute('data-search');
+    const textMatch = terms.every(t => haystack.includes(t));
+    const timeMatch = cardInTimeframe(card);
+    const match = textMatch && timeMatch;
+    if (match) {
+      card.classList.remove('hidden');
+      visibleCount++;
+      sectionsWithVisible.add(card.closest('section.org').id);
+      const h3 = card.querySelector('h3');
+      const p = card.querySelector('p');
+      const origTitle = card.getAttribute('data-orig-title') || h3.textContent;
+      const origSnippet = card.getAttribute('data-orig-snippet') || p.textContent;
+      card.setAttribute('data-orig-title', origTitle);
+      card.setAttribute('data-orig-snippet', origSnippet);
+      h3.innerHTML = highlight(origTitle, terms);
+      p.innerHTML = highlight(origSnippet, terms);
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  document.querySelectorAll('section.org').forEach(sec => {
+    if (sectionsWithVisible.has(sec.id)) {
+      sec.classList.remove('empty-section');
+    } else {
+      sec.classList.add('empty-section');
+    }
+  });
+
+  tocNav.querySelectorAll('a').forEach(a => {
+    const targetId = a.getAttribute('href').slice(1);
+    a.style.opacity = sectionsWithVisible.has(targetId) || raw === '' ? '1' : '.35';
+  });
+
+  noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+
+  let metaParts = [];
+  if (raw !== '') metaParts.push('"' + raw + '"');
+  if (activeRange === '7') metaParts.push('last 7 days');
+  else if (activeRange === '30') metaParts.push('last 30 days');
+  else if (activeRange === 'custom') metaParts.push('custom range');
+
+  if (metaParts.length > 0) {
+    searchMeta.textContent = visibleCount + ' result' + (visibleCount === 1 ? '' : 's') + (metaParts.length ? ' for ' + metaParts.join(', ') : '');
+  } else {
+    searchMeta.textContent = '';
+  }
+}
+
+searchInput.addEventListener('input', applySearch);
+
+tfButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const range = btn.getAttribute('data-range');
+    tfButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (range === 'custom') {
+      customRange.classList.add('open');
+      // keep previous active state until Apply is pressed; default to no restriction yet
+      activeRange = (customFrom || customTo) ? 'custom' : 'all';
+      if (!(customFrom || customTo)) {
+        // temporarily reflect 'all' visually is fine; user must pick dates and Apply
+      }
+    } else {
+      customRange.classList.remove('open');
+      activeRange = range;
+    }
+    applySearch();
+  });
+});
+
+applyCustom.addEventListener('click', () => {
+  customFrom = dateFrom.value ? new Date(dateFrom.value + 'T00:00:00') : null;
+  customTo = dateTo.value ? new Date(dateTo.value + 'T23:59:59') : null;
+  activeRange = 'custom';
+  applySearch();
+});
+
+// Modal logic
+const overlay = document.getElementById('modalOverlay');
+const modalOrg = document.getElementById('modalOrg');
+const modalTitle = document.getElementById('modalTitle');
+const modalDate = document.getElementById('modalDate');
+const modalBody = document.getElementById('modalBody');
+const modalLink = document.getElementById('modalLink');
+
+function openModal(id) {
+  const art = ARTICLES.find(a => a.id === id);
+  if (!art) return;
+  modalOrg.textContent = art.org;
+  modalTitle.textContent = art.title;
+  modalDate.textContent = art.date + ' · ' + art.loc;
+  modalBody.textContent = art.body;
+  modalLink.href = art.url;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.read-more').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.getAttribute('data-id')));
+});
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>
