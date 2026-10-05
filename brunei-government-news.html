@@ -399,6 +399,36 @@
     padding:3rem 1rem;
     display:none;
   }
+  .ask-claude{
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:.7rem 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+  }
+  .ask-claude .ask-label{
+    font-size:.8rem;
+    font-weight:700;
+    color:var(--navy);
+    margin-right:.2rem;
+  }
+  .ask-claude a{
+    text-decoration:none;
+    background:var(--navy);
+    color:#fff;
+    padding:.4rem .9rem;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:600;
+    transition:.15s;
+  }
+  .ask-claude a:hover{
+    background:var(--gold);
+    color:var(--navy);
+  }
 </style>
 </head>
 <body id="top">
@@ -408,6 +438,14 @@
   <p>Latest official releases from all 12 Brunei Government Ministries</p>
   <div class="updated">Compiled 5 October 2026</div>
 </header>
+
+<nav class="ask-claude" aria-label="Ask Claude for a news briefing">
+  <span class="ask-label">🤖 Ask Claude for a briefing:</span>
+  <a href="https://claude.ai/new?q=News%20Today" target="_blank" rel="noopener">Today</a>
+  <a href="https://claude.ai/new?q=News%20This%20Week" target="_blank" rel="noopener">This Week</a>
+  <a href="https://claude.ai/new?q=News%20This%20Month" target="_blank" rel="noopener">This Month</a>
+  <a href="https://claude.ai/new?q=News%20This%20Year" target="_blank" rel="noopener">This Year</a>
+</nav>
 
 <div class="search-wrap">
   <input type="text" id="searchInput" placeholder="Search headlines, ministries, locations, keywords…">
