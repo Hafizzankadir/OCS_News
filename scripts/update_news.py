@@ -122,6 +122,59 @@ def norm_title(t):
     return re.sub(r"[^a-z0-9]+", " ", t.lower()).strip()
 
 
+# Tenders, quotations and procurement notices share the news feeds on several
+# ministry sites but aren't news.
+NOTICE_RE = re.compile(
+    r"quotation|tender|tawaran|sebut ?harga|supply and delivery|supply, delivery|"
+    r"procurement|perolehan|\bproc\b|expression of interest|request for (proposal|quot)|"
+    r"invitation to (bid|quote)|\b(rfq|rfp|qtn|eoi)\b|\brq\d|reference no|"
+    r"notice of amendment|scanned image|^ministry of [a-z ,]+$|"
+    r"design and build|term maintenance|provision of|janitorial|upgrading works|"
+    r"rehabilitation of|^upgrading of|kerja-kerja|membaikpulih|menaiktaraf", re.I)
+
+
+def is_notice(title):
+    # Reference-code titles like "KK/242/2026/HTD" have almost no real words.
+    words = re.findall(r"[A-Za-z]{3,}", title)
+    return bool(NOTICE_RE.search(title)) or len(words) < 3
+
+
+# Kept in capitals when converting an ALL-CAPS headline to title case.
+ACRONYMS = {
+    "RBAF", "RBN", "RBLF", "RBAIRF", "MINDEF", "JFHQ", "OCS", "DA", "TI", "KDB",
+    "SNCO", "SNCOS", "NCO", "NCOS", "JNCO", "WO", "WOS", "ASEAN", "ADMM", "ADSOM",
+    "ADMM-PLUS", "UN", "UNIFIL", "USA", "US", "UK", "PMO", "MOFE", "MFA", "MOHA",
+    "MOE", "MPRT", "MOD", "KKBS", "MOH", "MORA", "MTIC", "SAW", "PBUH", "ICT", "HRH",
+    "CARAT", "RSAF", "RMAF", "RAN", "ADF", "TNI", "SAF", "PLA", "II", "III", "IV",
+    "VI", "VII", "VIII", "IX", "ILABDB", "REME", "SAT", "MIB", "DPMM", "JPM", "BPTV",
+}
+SMALL = {"a", "an", "and", "as", "at", "but", "by", "for", "from", "in", "into",
+         "of", "on", "or", "the", "to", "with", "via", "ke", "di", "dan", "bagi"}
+
+
+def _cap(part):
+    # Capitalise the first letter only, so "36TH" -> "36th", "MINISTER’S" -> "Minister’s".
+    return re.sub(r"^([^A-Za-z0-9]*)([a-z])", lambda m: m.group(1) + m.group(2).upper(), part)
+
+
+def nice_title(t):
+    """Convert ALL-CAPS headlines (common on the RBAF sites) to title case."""
+    if t != t.upper() or not re.search(r"[A-Z]{4}", t):
+        return t
+    out = []
+    for n, w in enumerate(t.split()):
+        core = re.sub(r"[^A-Z0-9\-]", "", w)
+        if core in ACRONYMS or re.match(r"^\(?[A-Z]{2,6}\)?[,:;]?$", w) and w.startswith("("):
+            out.append(w)
+        elif re.search(r"\d", w) and not re.match(r"^\d+(ST|ND|RD|TH)\W*$", w):
+            out.append(w)
+        elif n and w.lower() in SMALL:
+            out.append(w.lower())
+        else:
+            out.append("-".join(_cap(x) for x in w.lower().split("-")))
+    return " ".join(out)
+
+
 def guess_location(body, fallback):
     # Releases typically open "BERAKAS GARRISON, Monday, 31 August 2026 – ..."
     m = re.match(r"\s*([A-Z][A-Z'’ .\-]{2,60}?),\s*(?:[A-Za-z]+day)?", body)
@@ -272,6 +325,9 @@ def update_page(fname, sources, fmt_date, offline):
     path = ROOT / fname
     page = path.read_text(encoding="utf-8")
     articles = load_articles(page)
+    for a in articles:
+        a["title"] = nice_title(a["title"])
+    articles = [a for a in articles if not is_notice(a["title"])]
     org_meta = {a["orgId"]: (a["org"], a["orgName"]) for a in articles}
     order = list(dict.fromkeys(a["orgId"] for a in articles))
 
@@ -289,6 +345,9 @@ def update_page(fname, sources, fmt_date, offline):
             for it in fetch(base):
                 if (TODAY - it["iso"]).days > MAX_AGE_DAYS or it["iso"] > TODAY:
                     continue
+                if is_notice(it["title"]):
+                    continue
+                it["title"] = nice_title(it["title"])
                 if norm_url(it["url"]) in seen_urls or norm_title(it["title"]) in seen_titles:
                     continue
                 body = first_sentences(it["body"]) or it["title"]
