@@ -98,6 +98,36 @@
     font-size:.78rem;
     color:var(--muted);
   }
+  .ask-claude{
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:.7rem 1rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:.5rem;
+  }
+  .ask-claude .ask-label{
+    font-size:.8rem;
+    font-weight:700;
+    color:var(--navy);
+    margin-right:.2rem;
+  }
+  .ask-claude a{
+    text-decoration:none;
+    background:var(--navy);
+    color:#fff;
+    padding:.4rem .9rem;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:600;
+    transition:.15s;
+  }
+  .ask-claude a:hover{
+    background:var(--gold);
+    color:var(--navy);
+  }
 </style>
 </head>
 <body>
@@ -106,6 +136,14 @@
   <h1>🇧🇳 Brunei News Hub</h1>
   <p>Choose a compilation to browse, search, and filter by timeframe</p>
 </header>
+
+<nav class="ask-claude" aria-label="Ask Claude for a news briefing">
+  <span class="ask-label">🤖 Ask Claude for a briefing:</span>
+  <a href="https://claude.ai/new?q=News%20Today" target="_blank" rel="noopener">Today</a>
+  <a href="https://claude.ai/new?q=News%20This%20Week" target="_blank" rel="noopener">This Week</a>
+  <a href="https://claude.ai/new?q=News%20This%20Month" target="_blank" rel="noopener">This Month</a>
+  <a href="https://claude.ai/new?q=News%20This%20Year" target="_blank" rel="noopener">This Year</a>
+</nav>
 
 <main>
   <a class="tile" href="brunei-military-news.html">
@@ -118,7 +156,7 @@
   <a class="tile" href="brunei-government-news.html">
     <div class="icon">🏛️</div>
     <h2>Government Ministry News</h2>
-    <p>All 12 civilian ministries — PMO, MOFE, MFA, MOHA, MOE, MPRT, MOD, MCYS, MOH, MORA, MTIC, and MINDEF — 213 articles, searchable with timeframe and ministry filters.</p>
+    <p>All 12 civilian ministries — PMO, MOFE, MFA, MOHA, MOE, MPRT, MOD, MCYS, MOH, MORA, MTIC, and MINDEF — 156 articles, searchable with timeframe and ministry filters.</p>
     <span class="cta">Open Government News →</span>
   </a>
 </main>
