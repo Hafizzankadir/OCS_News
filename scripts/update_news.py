@@ -293,7 +293,10 @@ def render_card(a):
         f'      <span class="date">{esc(a["date"])} · {esc(a["loc"])}</span>\n'
         f'      <h3>{esc(a["title"])}</h3>\n'
         f'      <p>{esc(snippet(a["body"]))}</p>\n'
-        f'      <button class="read-more" data-id="{a["id"]}">Read full article →</button>\n'
+        f'      <div class="card-actions">\n'
+        f'        <button class="read-more" data-id="{a["id"]}">Read full article →</button>\n'
+        f'        <button class="copy-link" data-url="{esc(a["url"])}">🔗 Copy link</button>\n'
+        f'      </div>\n'
         f'    </div>\n'
     )
 
